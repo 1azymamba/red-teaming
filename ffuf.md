@@ -69,5 +69,11 @@ headerをカスタムするには、**-H**をつける。
 ffuf -u http://example/FUZZ -w ./wordlist -of html -o ./codingo -H "NAME1=VALUE1; NAME2=VALUE2"
 ```
 
+### リクエスト速度の調整
+**p**フラグによって、リクエスト間隔を調整できる。以下の場合、0.8から1.2秒間につき1度リクエストを送ることになる。
+```
+ffuf -u https://example/FUZZ -w ./wordlist -p '0.8-1.2'
+```
+
 
 
