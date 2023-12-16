@@ -75,5 +75,14 @@ ffuf -u http://example/FUZZ -w ./wordlist -of html -o ./codingo -H "NAME1=VALUE1
 ffuf -u https://example/FUZZ -w ./wordlist -p '0.8-1.2'
 ```
 
+## ステータスコードについて
+FFUFでスキャンした後、返ってきたステータスコードを確認したほうが良いときと、確認する必要がないノイズである可能性が高いものがある。
+参照：https://josephthacker.com/hacking/2020/10/27/ffuf-filters.html
 
+### 確認すべきステータスコード
+- 200
+- 301
+- 429 => これを見たら、スキャンの速度を落とす
+- 500 => 熱い。これを見つけたらそこのAPIに対してパラメータを色々送ってみるとよい
 
+### ノイズとなるステータスコード
