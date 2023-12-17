@@ -6,6 +6,8 @@ python -m SimpleHTTPServer
 # nmap
 
 # BloodHound
+AD攻撃でめっちゃ使える。AD環境をスキャンして攻撃経路を特定するために使用するツール。
+
 
 # smbmap
 着眼点
