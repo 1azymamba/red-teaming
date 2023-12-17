@@ -29,4 +29,8 @@
 
 # API Enumeration
 ffufなどでwordlistから自動列挙してみる→.jsをdeveloperツールで見て、エンドポイントごとの.jsに、別のAPIエンドポイントに関する記述が無いかを見てみる→BurpSuiteのスパイダリング？
+上記のAPI Enumerationのアプローチは、React.js以外のWebサイトでも同様。
+※jquery.jsのような、デフォルトで含まれるようなjsファイルを解析しても意味はないので時間の無駄。
+
+参照：https://www.bugbountyhunter.com/guides/?type=javascript_files
 
