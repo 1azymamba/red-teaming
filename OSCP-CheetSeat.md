@@ -32,5 +32,5 @@ AD攻撃でめっちゃ使える。AD環境をスキャンして攻撃経路を�
 
 # smbmap
 着眼点
-- samba内のGroups.xmlで、ローカルアカウント内のグループポリシー設定を見れる
+- samba内のGroups.xmlで、ローカルアカウント内のグループポリシー設定を見れる。
 - smbでつないでrootパスワード分からないときはとりあえずAnonymous login
