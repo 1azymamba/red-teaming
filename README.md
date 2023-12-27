@@ -1,2 +1,2 @@
 # red-teaming
-Cheat seet for penetration testing
+Cheat seet for penetration testing.
