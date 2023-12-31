@@ -164,6 +164,7 @@ sekurlsa::pth /user:foo /ntlm:****************** /domain: MicrosoftAccount
 
 既存のLSASS.exeのプロセスダンプ(ミニダンプ)を開いて、実行コンテキストを切り替える。対象ユーザのLSASS.exeのプロセスダンプを何らかの方法で前もって取得できていれば、
 Mimikatzのsekurlsaモジュールの機能をオフラインで実行できるようになる。感染環境で検知される可能性を低くできる。
+LSASS.exeがWindowsローカルでの認証を司っており、このプロセスのダンプさえとれれば、Mimikatzは情報を窃取できる。
 ```
 sekurlsa::minidump
 ```
