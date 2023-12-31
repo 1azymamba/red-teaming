@@ -106,3 +106,39 @@ nmap -sC -sV -oA nmap/active <IP>
 
 
 # hashcat
+
+# PowerView
+PowerShellを使ってWindows環境の横展開などの際に情報を収集目的で使うツール。
+基本的に、Domain Adminsグループに属しているユーザー(ドメイン管理者)の資格情報を窃取できれば、DCを侵害してドメインに属するすべての端末を掌握できる。
+そのため情報収集では、いかにDomain Adiminsグループに属しているユーザーの資格情報を見つけるかが重要。
+cmd.exeを管理者権限で立ち上げて、PowerShellの実行ポリシーがデフォルトでRestrictedになっているので、制限を一時的にバイパスする。
+```
+powershell -ExecutionPolicy Bypass
+```
+
+PowerShell上でPowerViewコマンドレットを利用可能にするためにモジュールをインポートする。
+```
+Import-Module .\PowerView.ps1
+```
+
+カレントユーザーがローカルの管理者としてアクセス可能なドメイン上の端末を列挙する
+ここで、すでに侵害している端末以外が表示されたら熱い。
+```
+Find-LocalAdminAccess
+```
+
+指定したローカルグループに所属するメンバーを列挙する。Administratorsの部分が指定するローカルグループ名。
+```
+Get-LocalGroupMember Administrators
+```
+
+指定したドメイングループのユーザーを列挙する。
+```
+Get-NetGroupMember "Risk Management"
+```
+
+現在ログイン中のドメインユーザに関する情報を取得する。
+ユーザー名やグループ名を指定して特定メンバーに関する情報のみを収集することもできるが、デフォルトではドメイン管理者の情報を列挙する。
+```
+Invoke-UserHunter
+```
