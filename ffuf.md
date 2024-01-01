@@ -142,3 +142,32 @@ Get-NetGroupMember "Risk Management"
 ```
 Invoke-UserHunter
 ```
+
+# Burp Suite
+プロキシ。ProxyでInterceptしたリクエストをIntruderやRepeaterに送ると便利。
+
+- Repeater -> 一つのエンドポイントに対して、微妙なリクエストの返歌とレスポンスを見たいときに便利。
+- Intruder -> 特に、Payloadsを送信してFuzzingするときに便利。Sniper,Battering Ram,Pitch Fork, Cluster Bombの種類がある。それぞれについては後述。
+
+## Sniper
+一つのエンドポイントに対して、変数のうち一つだけペイロードをセット可能。
+
+## Battering Ram
+Sniperと同じくペイロードは一つ二元呈されているが、リクエストないのすべてのエンドポイントでそのペイロードを実行する。
+例として、リクエスト内のいくつかの入力位置でSQLiをテストしていた場合、それらすべてにペイロードをセットできるので、ButteringRumが便利。
+
+## Pitchfork
+複数のペイロードの組み合わせを同時にテストするために利用する。
+例として、ユーザ名とパスワードの組み合わせリストが手元にある場合、2つのペイロードを一緒に使用できる。
+
+## Cluster Bomb
+パスワードスプレーなどで使える。
+
+
+
+
+
+
+
+
+
