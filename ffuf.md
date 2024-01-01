@@ -172,6 +172,7 @@ Sniperと同じくペイロードは一つ二元呈されているが、リク�
 nikto -h http://<IP>:<Port>
 ```
 
+# Google Hacking
 
 
 
