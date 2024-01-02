@@ -190,7 +190,9 @@ nikto -h https://example.com
 Goでかかれており、APIリソースを見つけるためのツール。毎秒30,000リクエストを送ってスキャン可能だが、レート制限やWAF、ロードバランサーを回避できる設計になっているらしい。
 dirbuster, dirb, Gobuster, dirsearchなどのルールよりも検索能力が優れている。このツールは、APIエンドポイントやリソースを見つけることに特価した単語リスト、リクエストメソッド、パラメータ、ヘッダ、パス構造となっている。
 APIとリソースのスキャンにはワードリストを利用する。
-
+simple scan
+```
+kr scan https://example.com:443 -A raft-small-words
 ```
 
 
