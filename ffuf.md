@@ -196,6 +196,26 @@ ffufみたいなFuzzingツール。
 
 # Arjun
 
+# Chrome DevTools
+- Networkタブに移動して、Ctrl+Rでページを更新する。
+- APIというタイトルのファイルがあれば確認する。
+- おもしろそうなJavaScriptのファイルを右クリックし、Open in Sources Panelをクリックし、ソースコードを表示する。
+- JavaScriptファイル内にて、API, APIkey, secret, password等の文字列でヒットするものを検索してみる。JavaScriptファイルからAPIの利用を見つけられると良い。
+- Memoryタブに移動-> Heap snapshot->Select JavaScript VM instance-> Take snapshotで、.jsのファイルをコンパイルしてスナップショットを作成する。
+- スナップショットにおいて、api, v1, v2, swagger, rest, devといった一般的なAPIパスの用語を利用して検索することで、対象のWebアプリケーションがどのようにAPIを利用しているかがわかりやすくなる。この方法で、APIの存在とそのパスを発見することに役立つ。また、ゲスト、認証済み、管理者といった異なるユーザで作成したスナップショットにおいて、異なるAPIが利用されているといったことを把握するにも役立つ。
+- Performanceタブにおいて、ボタンのクリックなど特定のアクションを記録紙、タイムライン上で特定のWebページで開始したイベントがバックグラウンドでAPIリクエストを実行しているかを判別できる。
+- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
