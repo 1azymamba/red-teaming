@@ -28,4 +28,22 @@
 
 その他
 - robots.txtを見て、そこに記載されているファイルパスをチェックする
-- 
+
+# APIドキュメントを見つける
+APIドキュメントを見つければ、それをインポートしてPOSTMANでリクエストを生成できる。逆にドキュメントを見つけられなかった場合、リバースエンジニアリングなどで各APIに対するリクエストを自分で作らなくてはいけない.
+
+## APIドキュメントの見つけ方
+一般的に、以下のパスにドキュメントがある。
+https://example.com/docs
+https://example.com/api/docs
+https://docs.example.com
+https://dev.example.com/docs
+https://developer.example.com/docs
+https://api.example.com/docs
+https://example.com/developers/documentation
+
+ドキュメントを見つけられない場合、アカウントを作成して認証された状態でドキュメントを検索する。それでも見つからない場合は、ディレクトリブルーとフォースでAPIドキュメントを探す。
+APIドキュメントを見つけるためのWordlistとしては、github.com/hAPI-hacker/Hacking-APIsで見つかる。
+これで見つからなければ、GoogleHacking、もしくは偵察ツールを利用する。
+それでダメなら、Wayback Machineと言うものを利用して探す。
+仕様書がswagger.jsonやYAML, RAML, XMLであれば、そのファイルをインポートするだけでPOSTMANを利用できるので楽。ない場合は、仕様書を手動で打ち込んでいく。
