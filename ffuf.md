@@ -211,8 +211,10 @@ ffufみたいなFuzzingツール。
 - Performanceタブにおいて、ボタンのクリックなど特定のアクションを記録紙、タイムライン上で特定のWebページで開始したイベントがバックグラウンドでAPIリクエストを実行しているかを判別できる。
 - 
 
-# wfuzz
-
+--scで200のレスポンスのみ表示、-Hでヘッダーを設定、FUZZの部分にwordlistのワードが入る。-uで対象URLを設定。-pで自身のプロキシを経由するよう設定。-sでリクエスト間の時間を0.25秒に設定。
+```
+sudo wfuzz -c -f sub-fighter -Z -w <path_to_wordlist> --sc 200  --hw 0 -s 0.25 -H "Host: FUZZ.www.example.com" -u https://example.com -p 127.0.0.1:8080
+```
 
 
 
