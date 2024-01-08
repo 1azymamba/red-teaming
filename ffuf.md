@@ -216,7 +216,12 @@ ffufみたいなFuzzingツール。
 sudo wfuzz -c -f sub-fighter -Z -w <path_to_wordlist> --sc 200  --hw 0 -s 0.25 -H "Host: FUZZ.www.example.com" -u https://example.com -p 127.0.0.1:8080
 ```
 
+# Gobuster
+ディレクトリの列挙。-tでスレッドを50に設定、-kで証明書エラーを無視、-b 302でこのステータスコードを結果から除外
 
+```
+sudo gobuster dir -u https://example.htb/ -w /wordommon.txt -t 50 -x php,html -k -b 302 | tee resutl_gobuster.txt
+```
 
 
 
