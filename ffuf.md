@@ -4,7 +4,6 @@
 - SQLIやXSSを見つけられる
 - ffufで使われるwordlistsはただのtextファイル
 - 
-- 
 ## Installation
 - sudo apt install ffuf
 
