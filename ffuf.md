@@ -254,6 +254,22 @@ python3 -c 'import pty;pty.spawn("/bin/bash")'
 find / -name 'user.txt' 2>/dev/null
 ```
 
+OS情報を収集する
+```
+uname -a
+```
+```
+cat /etc/*release*
+```
+実行中のジョブを確認する
+```
+ps aux
+```
+インストールされているアプリケーションとバージョンを確認し、既知の脆弱性が無いかを確認し、権限昇格に使えないか調べる
+```
+dpkg -l
+```
+
 
 
 
