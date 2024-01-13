@@ -105,6 +105,16 @@ nmap -sC -sV -oA nmap/active <IP>
 
 
 # hashcat
+ファイルは以下のように.txtに保存する。:dはソルトがあるときに利用する。
+```
+<hash_value>:d
+```
+-mでモードを選択、120はsaltされたSHA1を指す。ソルトされていなければ-m 100でいい。
+-a 3はブルートフォースモード、0にすると辞書攻撃になる。困ったらとりあえずrockyou.txtでいいかも。
+```
+hashcat -m 120 -a 0 hash.txt wordlists.txt
+```
+
 
 # PowerView
 PowerShellを使ってWindows環境の横展開などの際に情報を収集目的で使うツール。
