@@ -178,6 +178,14 @@ int main(int argc, char* argv[])
 ```
 
 
+# Reversing: Secrets of Reverse Engineering
+## Chapter2
+### 低レイヤ基礎
+### アセンブリ言語
+#### レジスタ
+### コンパイラ
+
+
 
 
 
