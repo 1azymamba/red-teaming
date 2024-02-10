@@ -247,6 +247,18 @@ Instruction Name(opcode) destination operand source operand
 >[Muchnick] Steven S. Muchnick. Advanced Compiler Design and Implementation
 
 
+ご存じの通りコンパイラは高級言語で書かれたソースコードを機械語へ翻訳するが、その過程で多くの最適化などのステップを踏む。
+これによって、生成されるアセンブリがコンパイラによって異なったりする。基本的にコンパイラは以下のコンポーネントから構成される。
+
+1. フロントエンド
+2. オプティマイザ(最適化)
+    =>コードを高速に実行して生成されるバイナリをなるべく小さくするためのテクニックを使用する。この最適化がリバエの時の障壁になったりするので、オプティマイザの理解がリバエにおいて重要になってくる。
+3. バックエンド
+    =>このバックエンドのステップが、コンパイラから生成されたアセンブリを読みにくくする。
+
+#### GCC and G++ version 3.3.1
+#### Microsoft C/C++ Optimizing Compiler version 13.10.3077
+#### Intel C++ Compiler version 8.0: The Intel C/C++
 
 
 
