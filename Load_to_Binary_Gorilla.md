@@ -41,16 +41,22 @@ sub esp, 0x40
 > [!NOTE]
 > アセンブリは、C言語などの高級言語で書かれたソースコードにアクセスできない場合に復元して読むことができる、最も高いレベルの言語。低レベルではマシンコード、マイクロコード、ハードウェアというのもあるが、ここは人間が理解するにはハードルが高い。
 
+> [!TIP]
+> 知らない命令を見かけたら、以下のx86に関するIntelのドキュメントを参照して調べられる。
+http://www.intel.com/products/processor/manuals/index.htm
+
 ## ニーモニック一覧
 ニーモニックとは以下のこと。**Instructions**の構成要素の一つで、 "ニーモニック" "オペランド"という形式で書かれる。オペランドには、レジスタやデータなどが書かれている。
 mov
 jmp
 push
+xor
 
 ![image](https://github.com/cyber-mamba/red-teaming/assets/96987448/57c93fa6-db91-4d15-9ca9-98eefdcbd237)
+>[!TIP]
+>xor, or, and, shl, ror, shr, rolといったニーモニックが繰り返し出てくるような関数にあたった場合、マルウェア解析においては暗号化処理の部分にあたっている可能性がある
 
-
-> [!TIPS]
+> [!TIP]
 > Randall Hyde's氏著の**The Art of Assembly Language, 2nd Edition**は、x86アセンブリに馴染の無い初学者向けの良本
 
 
@@ -117,11 +123,59 @@ mov命令の基本
   >[!TIPS}
   >EIPについて => Instruction Pointerで、CPUに実行を命令するメモリアドレスを指す。この指しているアドレスに格納されているコードが壊れてると実行に失敗してクラッシュする。
 
-  
-  
 
+# スタック
 
+Last in First out (LIFO)で、x86はこのスタック構造をサポートしている。
+レジスタは、ESPとEBPでスタック操作をサポート。
+ - ESP => スタックポインタ
+ - EBP => ベースポインタ 関数実行の際にローカル変数のメモリアドレスなどをオフセットとしてトレースできるように関数が始まるアドレスが格納される。
+ - スタックではpush, pop, call, leave, enter, retなどのニーモニックがよく使われる。
+ - 上位のメモリアドレスほどスタックの下へ。下位のメモリアドレス程スタックの上へ。0のアドレスに向かってスタックは伸びていく。
+ - スタックはよく、ローカル変数、パラメータ、リターンアドレスを格納する。これらをEBPレジスタからのオフセットで参照する。
+ - 引数は**push**でスタックの一番上に積まれる。
+ - 関数は**call memory_location**のかたちで呼び出される。この時、その時点でEIPレジスタに保存されているメモリアドレスをスタックにpushする。なぜなら、callした関数の実行が終了した後に、元のメモリアドレスに戻る必要があるため。
+ - 関数呼び出しの際は、ローカル変数とEBPレジスタ(ベースポインタ)の空間を確保するためにスペースがpushされる。
+ - エピローグ。leave命令でESPとEBPを解放する。
+ - 関数はret命令で元のアドレスに戻る。retは、関数call時にpushされていた戻りアドレスをpopしてEIPに格納する。
+   ## プロローグとエピローグ
+   ## スタックフレーム
+   EBPとESPで関数の最上位メモリアドレスと再会メモリアドレスを指定。例：EBP = 0x12F03C, ESP = 0x12F028
+   ![image](https://github.com/cyber-mamba/red-teaming/assets/96987448/06839449-1ab0-4080-ba83-379459b30aad)
 
+## 条件付きジャンプ
+
+   ![image](https://github.com/cyber-mamba/red-teaming/assets/96987448/788a9b25-e457-41d6-9ebc-b1ca4565902a)
+   ![image](https://github.com/cyber-mamba/red-teaming/assets/96987448/bc0af24c-05c0-4b4e-9610-e8aaca047739)
+
+# C言語の基礎
+超シンプルなC言語のmain関数は以下になる。
+argcはint型で、コマンドからプログラムを実行する時の引数の数とプログラムの名前を示す。argvは、コマンドラインから引数を入れたときの配列へのポインタを示す(?)
+```.c
+int main(int argc, char **argv
+```
+
+例：
+```
+filetestprogram.exe -r filename.txt
+
+argc = 3
+argv[0] = filetestprogram.exe
+argv[1] = -r
+argv[2] = filename.txt
+```
+
+```.c
+int main(int argc, char* argv[])
+{
+    if(argc !=3) {return 0;}
+    if(strncmp(argv[1], '-r', 2) ==0){
+        DeleteFileA(argv[2]);
+
+    }
+    return 0;
+}
+```
 
 
 
