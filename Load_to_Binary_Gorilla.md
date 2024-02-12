@@ -290,5 +290,27 @@ https://www.exploit-db.com/exploits/10619
 ![image](https://github.com/cyber-mamba/red-teaming/assets/96987448/7768013b-d8d3-45fd-8651-18a6e31fa865)
 ![image](https://github.com/cyber-mamba/red-teaming/assets/96987448/20ecccd3-89ae-473d-abd3-9b689782bb01)
 
+2. バッファオーバーフローの検証
+   2.1 簡単な配列を引数として受け取るプログラムを作成し、バッファオーバーフローを体験してみる
+
+       ```.c
+       void do_something(char *Buffer) {
+           char my_var(128);
+           strcpy(my_var, Buffer);
+       }
+       int main(int argc, char **argv) {
+           do_someting(argv[1])
+       }
+       ```
+       このプログラムに引数をAとして与えてみると、プログラムは実行できる。
+   ![image](https://github.com/cyber-mamba/red-teaming/assets/96987448/524609c1-b35d-48a6-91fb-acf69d826996)
+
+       しかし、128文字引数をAで与えるとエラーが出る。
+        ![image](https://github.com/cyber-mamba/red-teaming/assets/96987448/3bf8316b-d291-4d2d-ae87-41d4b91ee14b)
+       これは、my_varの初期化の際に、128バイトまでしか値を受け取れないようにしているためである。Aは一つで1バイトだが、128文字入力したら128バイトで実行できそうに思われる。
+       しかし実際には文字列の終端を表すNULL文字があるため、ユーザが実際に入力できる値は配列として確保された領域-1、つまり127バイト分までである。
+
+   
+
 
 
