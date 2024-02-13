@@ -42,6 +42,9 @@ qd
 x notepad!*
 ```
 
+## ドキュメント
+WinDbg の概要 (ユーザー モード)
+https://learn.microsoft.com/ja-jp/windows-hardware/drivers/debugger/getting-started-with-windbg
 
 
 
