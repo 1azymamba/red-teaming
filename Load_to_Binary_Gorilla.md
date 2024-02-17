@@ -51,6 +51,10 @@ mov
 jmp
 push
 xor
+test -> AND演算と同じ。AND演算の結果が0ならZF=1になる。要するに2つの値が等しいかどうか。　e.g) eax=0の場合、test eax eax -> ZF=1になる。 eax=55の場合、 test eax eax -> ZF=0になる
+je -> ZFをチェックして、ZF=1なら、指定したラベルにJumpする。
+cmp -> 二つのオペランド同士で減算を行う。二つの値の大小関係や、値同士が等しいかをチェックする。cmp eax edxの場合、eax - edxになる。二つのオペランドが等しい(結果が0)の場合、ZF=1になる。
+
 
 ![image](https://github.com/cyber-mamba/red-teaming/assets/96987448/57c93fa6-db91-4d15-9ca9-98eefdcbd237)
 >[!TIP]
