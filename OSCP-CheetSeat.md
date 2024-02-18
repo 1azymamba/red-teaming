@@ -206,7 +206,18 @@ lsadump::dcshadow
 
 
 
+# Whois
+基本的なwhois検索
+```
+whois <ターゲットドメイン名> -h <使用するDNSサーバ>
+whois example.com -h 192.168.50.251
+```
 
+IPアドレスが分かっている場合、より詳細を逆引きで調べられる。
+```
+whois <ターゲットIP> -h <使用するDNSサーバ>
+whois 1.1.1.1 -h <192.168.50.3>
+```
 
 
 
