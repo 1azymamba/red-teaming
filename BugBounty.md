@@ -33,4 +33,3 @@ ffufなどでwordlistから自動列挙してみる→.jsをdeveloperツール�
 ※jquery.jsのような、デフォルトで含まれるようなjsファイルを解析しても意味はないので時間の無駄。
 
 参照：https://www.bugbountyhunter.com/guides/?type=javascript_files
-
