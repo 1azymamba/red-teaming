@@ -220,7 +220,9 @@ whois 1.1.1.1 -h <192.168.50.3>
 ```
 
 # Nikto
-
-a
+実際にブラックボックスのEnumeratioんで使ったコマンド
+```
+nikto -Cgidirs all -Display 3 -Format htm -mutate 3 -o nikto_result.htm -port 443 -ssl -url https://hogehoge.com/ -usecookies -useproxy http://127.0.0.1:8080/
+```
 
 
