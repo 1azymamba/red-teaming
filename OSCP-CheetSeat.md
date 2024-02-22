@@ -225,4 +225,20 @@ whois 1.1.1.1 -h <192.168.50.3>
 nikto -Cgidirs all -Display 3 -Format htm -mutate 3 -o nikto_result.htm -port 443 -ssl -url https://hogehoge.com/ -usecookies -useproxy http://127.0.0.1:8080/
 ```
 
+# Netcat
 
+
+# xfreerdp
+KaliからWindows OSにRDPするときに使う。3389ポートが空いてたら使えるかも。
+
+以下がRDP接続するコマンド
+```
+xfreerdp /u:<username> /p:<password> /v:<target_ip>
+```
+
+# PowerShell
+Windows環境に入ってから横展開するときにEnumerationするコマンド
+1-5000ポートにTCPのコネクションテストして空いてるポートを確認する。
+```
+1..1024 | % {echo ((new-object Net.Sockets.TcpClient).Connect(“192.168.1.1”,$_)) “Port $_ is open!”} 2>$null
+```
