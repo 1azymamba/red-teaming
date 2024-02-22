@@ -33,6 +33,11 @@ SYNスキャン。別名ハーフオープンスキャン、ステルススキ�
 -p
 -p 1-5000みたいな感じで1から5000ポートを指定できたりする。
 
+nmap script engineのヘルプを見れる。実行するとドキュメントのあるURLを表示してくれる。今回の場合だとhttp-headersっていうNSEのURLを表示してくれる。
+```
+nmap --script-help http-headers
+```
+
 # BloodHound
 AD攻撃でめっちゃ使える。AD環境をスキャンして攻撃経路を特定するために使用するツール。
 
@@ -229,6 +234,10 @@ nikto -Cgidirs all -Display 3 -Format htm -mutate 3 -o nikto_result.htm -port 44
 ```
 
 # Netcat
+バインドでターゲットマシンのポートを指定して接続
+```
+nc <target_ip> <target_port>
+```
 
 
 # xfreerdp
