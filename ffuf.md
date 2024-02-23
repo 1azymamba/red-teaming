@@ -319,7 +319,12 @@ scp /local/test.txt user@remoteHost:/home/user/tmp/
 # Cherrytree
 
 
-
+# awscli
+S3と接続してS3バケットのmisconfigurationを見つけるときに便利。
+s3:// の後ろにはs3bucketの名前を入れる。 例えばhttps://example-site.s3.amazonaws.comにアクセスできる場合、bucketnameはexample-siteになる。
+```
+aws s3 ls s3://example-site --no-sign-request
+```
 
 
 
