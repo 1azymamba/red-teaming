@@ -326,6 +326,13 @@ s3:// の後ろにはs3bucketの名前を入れる。 例えばhttps://example-s
 aws s3 ls s3://example-site --no-sign-request
 ```
 
+deniedされるときは↓のコマンドが使えるかも。ただし既存のS3内のファイルのパーミッションは変更できない。
+以下のコマンドでダメだったら、credentialが必要ということなので秘密鍵の窃取都下が必要。
+```
+aws s3 mv hoge.txt s3://example-site --acl public-read
+```
+
+
 
 
 
