@@ -43,3 +43,5 @@ with open(path) as f: # oepn関数で開いたファイルをfに格納
 ```
 
 ### csv関数
+
+### find関数
