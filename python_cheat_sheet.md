@@ -41,3 +41,5 @@ with open(path) as f: # oepn関数で開いたファイルをfに格納
   for line in f: # 1行ごとにlineという変数に保持して以下の処理を実行
     print(line) # lineの中身を行ごとに表示
 ```
+
+### csv関数
