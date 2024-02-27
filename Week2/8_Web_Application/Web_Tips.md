@@ -1,0 +1,3 @@
+# このページでは、Web appへのAttackに関するTipsをまとめる
+
+- WappalyzerでJavaScript libraries等が分かるが、ここで使われているjquery等のバージョン情報は、特定の脆弱性を受ける可能性があるバージョンであったりすることもあるので貴重な情報になり得る。
