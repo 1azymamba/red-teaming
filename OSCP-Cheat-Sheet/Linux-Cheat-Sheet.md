@@ -57,3 +57,17 @@ Nessus-10.7.0-debian10_amd64.deb: OK
 └─$ sha256sum -c sha256sum_nessus
 Nessus-10.7.0-debian10_amd64.deb: OK
 ```
+
+# curl
+urlを入力してリクエストを送るコマンド。デフォルトではGETリクエストを送る。
+
+使い方の例：
+以下では、データとしてパスワードとユーザ名を指定し、対象のAPIエンドポイントに対してPOSTリクエストを行っている。
+```
+curl -X 'POST' -d '{"password":"hoge","username":"admin"}' -H 'Content-Type:application/json' http://example.com/users/v1/login --proxy 127.0.0.1:8080
+```
+
+-X => 利用するメソッドを指定
+-d => dataとして含む内容を入力
+-H => ヘッダを追加
+--proxy => プロキシサーバを指定
