@@ -74,6 +74,12 @@ ffuf -u http://example/FUZZ -w ./wordlist -of html -o ./codingo -H "NAME1=VALUE1
 ffuf -u https://example/FUZZ -w ./wordlist -p '0.8-1.2'
 ```
 
+-requestで、.txtとして保存したリクエストのヘッダやCookieをそのまま使用できる。
+-replay-proxyで、Burpを通してリクエストを送信できる。
+```
+ffuf -w almost_70_pathtraversa_payload_list.txt -request path_traversal_test_1.txt -u <target URL/FUZZ> -replay-proxy http://127.0.0.1:8080
+```
+
 ## ステータスコードについて
 FFUFでスキャンした後、返ってきたステータスコードを確認したほうが良いときと、確認する必要がないノイズである可能性が高いものがある。
 参照：https://josephthacker.com/hacking/2020/10/27/ffuf-filters.html
