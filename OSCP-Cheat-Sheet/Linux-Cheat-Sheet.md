@@ -71,3 +71,18 @@ curl -X 'POST' -d '{"password":"hoge","username":"admin"}' -H 'Content-Type:appl
 -d => dataとして含む内容を入力
 -H => ヘッダを追加
 --proxy => プロキシサーバを指定
+-L => リダイレクトに従う
+--head => レスポンスでヘッダを受け取る
+
+# base64
+base64のエンコードとデコードができるコマンド。
+
+ワンライナーで文字列をデコード
+```
+echo "VGhlIGZsYWcgaXM6IE9TezQ4ZjRlNzYxNzg0N2I4YWM0YTE0NzAxZjhmNzg4MGYwfQ==" | base64 -d
+```
+
+ワンライナーで平文をエンコード(デフォルトでエンコードするようになっている)
+```
+echo "hoge" | base64
+```
