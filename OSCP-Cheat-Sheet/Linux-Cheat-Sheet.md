@@ -73,6 +73,7 @@ curl -X 'POST' -d '{"password":"hoge","username":"admin"}' -H 'Content-Type:appl
 --proxy => プロキシサーバを指定
 -L => リダイレクトに従う
 --head => レスポンスでヘッダを受け取る
+--path-as-is => ../などのPath Traversal系のテストをする際、特殊文字をエスケープせずそのまま送信する
 
 # base64
 base64のエンコードとデコードができるコマンド。
@@ -86,3 +87,9 @@ echo "VGhlIGZsYWcgaXM6IE9TezQ4ZjRlNzYxNzg0N2I4YWM0YTE0NzAxZjhmNzg4MGYwfQ==" | ba
 ```
 echo "hoge" | base64
 ```
+
+# ssh
+ssh接続で使うコマンド。
+
+-i => 秘密鍵の記載されたファイルを指定する
+-p => 接続先のSSHサーバのオープンポートを指定

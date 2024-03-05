@@ -84,3 +84,27 @@ ajaxRequest.send();
 var nonceMatch = nonceRegex.exec(ajaxRequest.responseText);
 var nonce = nonceMatch[1];
 ```
+
+## LFI (Local File Inclusion)
+
+- Local File InclusionはPath Traversalと悪用の仕方が似ている
+- しかし、この脆弱性\に関する理解をPath Traversalと混同するとよくないので適切な理解が必要
+- 主な違いは以下。
+
+===============  
+Path Traversal  
+=> ファイルの読み込みのみが可能  
+=> 例えば?page=../admin.phpとした場合、admin.phpのソースコードが表示されるだけで、実行自体はできない。つまりこのadmin.phpをシェルコードに書き換えてもリバースシェルは取れない。
+
+==============  
+LFI
+=> ファイルの実行が可能
+=> ?page=../admin.phpのように、基本的にはPath Traversalと同じような手法で攻撃が可能
+=> ただし、この場合LFIは、admin.phpのコードを表示するのではなく実行そのものを行ってくれるのでadmin.phpを書き換えられればリバースシェルが取れる。
+
+> [Tips]  
+> LFIの脆弱性は、ターゲットが利用しているプログラミング言語、バージョン、Webサーバの設定に依存する。  
+> **PHP以外では、Perl, Active Server Pages Extended, Active Server Pages, Java Server PagesにLFIの脆弱性が存在する可能性がある。**  
+> どの言語でも攻撃の方法は基本的に変わらない。  
+> ただし実際には、LFIの脆弱性は多くの場合PHPを使っているアプリケーションで発見される。  
+> モダンなアプリケーションではあまりLFIは見つからないが、Node.js等の最新のJavaScriptランタイム環境では見つかる可能性もあるかも。
