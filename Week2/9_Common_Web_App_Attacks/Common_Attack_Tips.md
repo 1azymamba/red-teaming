@@ -22,6 +22,91 @@ Path TraversalもしくはDirectory Traversalと呼ばれる。
 - また、各ボタンなどが参照するパラメータ情報も確認することが重要。
 
 
-# File Inclusion Vulnerabilities
-# File Upload Attack Vjulnerabilities
-# Command Injection
+## LFI (Local File Inclusion)
+
+- Local File InclusionはPath Traversalと悪用の仕方が似ている
+- しかし、この脆弱性\に関する理解をPath Traversalと混同するとよくないので適切な理解が必要
+- 主な違いは以下。
+
+===============  
+Path Traversal  
+=> ファイルの読み込みのみが可能  
+=> 例えば?page=../admin.phpとした場合、admin.phpのソースコードが表示されるだけで、実行自体はできない。つまりこのadmin.phpをシェルコードに書き換えてもリバースシェルは取れない。
+
+==============  
+LFI
+=> ファイルの実行が可能
+=> ?page=../admin.phpのように、基本的にはPath Traversalと同じような手法で攻撃が可能
+=> ただし、この場合LFIは、admin.phpのコードを表示するのではなく実行そのものを行ってくれるのでadmin.phpを書き換えられればリバースシェルが取れる。
+
+> [Tips]  
+> LFIの脆弱性は、ターゲットが利用しているプログラミング言語、バージョン、Webサーバの設定に依存する。  
+> **PHP以外では、Perl, Active Server Pages Extended, Active Server Pages, Java Server PagesにLFIの脆弱性が存在する可能性がある。**  
+> どの言語でも攻撃の方法は基本的に変わらない。  
+> ただし実際には、LFIの脆弱性は多くの場合PHPを使っているアプリケーションで発見される。  
+> モダンなアプリケーションではあまりLFIは見つからないが、Node.js等の最新のJavaScriptランタイム環境では見つかる可能性もあるかも。
+
+======================
+
+## PHP Wrapper
+- PHPには、様々なプロトコルをサポートするラッパーがある。
+- 例えば、php://filter, data://など。
+- php://filterラッパーでは、B64などのエンコードの有無にかかわらずファイルの内容を表示できる。
+- LFIはPath Traversalと違ってファイルの中身を表示するのではなくPHPとして実行するのがデフォだが、php://filterラッパーを使うとLFIでもそのファイルのソースを表示することができる。
+
+### filter://ラッパー
+ファイルをソースとして読み取る。  
+**php://filter/convert.base64-encode/resource=admin.php**でbase64エンコードしてadmin.phpのソースを完全に表示し、ローカルで値をデコードすることでファイルの内容を読み取ることができる。
+
+### data://ラッパー
+phpのコードを実行することができる。  
+以下のようにすることで、URLエンコードされたPHPスニペットをWebアプリケーションのコードに埋め込んでいる。  
+**この手法は、Log Poisoningのような脆弱性がないPHPアプリケーションにおいて、ターゲット上のローカルファイルをTamperできないときに使える手法なので便利。**  
+?page=data://text/plain,<?php%20echo%20system('ls');?>"
+
+> [Tips]  
+> data://ラッパーを使ってファイルの改ざんを行うとき、FWなどで**system**といった文字列をフィルタリングされることがある。  
+> そういった場合は、base64でエンコードしたデータをdata://ラッパーで以下のように読み取るとバイパスできる。  
+> なおこのdata://ラッパーはPHPのデフォルトインストールでは有効ではなく、**allow_url_include**という設定を有効にしてある必要があるという点に注意。
+
+```
+kali@kali:~$ echo -n '<?php echo system($_GET["cmd"]);?>' | base64
+PD9waHAgZWNobyBzeXN0ZW0oJF9HRVRbImNtZCJdKTs/Pg==
+
+kali@kali:~$ curl "http://mountaindesserts.com/meteor/index.php?page=data://text/plain;base64,PD9waHAgZWNobyBzeXN0ZW0oJF9HRVRbImNtZCJdKTs/Pg==&cmd=ls"
+```
+
+## RFI(Remote File Inclusion)
+- RFIは、LFIよりも悪用可能なシーンや条件が限定される。  
+- 例えばdata://ラッパーを利用するための条件と同じように、**allow_url_include**オプションを有効にすることが条件の一つとなる。
+- ただし上記のallow_url_includeオプションは、すべてのバージョンのPHPでデフォルトでは無効になっている。
+- このallow_url_includeオプションが有効になっているかを推測する方法として、ターゲットのWebアプリケーションがリモートシステムからファイルやコンテンツを読み込むという場合、allow_url_includeが有効になっている可能性があると推測される。
+- LFIはターゲットのローカルファイルを実行することができたが、LFIでは**HTTPもしくはSMB経由で自身の持つファイルを実行させることができる。** つまり、Attacker側はPythonスクリプトなどでHTTPサーバとしてファイルを読み込んでもらえるよう待ち受けておく必要がある。
+
+
+
+# File Uploadの脆弱性
+
+## 実行可能ファイルの使用
+
+- phpファイル等をアップロードしようとすると、ブラックリストではじかれることがある。
+- そのようなときは、**.phps** や **.php7**, **.pHP**といった拡張子をが使用できる可能性がある。
+- 上記のようなバイパスはシンプルだがかなり使える。
+- また、**マジックナンバーを変えたり**、**バイパスできる拡張子でアップロードしてから別の脆弱性を使ってファイル名を変えて拡張子を変更**したり、**アップロードしたファイルを上書き**したりというテクニックもある。
+
+## Non-Executable Fileの使用  
+
+- この手法は、アップロードしたファイルを攻撃者が実行できない場合でもRCEにつなげらることがあるケースを示す。  
+  
+- 例として、ファイルアップロード時のBlackListがないが、そのアップロードしたファイルを攻撃に利用できないというケースがある。  
+例：Googleドライブ等  
+- このようなケースでは、パストラバーサルなどの別の脆弱性を利用してファイルアップロードのメカニズムを悪用することが重要となる。
+  
+> [Tips]  
+> ファイルアップロード系の脆弱性をテストする時は、ファイルが2回アップロードされたときの挙動を必ずチェックすること。  
+> ファイルの上書きにつなげられる可能性がある。
+
+- このような場合、ターゲットにパストラバーサルの脆弱性を使ってファイルアップロードができるとする。
+- ApacheやNginxはwww-dataという権限で実行されることが多いが、システムのアクセス許可の問題を楽に回避するため、デプロイ時にroot権限で実行することもある。
+- **このようにPath Traversalを使ってファイルアップロードができ、かつターゲットのWebアプリケーションがroot権限で実行されている、かつ外部からSSHのポートがオープンであることが見えている、という条件がそろった場合。**
+- **ターゲットの/root/.sshにあるauthorized_keysファイルを上書きすることで、SSHでターゲットサーバにroot権限アクセスができる可能性がある。**
