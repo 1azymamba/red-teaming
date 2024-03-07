@@ -74,6 +74,7 @@ curl -X 'POST' -d '{"password":"hoge","username":"admin"}' -H 'Content-Type:appl
 -L => リダイレクトに従う
 --head => レスポンスでヘッダを受け取る
 --path-as-is => ../などのPath Traversal系のテストをする際、特殊文字をエスケープせずそのまま送信する
+--data => POSTとかで送るデータ内のパラメータを指定
 
 # base64
 base64のエンコードとデコードができるコマンド。
