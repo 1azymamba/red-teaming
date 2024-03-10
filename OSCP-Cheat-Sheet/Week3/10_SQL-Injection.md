@@ -95,3 +95,9 @@ http://192.168.50.16/blindsqli.php?user=offsec' AND IF (1=1, sleep(3),'false') -
 > [!NOTE]  
 > これらのBlind SQLiは実際難易度が高いので、sqlmap等のツールを使って自動化することが多い。  
 > ただしインジェクションできるsourceを正確に特定しないでsqlmapを使うと非効率なので、正確なsourceを見つけてからそのsourceに対して重点的にsqlmapを使うことが重要。
+
+
+# 実践的なSQLi
+- Microsoft SQL Serverでは、**xp_cmdshell**関数が使える。この関数は文字列を受け取ってそれを実行のためにコマンドシェルに渡し、出力はテキスト業として返される。
+- このxp_cmdshell関数はデフォルトで無効になっているので、有効にした後はSELECTではなく**EXECUTE**を使用して呼び出す必要がある。
+- a
