@@ -5,3 +5,4 @@
 5. Chapter 9.3.1 => PowerShellのリバースシェルをb64するとなぜか動かないのでいったんpending
 6. Chapter 9.3.2 => 公開鍵をアップロードする過程で、ファイルサイズのせいか分からないがアップロードがとまっちゃってうまくいかないのでpending
 7. Chapter 9.4.1 => Lab1でPowershellのリバースシェルがなぜかうまくいかない, Lab3のCapstone Exerciseで、Werkzeugの脆弱性を突けばいいんだと思うけどなんか普通にExploitできない。
+8. Chapter 11.2.2 => Lab1でRDP接続が上手くいかないので再度やり直す
