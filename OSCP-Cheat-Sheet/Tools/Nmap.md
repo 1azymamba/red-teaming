@@ -50,6 +50,16 @@ cd /usr/share/nmap/scripts/
 cat script.db | grep "\"vuln\""
 ```
 
+特定のNSEスクリプトのヘルプ情報を表示する
+```
+nmap --script-help=clamav-exec.nse
+```
+
+NSEスクリプトの中でExploitだけをgrepして探す
+```
+grep Exploits /usr/share/nmap/scripts/*.nse
+```
+
 > [!NOTE]
 > NSEによる脆弱性スキャンは**safe**,**vuln**,**intrusive**に分かれる。このうちintrusiveについてはターゲットのシステムを破壊することがある可能性に注意。そのNSEの影響とロジックを把握してから実行すること。
 
