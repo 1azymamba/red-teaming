@@ -7,3 +7,4 @@
 7. Chapter 9.4.1 => Lab1でPowershellのリバースシェルがなぜかうまくいかない, Lab3のCapstone Exerciseで、Werkzeugの脆弱性を突けばいいんだと思うけどなんか普通にExploitできない。
 8. Chapter 11.2.2 => Lab1でRDP接続が上手くいかないので再度やり直す
 9. Chapter 12.4.1 => smbmapを使てDownloadsフォルダを列挙する。わんちPath Traversalの脆弱性あるのでそれをつかってAdmin読み取りができないか。
+10. Chapter 14 => Anti-virus evasionのLab全般とドキュメントもう一回読んだ方が良い
