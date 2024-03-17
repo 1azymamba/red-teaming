@@ -38,6 +38,11 @@ nmap --script-help http-headers
 sudo nmap -p80 --script=http-enum <target IP>
 ```
 
+ldapがターゲットで走ってる時の詳細調査
+```
+nmap -n -sV --script "ldap* and not brute" -p 389 <target IP>
+```
+
 ## NSEによる脆弱性スキャンについて
 
 Nmap機能の一つであるNSEにおいて、脆弱性をスキャンする機能がある。
