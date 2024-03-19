@@ -1,0 +1,9 @@
+# Boats
+[Boats](https://www.youtube.com/watch?v=TwmHAzu0AeY&list=PLeSXUd883dhjhV4MokruWYQWnhxsCPyUY&index=8)
+
+1. nmapスキャンすると、ポートがたくさん空いているのがわかる。DCっぽい雰囲気無く、80ポートが面白そうなので見てみる
+2. Webサーバらしく、PHPを使っていることがnmapの結果から分かる。gobusterを使ってサブディレクトリの列挙をしていく。wordlistには/usr/share/wordlists/big.txtを使う
+3. phpmyadminがヒットして、ここにアクセスするとパスワードなしで管理者としてMySQLにアクセスできる。
+4. phpmyadmin to shellでディグると、webshellアップロードのコマンドが出てくるのでそれを使うとRCEできることが分かる。whoamiでtargetがWindowsであることが分かる
+5. HackTricksでWindowsのリバースシェルのチートシートをまねる
+6. msfvenomを使ってwindows用のリバースシェルを作成してpython3でサーバたててshellをダウンロードさせてから実行してシェルを獲得。
