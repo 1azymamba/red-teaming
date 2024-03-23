@@ -29,7 +29,7 @@ hashcat -m 0 crackme.txt rockyou.txt -r demo3.rule --force
 ```
 
 ターゲットの情報が全くないときは、/usr/share/hashcat/rulesの既存ルールを使うとよい。  
-特に**rockyou-30000.rule**はrockyou用に作られたルールらしいので有効らしい。
+特に**rockyou-30000.rule**はrockyou用に作られたルールらしいので有効らしい。あと、**/usr/share/hashcat/rules/best64.rule**っていうのも有効。
 ```
 hashcat -m 0 crackme.txt rockyou.txt -r /usr/share/hashcat/rules --force
 ```

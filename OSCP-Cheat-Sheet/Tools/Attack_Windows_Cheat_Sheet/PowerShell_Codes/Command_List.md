@@ -67,4 +67,12 @@ $writer.Close()
 $socket.Close()
 ```
 
+11. Windows環境のローカルユーザを列挙する
+```
+Get-LocalUser
+```
 
+12. paulがローカルのどのグループのメンバーであるかを確認する
+```
+net user paul
+```
