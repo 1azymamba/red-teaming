@@ -14,3 +14,13 @@ sudo sh -c 'cat /home/kali/passwordattacks/ssh.rule >> /etc/john/john.conf'
 c $1 $3 $7 $!
 c $1 $3 $7 $@
 c $1 $3 $7 $#
+
+2. johnの設定ファイルに記述されたsshRulesというルールをssh.hashというハッシュの解析に使用して、ワードリストにはssh.passwordsを指定する
+```
+john --wordlist=ssh.passwords --rules=sshRules ssh.hash
+```
+
+3. ssh.hashというハッシュを解析したことがあれば、その解析結果を表示する
+```
+john --show ssh.hash
+```
