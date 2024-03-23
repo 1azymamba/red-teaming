@@ -11,4 +11,8 @@
 8. evil-winrm -iでそのユーザとパスワードを使ってアクセスする
 9. 初期アクセスが取れたので、SharpHoundをアップロードしてWindows上で実行させる
 10. 次に権限昇格を狙うため、ターゲットにwinPEASをアップロードして実行させる
-11. 
+11. winPEASでデフォルトパスワードが見えるので、その認証情報を使ってWindowsのオートログイン機能を使ってcrackmapexecを使ってアクセス
+12. bdoverがデフォルトパスを使っていることが分かるので、bloodhoundでユーザの権限を見てみる
+13. bdoverをAdminグループにnet userで追加する
+14. mimikatzをアップロードしてAdministratorアカウントのNTLMを取得する
+15. NTLMをとれたので、AdministratorでPtWして権限昇格
