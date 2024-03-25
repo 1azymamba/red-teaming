@@ -1,0 +1,13 @@
+# Sam
+[Sam](https://www.youtube.com/watch?v=68762UPEtho&list=PLeSXUd883dhjhV4MokruWYQWnhxsCPyUY&index=19)
+
+1. nmapするとSMBが空いているので、とりあえずsmbclientで匿名ログインができるか試すと、Backupsディレクトリ内のフォルダをローカルにマウントできる
+2. Windowsフォルダ全体の読み取り権限があったので、その場合はSAMデータベースを読み取れる可能性があることを疑う。つまりここからNTLM取ってクラックを考える
+3. SAMはSystem32/configにあるので、そこからSAMファイルを読み取る
+4. SAMのダンプは、secretsdump.pyというツールで行う
+5. NTLMハッシュとユーザ名の列挙ができたので、evil-winrmでPtHを使ったアクセスをmamieユーザで実行する
+6. jamieのシェルが取れたので、serviceコマンドで走っているserviceを確認
+7. 走ってるサービスを変更するテクニックを使えそうなので、バイナリを脆弱なバイナリに変更できるらしい
+8. msfvenomでwindowsのリバースシェル用のバイナリを生成
+9. monitor.exeの名前でペイロードを生成した後、ターゲット上のmonitor1.exeをペイロードと置き換える
+10. ncで待ち受けておいてターゲット上でアップロードしたペイロードのmonitor1.exeをサービス実行すれば、system権限を取れる
