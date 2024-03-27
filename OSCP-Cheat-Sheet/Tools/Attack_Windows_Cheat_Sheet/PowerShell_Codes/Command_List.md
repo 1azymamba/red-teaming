@@ -76,3 +76,23 @@ Get-LocalUser
 ```
 net user paul
 ```
+
+13. ホスト上の既存のグループを列挙する
+```
+Get-LocalGroup
+```
+
+14. adminteamというローカルグループのメンバーを確認する
+```
+Get-LocalGroupMember adminteam
+```
+
+15. インストールされているすべてのアプリケーションを列挙する
+```
+Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
+```
+
+16. 実行中のアプリケーションを一覧表示する
+```
+Get-Process
+```
