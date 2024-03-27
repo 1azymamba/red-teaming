@@ -45,3 +45,15 @@ with open(path) as f: # oepn関数で開いたファイルをfに格納
 ### csv関数
 
 ### find関数
+
+
+### base64関数
+1. b64のデコードを行う
+```.py
+hoge = base64.b64decode(strings)
+```
+
+2. デコードされたバイト列を文字列に変換
+```.py
+hoge = decoded_bytes.decode('utf-8')
+```
