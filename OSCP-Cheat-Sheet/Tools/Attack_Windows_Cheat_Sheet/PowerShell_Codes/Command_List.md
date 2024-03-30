@@ -149,3 +149,15 @@ Get-CimInstance -ClassName win32_service | Select Name, StartMode | Where-Object
 ```
 whoami /priv
 ```
+
+25. PowerShellのスクリプトブロックをバイパスする 
+```
+powershell -ep bypass
+```
+
+26. 現在のユーザが変更できるサービスを表示する
+```
+Get-ModifiableServiceFile
+```
+
+27. 

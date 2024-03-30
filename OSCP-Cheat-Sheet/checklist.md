@@ -23,3 +23,4 @@
 6. (Get-PSReadlineOption).HistorySavePathコマンドで、PSReadlineモジュールが記録したPowerShellのコマンド履歴に認証情報が置いてないか
 7. Public\配下にtranscriptファイルが置かれていないか
 8. GUIアクセスできる場合、イベントビューア > Application and Service Log > Microsoft > Windows > PowerShell > Operationalにスクリプトログが残されていないか、そこに認証情報が無いか
+9. Windowsサービスに紐づいたバイナリファイルを書き換えられないか

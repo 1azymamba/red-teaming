@@ -65,3 +65,23 @@ Windowsへの初期侵入が完了したら、必ず以下Enumerationするこ�
 - サービスに紐づいたバイナリを置き換えるには、バイナリのパスと権限を確認し、同じ名前で置き換えて、その後net stopコマンドでサービスを再起動する必要がある。
 - ただし、基本的にはサービスの停止には管理者権限が必要なので上記は失敗する。
 - 実際の攻撃では、サービスの起動方法をPowerShellなどで確認し、whoami /privで自分の権限でシャットダウンと再起動の権限があれば、再起動等でサービスを動かせる
+
+## サービスDLLハイジャック
+- サービスに紐づいたバイナリファイルを書き換えるのは、権限昇格においては有効。
+- ただし、実際には書き換え権限が無いことの方が多い。
+- service dll hijackで行うことは、書き換えの対象をバイナリファイルそのものではなく、DLLにするだけ。
+- ただ、DLLを書き換えるとサービスが動かなくなったりするのでちょい難しい。
+- もう一つのテクニックとして、DLLの検索順序を悪用したservice dll hijackもある。
+- Windowsは、このDLLの検索順序を悪用したservice dll hijackへの対策として、**Safe DLL search mode**というのを実装している。
+- 
+  
+現在のWindowsにおいて、DLLは以下のように検索される。
+```
+1. The directory from which the application loaded.
+2. The system directory.
+3. The 16-bit system directory.
+4. The Windows directory. 
+5. The current directory.
+6. The directories that are listed in the PATH environment variable.
+```
+
