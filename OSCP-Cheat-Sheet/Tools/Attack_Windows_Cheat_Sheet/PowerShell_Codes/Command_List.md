@@ -155,9 +155,12 @@ whoami /priv
 powershell -ep bypass
 ```
 
-26. 現在のユーザが変更できるサービスを表示する
+26. 現在のユーザが変更できるサービスを表示する(PowerUpインポート時のみ)
 ```
 Get-ModifiableServiceFile
 ```
 
-27. 
+27. /rでシャットダウンの代わりに再起動、/tで0秒を指定。
+```
+shutdown /r /t 0
+```
