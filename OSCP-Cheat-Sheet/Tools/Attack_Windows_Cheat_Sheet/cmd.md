@@ -54,3 +54,8 @@ M	Modify access
 RX	Read and execute access  
 R	Read-only access  
 W	Write-only access  
+
+10. Unquoted-Serviceの脆弱性がある可能性のあるサービスとバイナリファイルのパスを列挙する。
+```
+wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v """
+```

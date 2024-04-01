@@ -164,3 +164,13 @@ Get-ModifiableServiceFile
 ```
 shutdown /r /t 0
 ```
+
+28. UnquotedServiceの脆弱性がありそうなサービスにリンクするバイナリのパスを表示する。
+```
+Get-UnquotedService
+```
+
+29. サービスの起動方法を確認する。
+```
+Get-Service -Name <サービス名> | Select-Object DisplayName, StartType
+```

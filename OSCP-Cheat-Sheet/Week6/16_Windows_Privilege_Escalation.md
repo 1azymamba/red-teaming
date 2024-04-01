@@ -73,8 +73,10 @@ Windowsへの初期侵入が完了したら、必ず以下Enumerationするこ�
 - ただ、DLLを書き換えるとサービスが動かなくなったりするのでちょい難しい。
 - もう一つのテクニックとして、DLLの検索順序を悪用したservice dll hijackもある。
 - Windowsは、このDLLの検索順序を悪用したservice dll hijackへの対策として、**Safe DLL search mode**というのを実装している。
-- 
+- 攻撃の流れは、サービスを列挙する=>サービスへの権限をicaclsで確認する=>サービスのバイナリをローカルに落として、管理者権限でprocessMonitorを使ってロードするDLLを確認する=>DLLの権限を確認し、書き換えが可能かをチェック=>DLLが見つからない場合は、DLLの検索順序を利用して自分が作ったDLLを置くのもOK
+- 以下の検索順序のパスに、不正なDLLを配置すれば成立する。
   
+
 現在のWindowsにおいて、DLLは以下のように検索される。
 ```
 1. The directory from which the application loaded.
@@ -85,3 +87,19 @@ Windowsへの初期侵入が完了したら、必ず以下Enumerationするこ�
 6. The directories that are listed in the PATH environment variable.
 ```
 
+## Unquoted Service Path
+
+- サービスにマップされている実行可能なファイルへのパスに1つ以上のスペースがあり、かつダブルクオーテーションで囲まれていない場合に、権限昇格のための攻撃ベクトルになる可能性がある。
+- ファイルパスにスペースが含まれていてクオーテーションで囲まれていない場合、ファイル名がどこで終わって引数がどこで始まるかを、プロセス生成と気のCreateProcessとIpApplicationNameが認識できない。
+**具体例**  
+例えば以下がサービスだとする。  
+そしてC:\Program Files\Enterprise Appsに対して書き込み権限があるとする。  
+そうすると、~Apps\にCurrent.exeというファイルを配置することで攻撃が成功する可能性がある。
+```
+C:\Program Files\Enterprise Apps\Current Version\GammaServ.exe
+```
+
+## タスク実行からの権限昇格
+- タスクがNT AUTHORITY|SYSTEMもしくは管理者ユーザとして実行されていれば、権限昇格につながる可能性がある
+- タスクのトリガーを確認する必要がある。
+- もちろん、タスク実行されるバイナリかDLLを書き換える権限は必要。

