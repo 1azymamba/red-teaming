@@ -90,6 +90,7 @@ Get-LocalGroupMember adminteam
 15. インストールされているすべてのアプリケーションを列挙する
 ```
 Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
+Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
 ```
 
 16. 実行中のアプリケーションを一覧表示する
@@ -145,7 +146,7 @@ W	Write-only access
 Get-CimInstance -ClassName win32_service | Select Name, StartMode | Where-Object {$_.Name -like 'mysql'}
 ```
 
-24. 自分の権限をすべて確認する
+24. 自分の権限をすべて確認する。ここで**SeImpersonatePrivilege**の権限も確認できる。
 ```
 whoami /priv
 ```
@@ -173,4 +174,9 @@ Get-UnquotedService
 29. サービスの起動方法を確認する。
 ```
 Get-Service -Name <サービス名> | Select-Object DisplayName, StartType
+```
+
+30. プロセス名に対応するバイナリファイルのパスのみを列挙する。この場合はNotepadのバイナリファイルを表示するが、Notepadを抜いてGet-Processだけにすれば、すべてのプロセスに紐づくバイナリファイルを列挙できる。
+```
+Get-Process notepad | Select-Object -ExpandProperty Path
 ```

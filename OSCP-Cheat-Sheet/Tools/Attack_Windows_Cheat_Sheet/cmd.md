@@ -59,3 +59,10 @@ W	Write-only access
 ```
 wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v """
 ```
+
+11. スケジュールされているすべてのタスクを確認する。  
+/fo => 引数にLISTを渡してリスト形式の出力を得る  
+/v => タスクのすべてのプロパティを表示する
+```
+schtasks /query /fo LIST /v
+```
