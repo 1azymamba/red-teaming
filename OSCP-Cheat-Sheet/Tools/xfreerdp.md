@@ -7,3 +7,8 @@ WindowsマシンへのKaliからのrdp接続などで使用できる。
 ```
 xfreerdp /u:offsec /p:lab /v:192.168.249.196:<port>
 ```
+
+2. 高速でつなげてクリップボードと共有フォルダ付き。
+```
+xfreerdp +clipboard /drive:/ctf/tmp/share -fast-path +bitmap-cache /network:auto /dynamic-resolution /compression-level:2 /u:<user> /p:<pass> /v:<IP>
+```
