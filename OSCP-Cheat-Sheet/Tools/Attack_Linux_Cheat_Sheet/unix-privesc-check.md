@@ -14,3 +14,4 @@ unix-privesc-check
 ```
 ./unix-privesc-check standard > output.txt
 ```
+
