@@ -180,3 +180,88 @@ Get-Service -Name <サービス名> | Select-Object DisplayName, StartType
 ```
 Get-Process notepad | Select-Object -ExpandProperty Path
 ```
+
+## AD recon
+
+1. ドメインのユーザを列挙する
+```
+net user /domain
+```
+
+2. ドメイン内のグループを列挙する
+```
+net group /domain
+```
+
+3. jeffadminのドメイン内での情報を確認する
+```
+net user jeffadmin /domain
+```
+
+4. ドメイン内にあるManagement Departmentグループのメンバーを列挙する。
+```
+net group "Management Department" /domain
+```
+
+5. .NETクラスにおけるSystem.DirectoryServices.ActiveDirectory名前空間のDomainクラスの、GetCurrentDomainメソッドを呼び出す。現在のユーザのドメインオブジェクトを返す。
+```
+[System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
+```
+
+6. DistinguishedNameを取得する
+```
+([adsi]'').distinguishedName
+```
+
+7. サービスアカウントの一つであるiis_serviceというユーザ名に対して、SPNの列挙を行う。
+```
+setspn -L iis_service
+```
+
+## PowerView
+1. インポートする
+```
+Import-Module .\PowerView.ps1
+```
+
+2. ドメインに関する基本情報を取得する
+```
+Get-netDomain
+```
+
+3. ドメイン内の全てのユーザのリストを取得する
+```
+Get-NetUser
+```
+
+4. 各ユーザの出力に対して、属性を指定してそれらも表示する。ユーザがパスワードを最後に変更したのはいつか、最後にログオンしたのはいつか、そしてCommon Nameの属性。
+```
+Get-NetUser | select cn,pwdlastset,lastlogon
+```
+
+5. ドメイン内のグループを列挙する。
+```
+Get-NetGroup | select cn
+```
+
+6. グループの列挙で見つけたグループのDistinguished Nameを取得する。
+```
+Get-NetGroup "Sales Department" | select member
+```
+
+7. ドメイン内のコンピュータオブジェクトを列挙する。
+```
+Get-NetComputer
+```
+
+8. 現在ログインしているユーザが、コンピュータに対してローカル管理者権限を持っているかをスキャンする
+```
+Find-LocalAdminAccess
+```
+
+9. ドメイン内のマシンに対して、現在ログインしているユーザが存在するかをチェックする。  
+このコマンドの出力は、  
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\DefaultSecurityハイブのSrvsvcSessionInfoレジストリキーが有効になっている必要があり、このキーへのアクセス許可が無いといけない。
+```
+Get-NetSession -ComputerName files04
+```

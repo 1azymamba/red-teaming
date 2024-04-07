@@ -66,3 +66,4 @@ wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v "
 ```
 schtasks /query /fo LIST /v
 ```
+
