@@ -218,6 +218,11 @@ net group "Management Department" /domain
 setspn -L iis_service
 ```
 
+8. ドメインにstephanieユーザを追加する。
+```
+net group "Management Department" stephanie /add /domain
+```
+
 ## PowerView
 1. インポートする
 ```
@@ -265,3 +270,30 @@ HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\DefaultSecurit
 ```
 Get-NetSession -ComputerName files04
 ```
+
+10. 指定したユーザに適用されているACE(Access Control Entry)を列挙する。
+```
+Get-ObjectAcl -Identity stephanie
+```
+
+11. SecurityIdentifier(SID)を読める形式に変換する。
+```
+Convert-SidToName <SID>
+```
+
+12. Management DepartmentグループオブジェクトのAclを取得。  
+-eq => ActiveDirectoryRightsのプロパティがGenericAllのもののみ表示するようにフィルタ  
+```
+Get-ObjectAcl -Identity "Management Department" | ? {$_.ActiveDirectoryRights -eq "GenericAll"} | select SecurityIdentifier,ActiveDirectoryRights
+```
+
+13. ドメイン内のドメイン共有を検索する
+```
+Find-DomainShare
+```
+
+14. SIDをまとめてコンバート
+```
+"S-1-5-21-1987370270-658905905-1781884369-512","S-1-5-21-1987370270-658905905-1781884369-1104","S-1-5-32-548","S-1-5-18","S-1-5-21-1987370270-658905905-1781884369-519" | Convert-SidToName
+```
+

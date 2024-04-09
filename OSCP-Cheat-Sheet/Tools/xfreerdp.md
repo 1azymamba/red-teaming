@@ -17,3 +17,8 @@ xfreerdp +clipboard /drive:/ctf/tmp/share -fast-path +bitmap-cache /network:auto
 ```
 xfreerdp /u:stephanie /d:corp.con /v:192.168.241.75
 ```
+
+4. 決定版
+```
+xfreerdp /u:stephanie /d:corp.com /v:192.168.210.75 +clipboard /size:95% /drive:/<path_display_on_target>,/<attackerpath>
+```

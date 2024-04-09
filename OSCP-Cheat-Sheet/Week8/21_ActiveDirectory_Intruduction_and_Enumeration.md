@@ -46,3 +46,35 @@ DNの例: CN=Stephanie,CN=Users,DC=corp,DC=com
 - **サービスアカウント**=>サービスを起動・囚虜するために使用されるアカウントのこと。高い特権を持つグループのメンバーであることも少なくない。
 - IISやMS SQLといったサービスなどのアプリケーションがADに統合されると、**サービスプリンシパルネーム**(SPN)と呼ばれる一位のサービスインスタンスIDによって、サービスがAD内のサービスアカウントに紐づけられる。
 - ドメイン内でサービスアカウントを列挙するには、**SPN**を列挙すればいい。
+
+## ADの権限
+- ADは各オブジェクトに対して権限を設けており、これをACE(Access Control Entry)で定義する。さらにこのACEはACL(Access Control List)を構成する。
+- ACEによってオブジェクトに許可された権限に基づきターゲットオブジェクトにアクセスする。
+- 攻撃の観点で興味深いADの権限は以下。  
+```
+GenericAll: Full permissions on object
+GenericWrite: Edit certain attributes on the object
+WriteOwner: Change ownership of the object
+WriteDACL: Edit ACE's applied to object
+AllExtendedRights: Change password, reset password, etc.
+ForceChangePassword: Password change for object
+Self (Self-Membership): Add ourselves to for example a group
+```
+- ADの権限設定は複雑なため、ACLの構成ミスは起こり得る。特に**Generic All**は最も強力な権限だが、自分が利用できるユーザがGeneric Allの権限を持っていないかをSIDをもとに確認することは重要。
+
+
+## ドメイン共有
+- ドメイン共有には環境に関する重要な情報が含まれていることが多い。
+- PowerViewでドメイン共有を検索できるが、この時、**SYSVOL**は興味深い情報になる可能性がある。この共有フォルダはドメイン内の全てのユーザがアクセスでき、ドメインポリシーとスクリプトを格納している。
+
+
+## Automated Enumeration
+- 手動列挙を理解するのは重要だが、時間がかかる。なので特に大規模な環境では、自動ツールを使うことも検討するべき。
+- 実業務では手動列挙と自動列挙の両方を使う。
+- ただし多くの場合、商用利用で自動列挙ツールを使うとライセンス料がかかる。
+- また、自動ツールは大量のネットワークトラフィックが発生するため、SOC等がいた場合にバレやすくなる点に注意。
+- 手動と自動の両方を使うことが重要だが、自動でグラフィカルな図を作成し、よりアタックベクトルに気付きやすくなるといった利点がある。
+- 
+
+### SharpHoundによるデータ収集
+- 
