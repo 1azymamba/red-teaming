@@ -24,3 +24,18 @@ john --wordlist=ssh.passwords --rules=sshRules ssh.hash
 ```
 john --show ssh.hash
 ```
+
+4. パスワードつきZIPからパスワードをハッシュで抽出する
+```
+zip2john ./hoge.zip > hash.txt
+```
+
+5. 抽出したzipのパスワードをjohnで解析する
+```
+john hash.txt
+```
+
+6. MD5フォーマットのハッシュを解析する。ハッシュはMD5形式でそのまま.txtファイルとかにechoで入れておく。
+```
+john --format=raw-md5 crack.txt --wordlist=/usr/share/wordlists/rockyou.txt
+```
