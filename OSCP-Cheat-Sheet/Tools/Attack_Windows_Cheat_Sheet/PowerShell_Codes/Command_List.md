@@ -77,6 +77,11 @@ Get-LocalUser
 net user paul
 ```
 
+12. 確認したいユーザがドメインに属している場合に、そのユーザのグループを確認する
+```
+net user hoge /domain
+```
+
 13. ホスト上の既存のグループを列挙する
 ```
 Get-LocalGroup
@@ -309,4 +314,17 @@ Find-DomainShare
 1. Nexus123!のパスワードを使ってパスワードスプレー。-Adminで管理者アカウントのテストも行う。
 ```
 .\Spray-Passwords.ps1 -Pass Nexus123! -Admin
+```
+
+## Privilege Escalation
+
+1. メモリの中に保存されているチケットを確認する。
+```
+klist
+```
+
+2. web04ターゲットで走っているiisサービスに、現在のデフォルトのクレデンシャルでサインインする。  
+メモリにシルバーチケットなどがあればこれで入れる。
+```
+iwr -UseDefaultCredentials http://web04
 ```

