@@ -88,3 +88,8 @@ sudo nmap --script-updatedb
 > [!NOTE]
 > NSEはもちろん有益な情報を与えてくれるが、GitHub等からスクリプトを落とす際はそのスクリプトがバックドアとして機能しないかなど、コードを読んで安全であることを確かめてから落とすこと。
 
+## コマンド集
+1. LDAPのポートを狙って詳細スキャンする
+```
+sudo nmap -n -sV --script "ldap* and not brute" -p 389 <targetIP> > ldapenum.txt
+```

