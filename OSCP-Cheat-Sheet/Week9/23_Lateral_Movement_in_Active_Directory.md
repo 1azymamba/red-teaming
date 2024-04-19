@@ -29,3 +29,12 @@
 3. **ADMINS$**の管理共有が使用可能であること。
 4. 攻撃者は、ターゲットにおいてローカルの管理者権限を持つ資格情報を持っていること。(ローカル管理者権限があること)
   
+
+## Overpass the Hash
+- Overpass the Hashの手法を使うと、Kerberos TGT(Ticket Granting Ticket)を取得できる。仕組みとしては、キャッシュされているNTLMパスワードハッシュをKerberos TGTにアップグレードすることが可能。
+- TGTを使用して、**TGS**も取得できる。
+- mimikatzでNTLMハッシュを取得できるが、ユーザがなんらかのサービスへのNTLMでの認証を行う必要があるので、mimikatzする前にrunas different userとかをしてドメイン認証とかをしておく。
+- mimikatzでNTLMをダンプしてそのNTLMを使ってサービス実行の際の認証を行える。
+- サービス実行したと、klistコマンドでキャッシュされたKerberosチケットを確認できる。
+- で、認証した後に共有フォルダとかにアクセスすると、TGTとTGSが生成される。
+- 

