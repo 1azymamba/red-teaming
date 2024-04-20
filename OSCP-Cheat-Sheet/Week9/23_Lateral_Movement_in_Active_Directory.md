@@ -31,10 +31,40 @@
   
 
 ## Overpass the Hash
-- Overpass the Hashの手法を使うと、Kerberos TGT(Ticket Granting Ticket)を取得できる。仕組みとしては、キャッシュされているNTLMパスワードハッシュをKerberos TGTにアップグレードすることが可能。
+- Overpass the Hashの手法を使うと、Kerberos TGT(Ticket Granting Ticket)を取得できる。仕組みとしては、キャッシュされているNTLMパスワードハッシュをKerberos TGTにアップグレードすることが可能。これによって、Kerberos認証を使うシステムへアクセスできるようになる。
 - TGTを使用して、**TGS**も取得できる。
 - mimikatzでNTLMハッシュを取得できるが、ユーザがなんらかのサービスへのNTLMでの認証を行う必要があるので、mimikatzする前にrunas different userとかをしてドメイン認証とかをしておく。
 - mimikatzでNTLMをダンプしてそのNTLMを使ってサービス実行の際の認証を行える。
 - サービス実行したと、klistコマンドでキャッシュされたKerberosチケットを確認できる。
 - で、認証した後に共有フォルダとかにアクセスすると、TGTとTGSが生成される。
+
+## Pass the Ticket
+- Overpass the Hashと異なり、**Ticket Granting Service**を使う。
+
+
+## DCOM(Distributed Component Object Model)
+- DCMことDistributed Component Object Modelこと分散コンポーネントオブジェクトモデルは、割と新しい横展開の手法。
+- まず**COM**、つまりコンポーネントオブジェクトモデルは、相互に対話するソフトウェアコンポーネントを作成するためのシステム。らしい。
+- COMは、同一プロセスまたはプロセス間の対話のために使われる。
+- 一方**DCOM**は、ネットワーク上の複数のコンピュータ間の対話のために、COMを拡張したもの。
+- DCOMとのセッションは**TCP 135ポート**上のRPCを介して行われる。
+- DCOMサービスマネージャを呼び出すためにはローカル管理者アクセス権限が必要。
+
+
+## Active Directoryの永続化
+- 長くアクセスできた方が良いに決まってるので、足場を作った後は永続化を試みるのが定石。
+- ただし仕事でのペンテの場合は環境を後でクリーンにできなくなる可能性があるので永続化のステップを実行しない可能性もある。
+
+### ゴールデンチケット
+- Kerberos認証の復習になるが、ユーザが**Ticket Granting Ticket**のリクエストを送信すると、KDC(Key Distribution Center)は、ドメイン内のKDCだけが知っている秘密鍵を使ってTicket Granting Ticketを暗号化する。
+- この秘密鍵は、**krbtgt**というドメインユーザアカウントのパスワードハッシュである。
+- つまり**krbtgt**アカウントのパスワードハッシュを取得できれば、**ゴールデンチケット**と呼ばれるカスタムTGTを作成できる。
+- シルバーチケットは特定のサービスにアクセスするためのTicket Granting Serviceを偽装していたが、ゴールデンチケットはドメイン全体へのリソースにアクセスできるようになるので最も強力。
+- また、ここで良いのは、**krbtgt**アカウントのパスワードは自動的に変更されないという点。つまり永続的にアクセスできる。
 - 
+
+
+### シャドウコピー
+- **VSS(Volume Shadow Service)**とも呼ばれる**シャドウコピー**は、ファイルまたはボリューム全体のスナップショットを作成できるMSのバックアップ機能。
+- Volume Shadow Copyを管理するために、**vshadow.exe**がWindowsSDKの一部として使われる。
+- vshadow.exeを使うことで、ADのデータベースとして利用される**NTDS.dit**のバックアップを取得することができる。

