@@ -167,7 +167,7 @@ sekurlsa::logonpasswords
 2. **Pass the Hash**攻撃を行う。  
 実行には**SeDebugPrivilege**権限かローカルのSYSTEM権限が必要。
 ```
-sekurlsa::pth /usr:jen /ntlm:********** /domain:corp.com
+sekurlsa::pth /user:jen /ntlm:********** /domain:corp.com
 ```
 
 ### lsadumpモジュール
@@ -276,10 +276,15 @@ Service Ticketは、対象サービスのアカウントのパスワードのNT�
 4. kerberos::golden /user:hoge /domain:hoge /sid:hoge /rc4:hoge /target:hoge /service:hoge /pttで成功。
 
 ### DCSync
-DCに成りすましてドメコンは以下のアカウントのパスワードハッシュを取得する攻撃テク。  
+DCに成りすましてドメコン配下のアカウントのパスワードハッシュを取得する攻撃テク。  
 DCは通常冗長性確保のために複数台で構成される。  
 プライマリのDCとその他のDCがいるので、そいつらが同期するときに使うプロトコルを悪用する。  
 DCSyncによってkrbtgtのパスワードハッシュを取得できる可能性もあって便利。  
+DCSyncは、プライマリ以外のDCからのリクエストに対して、DCのチェックを行わない。  
+代わりにプライマリDCは、**SIDに適切な権限が割り当てられているかをチェックする**。  
+なので、特定の権限を持つユーザからDCに対して不正な更新要求を行えばDCSyncが成功する。  
+  
+**DCSyncが成功した場合、任意のユーザの資格情報を要求&取得できる**。
   
 前提条件として、DCを複製できる権限を持ったアカウントを侵害する必要がある。  
 デフォだと**Domain Admins, Enterprise Admins, Administrators, Domain Controllersグループが権限を持ってる。**
