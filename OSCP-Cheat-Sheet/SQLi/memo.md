@@ -121,3 +121,78 @@ ORDER BY price DESC;
 ```.sql
 SELECT * FROM purchases LIMIT 5;
 ```
+
+## DISTINCT
+- **DISTINCT (カラム名)**で、重複したデータを省くことができる。
+
+```.sql
+SELECT DISTINCT(name) FROM purchases;
+```
+
+## 四則演算
+### 足し算
+- カラム名 + 111
+### 引き算
+- カラム名 - 111
+### 掛け算
+- カラム名 * 111
+### 割り算
+- カラム名 / 111
+
+## 集計関数
+- 四則演算的なのを簡単に行える組み込みの関数。
+### SUM
+- SUM(カラム名)で、合致したカラムのデータを合計した値を取得できる。
+- 以下は、purchasesテーブルからpriceというカラムを指定し、priceカラムに合致したデータをすべて合計した値を取得する。
+
+```.sql
+SELECT SUM(price) FROM purchases;
+```
+
+### AVG
+- AVG(カラム名)で、合致したカラムのデータを平均した値を取得できる。
+```.sql
+SELECT AVG(price) FROM purchages;
+```
+
+### COUNT
+- COUNT(カラム名)で、合致したカラムのデータの数を変えることができる。
+- なお、NULLのデータはカウントされない。
+```.sql
+SELECT COUNT(price) FROM purchases;
+```
+
+- NULLのデータをカウントしたくない場合は、COUNT(*)で
+```.sql
+SELECT COUNT(*) FROM purchases;
+```
+
+### MAX
+- MAX(カラム名)で、カラムの中で最も大きい値を取得できる。
+```.sql
+SELECT MAX(price)
+```
+### MIN
+- MIN(カラム名)で、カラムの中で最も小さい値を取得できる。
+```.sql
+SELECT MIN(price);
+```
+## GROUP BY
+- GROUP BY カラム名で、そのカラムで同じ値のものは同じグループとして扱われる。
+- GROUP BYを使っている場合、SELECTでは、集計関数とGROUP BYで指定しているカラム名しか指定できない。
+```.sql
+SELECT SUM(price), name FROM purchase
+GROUP BY name;
+```
+### 複数カラムでのGROUP BY
+- 複数カラムでのグループ化も可能。
+- GROUP BY カラム名1, カラム名2のようにして書く。
+```.sql
+GROUP BY name, purchased_at
+```
+
+### HAVINGによるGROUP BYしたデータの条件指定
+- GROUP BYの後ろに**HAVING**を使うと、GROUP BYしたものを条件指定できる。
+```.sql
+GROUP BY purchased_at HAVING SUM(price) > 1000;
+```

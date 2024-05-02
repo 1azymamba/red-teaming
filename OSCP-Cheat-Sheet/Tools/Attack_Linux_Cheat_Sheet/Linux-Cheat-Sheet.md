@@ -289,6 +289,12 @@ find /home/joe/Desktop -exec "/usr/bin/bash" -p \;
 sudo -l
 ```
 
+26. 匿名ログインでftpからファイルをダウンロードとかできないかチェックする。  
+-mで再帰的にミラーリングできるらしい。ターゲットIPのアクセス可能なフォルダをすべて取得できる。深さ関係なし。
+```
+wget -m ftp://anonymous:anonymous@192.168.215.245
+```
+
 # Linux Privilege Escalation
 [GTFObin](https://gtfobins.github.io/)  
 Linuxの権限昇格で困ったら↑を参照。  

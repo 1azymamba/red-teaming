@@ -93,3 +93,8 @@ sudo nmap --script-updatedb
 ```
 sudo nmap -n -sV --script "ldap* and not brute" -p 389 <targetIP> > ldapenum.txt
 ```
+
+2. FTPにおける匿名ログインの有無をチェックする
+```
+sudo nmap 192.168.219.143 --script=ftp-anon.nse -p 21
+```
