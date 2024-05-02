@@ -49,3 +49,19 @@ ls -lah /etc/cron*
 sudo crontab -l
 ```
 3. /etc/passwdに書き込めれば、shadowよりも優先して認証に使われるため、任意のアカウントに任意のパスワードを設定できる。/etc/passwdに書き込み権限はないか
+
+4. kernel exploitは機能するか。以下のコマンドでOSとカーネルの情報を取得して脆弱性を検索できる。  
+ただしkernel exploitを実行するとマシンがぶっ壊れる可能性があるので最後の手段としておく。
+```
+uname -a
+cat /proc/version
+cat /etc/issue
+```
+
+5. sudoのバージョンを確認し、そのバージョン自体にLPEの脆弱性が無いか。
+6. 以下のコマンドで書き込み可能なファイルが、cronによってroot実行されるものではないか。
+```
+crontab -l
+ls -lah /etc/cron*
+find / -writable -type d 2>/dev/null
+```

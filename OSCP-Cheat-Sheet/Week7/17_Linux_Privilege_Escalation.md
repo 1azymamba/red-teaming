@@ -39,7 +39,15 @@ root2:Fdzt.eqJQ4s0g:0:0:root:/root:/bin/bash
 
 
 ### SUIDを使った権限昇格
+- SUIDは**Set User ID**のこと。**誰がそのファイルを実行しても、セットされたユーザで実行される。**という状態。
+- 所有者がrootで、かつSUIDが指定されていると、どのユーザが実行してもroot権限で実行されたことになる。
+- 例えばls -lで権限を確認したときの以下。sフラグがついていると、それはSUIDを示す。この時、**実行権限があるとs、実行権限が無いとS**になる。
+-rwsr-xr-x
 - ユーザパスワードは/etc/shadowにハッシュとして格納されていて、これはroot(uid=0)のみが閲覧、書き込みできる。
+- 以下のコマンドで、SUIDビットが設定された(-perm -u=s)ファイル(-type f)を検索できる
+```
+find / -perm -u=s -type f 2>/dev/null
+```
 
 
 ### sudoの悪用
@@ -54,3 +62,5 @@ root2:Fdzt.eqJQ4s0g:0:0:root:/root:/bin/bash
 - /etc/issueでのLinuxバージョン確認、uname -rでのかねーるバージョンの確認、archによるアーキテクチャの確認が最低でも必須。
 - 情報を収集したら、searchsploitでエクスプロイトを調べて使用する。
 - コンパイルはターゲット上で行うのが良い。
+
+
