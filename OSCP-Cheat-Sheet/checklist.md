@@ -65,3 +65,12 @@ crontab -l
 ls -lah /etc/cron*
 find / -writable -type d 2>/dev/null
 ```
+7. SUIDがセットされているバイナリファイルを現在のユーザから実行できないか。  
+SUIDがセットされているファイルは以下で検索できる。
+```
+find / -perm -u=s -type f 2>/dev/null
+```
+
+8. /etc/sudoersに書き込み権限がないか。
+
+9. /opt配下にバックアップファイルなどが無いか。バックアップされた過去のファイルから認証情報を取得できる可能性がある。
