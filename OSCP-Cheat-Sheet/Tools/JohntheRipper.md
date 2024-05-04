@@ -32,7 +32,7 @@ zip2john ./hoge.zip > hash.txt
 
 5. 抽出したzipのパスワードをjohnで解析する
 ```
-john hash.txt
+john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
 ```
 
 6. MD5フォーマットのハッシュを解析する。ハッシュはMD5形式でそのまま.txtファイルとかにechoで入れておく。

@@ -37,8 +37,28 @@ version
 12. 自分がアクセスできるユーザが、SIDをコンバートしたときに、ドメイン内でGenericAllのような強力なユーザを持っていないか
 13. ドメイン共有内の古いポリシーファイルの.xmlファイルに、GPP(Group Policy Preference)のパスワードがないか
 14. Kerberos preauthenticationが無効になっているアカウントがドメイン内にないか。それがあれば、Rubeusやimpacket-GetNPUsersを使ってAS-REP Roasting攻撃を使ってユーザのパスワードをクラックできる可能性がある。
+15. 無人インストールで利用される以下のファイルに認証情報が残っていないか。
+```
+C:\Unattend.xml
+C:\Windows\Panther\Unattend.xml
+C:\Windows\Panther\Unatend\Unattend.xml
+C:\Windows\System32\sysprep.inf
+C:\Windows\System32\sysprep\sysprep.xml
+```
+16. whoami /privでトークン権限を確認後、EnableAllTokenPrivs.ps1のツールを使って全てをenabledにする。その後、そのトークンを使って権限昇格ができないか。
+17. PuttyがWindwosにインストールされている場合、reg queryコマンドで別ユーザの認証情報を取得できないか
+```
+reg query "HKCU\Software\SimonTatham\PuTTY\Sessions" /s
+```
 
 # Linux
+
+## 初期侵入
+1. nmapをする。-sC(TCP)と-sU(UDPスキャン)をそれぞれ必ず実行する
+2. ffufを--recursionで行う。wordlistsは/usr/share/wordlists/dirbuster/small.txt
+3. nc -nvでnmapに引っかからなかったサービスの正確なバージョンを特定する
+4. ポート80が動いていたら手動でWebアプリケーションの列挙を行う
+5. snmpが動いていた場合、v1ならコミュニティ文字列publicを使って書き込みからRCEができないか
 
 ## 権限昇格
 1. /home/user配下に.bash_historyがないか、また、その中に認証情報等が平文で書かれていないか
@@ -74,3 +94,5 @@ find / -perm -u=s -type f 2>/dev/null
 8. /etc/sudoersに書き込み権限がないか。
 
 9. /opt配下にバックアップファイルなどが無いか。バックアップされた過去のファイルから認証情報を取得できる可能性がある。
+
+10. pspyを実行してみて、パイプを使った怪しいプロセスなどが無いか。また、プロセスの引数に認証情報があったり誰でも読み書きできる.shファイルをroot権限で実行していたりしないか。

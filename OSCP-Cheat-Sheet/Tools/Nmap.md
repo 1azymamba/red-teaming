@@ -98,3 +98,8 @@ sudo nmap -n -sV --script "ldap* and not brute" -p 389 <targetIP> > ldapenum.txt
 ```
 sudo nmap 192.168.219.143 --script=ftp-anon.nse -p 21
 ```
+
+3. snmpのポートが開いているとわかった時に、に対するUDPスキャンを行う。
+```
+sudo nmap -sU --open -p 161 192.168.50.1-254 -oG open-snmp.txt
+```

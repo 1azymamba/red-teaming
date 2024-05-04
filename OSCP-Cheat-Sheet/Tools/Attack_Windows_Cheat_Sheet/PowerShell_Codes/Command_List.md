@@ -328,3 +328,8 @@ klist
 ```
 iwr -UseDefaultCredentials http://web04
 ```
+
+3. Windowsのアーキテクチャ(x64かx86)を確認するコマンド。
+```
+wmic os get osarchitecture
+```
