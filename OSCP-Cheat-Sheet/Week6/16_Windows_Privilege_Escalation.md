@@ -109,3 +109,70 @@ C:\Program Files\Enterprise Apps\Current Version\GammaServ.exe
 - **名前付きパイプ**は、Windowsにおけるローカルまたはリモートプロセス間通信の1つの方法。
 - 名前付きパイプによって、無関係な2つのプロセスが相互にデータを共有・転送する機能を提供する。
 - クライアントが名前付きパイプに接続 => サーバが接続プロセスから認証を取得 => **SeImpersonatePrivilege**を利用してクライアントを偽造できる => これが脆弱性の悪用につながる
+
+## よくある場所からパスワードを取得して権限昇格
+- Windowsにおけるもっとも簡単な権限昇格の方法として、パスワードが置かれがちな場所をチェックして平文で認証情報取得、というのがある。
+### Windowsにおけるインストールの自動化
+- 多数のホストにWindowsをインストールする場合、管理者がWindowsの展開を自動で行うことがある。
+以下のパスに注意。  
+```
+C:\Unattend.xml
+C:\Windows\Panther\Unattend.xml
+C:\Windows\Panther\Unattend\Unattend.xml
+C:\Windows\system32\sysprep.inf
+C:\Windows\system32\sysprep\sysprep.xml
+```
+### Powershellのhistoryから認証情報を取得
+- Powershellを使ってコマンドを実行すると、そのコマンドは過去のコマンドとしてファイルに保存される。
+- ユーザがパスワードを平文で含むようなコマンドを過去に実行していた場合、いかのコマンドでコマンドプロンプトからパスワードが取得できる。
+```
+type %userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt
+```
+- 以下のコマンドで、Windows端末に保存された認証情報を一覧で取得できる。
+```
+cmdkey /list
+```
+- また、以下のコマンドでrunasから資格情報が分からなくてもそのまま使用できたりする。
+```
+runas /savecred /user:admin cmd.exe
+```
+
+### IISの構成から権限昇格
+- IISのWebサイト構成は**web.config**というファイルに保存される。
+- ここには、DBのパスワードや構成された認証メカニズムなどが保管できる。
+- web.configはIISのバージョンによって以下のいずれかにある。
+```
+C:\inetpub\wwwroot\web.config
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config
+```
+- 以下のコマンドでweb.configにあるパスワードらしき文字列を検索できる。
+```
+type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config | findstr connectionString
+```
+
+### PuTTYから認証情報を取得して権限昇格
+- PuTTYは、Windowsで一般的にみられるSSHクライアント。
+- PuTTYには、クリアテキストの資格情報を含むプロキシ設定が保存される。
+- 以下のコマンドで取得が可能。
+```
+reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f "Proxy" /s
+```
+
+## 危険な特権の乱用による権限昇格
+- windowsには、ご存じ**SeBackup**等のDACLベースのアクセス制御が存在する。
+- これらの権限を利用することで、権限昇格が可能になることがある。
+
+### SeBackupとSeRestore
+- **SeBackupおよびSeRestore権限が有効になっている場合、設定されているDACLを無視して、システム内の任意のファイルを読み取りおよび書き込みできるようになる。**
+- 任意のファイル、とあるが、一例として**SAMおよびSYSTEMレジストリハイブ**をコピーしてローカル管理者のパスワードハッシュを抽出するといった手法が可能になる。
+
+
+
+## 脆弱なソフトウェアの悪用による権限昇格
+### パッチが適用されてい以内ソフトウェア
+- ターゲットシステム上のソフトウェアは、様々な権限昇格の問題を引き起こす可能性がある。
+- ドライバ同様、ユーザはOSを更新するほど頻繁にドライバを更新しないのがあるある。
+- 以下のwmicコマンドで、システムにインストールされているソフトウェアとそのバージョン一覧を取得できる。
+```
+wmic product get name,version,vendor
+```

