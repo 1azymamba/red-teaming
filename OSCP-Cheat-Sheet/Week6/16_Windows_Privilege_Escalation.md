@@ -176,3 +176,43 @@ reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f "Proxy" /s
 ```
 wmic product get name,version,vendor
 ```
+
+## Wuick Winの獲得
+- スケジュールタスクの設定をミスっていた場合、どのユーザ権限によって実行されるか、また、どのようなタスクを実行するかによってバイナリを書き換えからの権限昇格ができることがある。
+```
+schtasks /query /tn vulntask /fo list /v
+icacls C:\tasks\schtask.bat
+C:\> schtasks /run /tn vulntask
+# スケジュールタスクの確認 => タスクへの権限チェック => タスクの手動実行
+```
+- スケジュールタスクを確認して**Run as User**と**Task to Run**のパラメータをチェックするのが大事。
+- batを制御とかできれば、コマンドプロンプトをRun as Userのユーザ権限で実行できる。
+
+## Windowsサービスバイナリの設定ミスによる権限昇格
+- Windowsサービスは、**Service Control Manager(SCM)**によって管理されている。
+- Windowsにおける各サービスには、サービスが開始されるたびにSCMによって実行される**exeファイルが関連付けられている。**
+- 各サービスは、サービスを実行するユーザアカウントも、スケジュールタスクの時のように紐づけられている。
+- 以下のコマンドでサービスのチェックをしたときに、**BYNARY_PATH_NAME**のパラメータが、実際に実行されるコマンドになる。
+```
+sc qc apphostsvc # apphostsvcのサービス状態を確認する
+icacls <apphostsvcバイナリのファイルパス> #これで変更権限があればシェルをとれるかも。
+```
+
+## ダブルクオーテーションで囲われていないサービス実行を利用した権限昇格
+- Windowsにおいてサービスに紐づいたバイナリがダブルクオーテーションで囲われていない場合、権限昇格につながる可能性がある。
+- サービスにバイナリを紐づけるとき、そのバイナリのパスに**空白が含まれていて、かつダブルクオーテーションで囲まれていないと実行と気にエラーが発生する。**
+- 空白があってダブルクオーテーションで囲まれていない場合、空白以降はバイナリの引数として認識されてしまう。
+- SCMは以下の順番で、サービスの実行が失敗してもパスを見つけようとする。
+```
+First, search for C:\\MyPrograms\\Disk.exe. If it exists, the service will run this executable.
+If the latter doesn't exist, it will then search for C:\\MyPrograms\\Disk Sorter.exe. If it exists, the service will run this executable.
+If the latter doesn't exist, it will then search for C:\\MyPrograms\\Disk Sorter Enterprise\\bin\\disksrs.exe. This option is expected to succeed and will typically be run in a default installation.
+```
+## WindowsサービスのACL設定ミスによる権限昇格
+- 上述したサービスに紐づいたバイナリの書き換えに似ている。
+- ここでは、サービスに紐づいたバイナリではなく、**サービスそのもののDACL**設定ミスによるサービスの再設定を試す。
+- 例えばBuilt in UserグループがSERVICE_ALL_ACCESSの権限を持っていた場合、誰でもサービスの設定を変更できる。  
+- 以下のコマンドで、サービスの設定を変えることができる。
+```
+sc config THMService binPath= "C:\Users\thm-unpriv\rev-svc3.exe" obj= LocalSystem
+```

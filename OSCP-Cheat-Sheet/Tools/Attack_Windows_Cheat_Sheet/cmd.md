@@ -67,3 +67,7 @@ wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v "
 schtasks /query /fo LIST /v
 ```
 
+12. apphostsvcというサービスに対してクエリを送り、サービスの状態を確認する。
+```
+sc qc apphostsvc
+```
