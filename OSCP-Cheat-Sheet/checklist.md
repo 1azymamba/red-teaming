@@ -95,6 +95,8 @@ C:\> schtasks /run /tn vulntask
 # スケジュールタスクの確認 => タスクへの権限チェック => タスクの手動実行
 ```
 
+23. SeTakeOwnershipが有効になっていないか。utilman.exeを書き換えてロック画面からSYSTEM権限のcmd.exeを起動できる可能性がある。
+
 ===========
 
 # Linux

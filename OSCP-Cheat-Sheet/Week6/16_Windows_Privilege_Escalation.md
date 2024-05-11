@@ -166,6 +166,15 @@ reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f "Proxy" /s
 - **SeBackupおよびSeRestore権限が有効になっている場合、設定されているDACLを無視して、システム内の任意のファイルを読み取りおよび書き込みできるようになる。**
 - 任意のファイル、とあるが、一例として**SAMおよびSYSTEMレジストリハイブ**をコピーしてローカル管理者のパスワードハッシュを抽出するといった手法が可能になる。
 
+### SeTakeOwnershipの悪用
+- **SeTakeOwnership**を使うと、ユーザはファイルやレジストリキーを含むシステム上のあらゆるオブジェクトの所有権を取得できる。
+- なので、SeTakeOwnershipを使って特権昇格を行うシナリオも少なくない。
+- シナリオとして、utilman.exeのバイナリをcmd.exeに書き換えてからロック画面でcmdをSYSTEM権限で実行する、というものがある。
+
+### SeImpersonateとSeAssignPrimaryTokenの悪用
+- これらのトークンを使うと、プロセスが他のユーザになりすまして、そのユーザに代わって動作するということが可能になる。
+- 
+
 
 
 ## 脆弱なソフトウェアの悪用による権限昇格
