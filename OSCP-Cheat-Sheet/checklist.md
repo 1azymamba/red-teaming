@@ -111,10 +111,14 @@ wmic product get name,version,vendor
 
 ## 初期侵入
 1. nmapをする。-sC(TCP)と-sU(UDPスキャン)をそれぞれ必ず実行する
-2. ffufを--recursionで行う。wordlistsは/usr/share/wordlists/dirbuster/small.txt
+2. ffufを--recursionで行う。wordlistsは/usr/share/wordlists/dirbuster/small.txtを試してから、何も出てこなければmedium.txtも試すこと。
 3. nc -nvでnmapに引っかからなかったサービスの正確なバージョンを特定する
 4. ポート80が動いていたら手動でWebアプリケーションの列挙を行う
 5. snmpが動いていた場合、v1ならコミュニティ文字列publicを使って書き込みからRCEができないか
+6. sshの認証系がすべてダメでユーザ名だけわかっている場合、以下のhydraによるブルートフォースでパスワードを破れないか。
+```
+hydra -l user_name -P /usr/share/wordlists/rockyou.txt -s 22 ssh://192.168.231.142
+```
 
 ## 権限昇格
 1. /home/user配下に.bash_historyがないか、また、その中に認証情報等が平文で書かれていないか
