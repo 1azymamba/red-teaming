@@ -12,6 +12,7 @@
 7. WordPressを使っている場合、pluginの脆弱性はないか
 8. WordPressを使っている場合、PHPファイルの書き換えからRCEにつなげられないか
 9. パストラバーサルの脆弱性がある場合、SSHの秘密鍵をアップロードで書き換えられないか
+9. ファイルアップロードができる場合、.sshフォルダ内にauthorized_keysファイルを作成し、そこにssh-keygenで作成したid_rsa.pubをアップロードできないか。
 10. nmapでldapスキャンをしてユーザ名を取得後、impacket-GetNPUsersでパスワードスプレーでAS-repできないか
 11. /apiエンドポイントが見つかった場合、その配下に何か興味深いエンドポイントが無いか。このとき、wordlistsはcommon.txtだけでなくbig.txt、dirbusterディレクトリ配下のmedium.txt等複数試したか。特にmedium.txtかsmall.txtはwordの数が多いのでガチでやるときに良い。
 12. nmapで?になってるポートに対して以下を実行して、ターゲットのサービスとバージョン等を確認できないか。
@@ -97,6 +98,13 @@ C:\> schtasks /run /tn vulntask
 
 23. SeTakeOwnershipが有効になっていないか。utilman.exeを書き換えてロック画面からSYSTEM権限のcmd.exeを起動できる可能性がある。
 
+24. SeImpersonateとSeAssignPrimaryTokenが有効になっていないか。これらのうち一つが有効になっている場合、他のユーザになりすましてサービスを実行できる。whoami /privでトークンを確認可能。
+
+25. wmicでターゲットシステムを列挙したときに、脆弱なソフトウェアバージョンがインストールされていないか。
+```
+wmic product get name,version,vendor
+```
+
 ===========
 
 # Linux
@@ -111,7 +119,7 @@ C:\> schtasks /run /tn vulntask
 ## 権限昇格
 1. /home/user配下に.bash_historyがないか、また、その中に認証情報等が平文で書かれていないか
 2. /home/usr/.bashrc内にセットされている環境変数に、認証情報がは無いか
-3. cronにスケジュールされいるファイルの中に、現在のユーザで書き込みができ、rootでcronの実行権限があるファイルはないか。  
+3. cronにスケジュールされているファイルの中に、現在のユーザで書き込みができ、rootでcronの実行権限があるファイルはないか。  
 ```
 ls -lah /etc/cron*
 sudo crontab -l

@@ -11,4 +11,7 @@ wget https://github.com/RustScan/RustScan/releases/download/2.2.3/rustscan_2.2.3
 dpkg -i ./rustscan_2.2.3_amd64.deb
 ```
 
-2. 
+2. 全ポートをスキャンして開いてるポートのスキャンのみnmapに渡す。
+```
+rustscan -a 192.168.231.249 -- -A -sCV -Pn > rustscan
+```

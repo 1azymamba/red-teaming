@@ -225,3 +225,15 @@ If the latter doesn't exist, it will then search for C:\\MyPrograms\\Disk Sorter
 ```
 sc config THMService binPath= "C:\Users\thm-unpriv\rev-svc3.exe" obj= LocalSystem
 ```
+
+## 脆弱なソフトウェアの悪用
+
+### パッチが適用されていないソフトウェア
+- ドライバが更新されるほど頻繁にソフトウェアはアップデートされない傾向にある。
+- 以下のコマンドでwindows上にインストールされているソフトウェアを列挙することが可能。
+```
+wmic product get name,version,vendor
+```
+- ただし上記のコマンドはすべてのインストールされているソフトウェアを返すわけではない点に注意。
+- デスクトップ上のショートカットや利用可能なサービスなどを手動で列挙することももちろん重要。
+- 脆弱なソフトウェアのバージョン情報を特定したら、exploit-db等で調べて昇格を行う。
