@@ -8,6 +8,9 @@ PrivEsc = 1H 45min
 
 ## 教訓
 - SQLiはレスポンスのエラーをよく見ること。
+- なんか調べたらsmbと[2こめ](https://github.com/PeterSufliarsky/exploits/blob/master/CVE-2014-5301.py)のexploitが一番簡単な方法だったらしい。
+- 誰も自分のと同じやり方の人いなかった。
+- とりまrustscanやったあとはnmapもした方が良いかも。smbのvulnerabilityを表示してくれてた。
 
 ## 手順
 1. とりまいつものrustscan。135,139,445,3389,8080があいてた。

