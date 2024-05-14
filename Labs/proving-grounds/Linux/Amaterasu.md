@@ -3,6 +3,8 @@
 Ini Access = 2H 20min
 PrivEsc = 45min
 
+※iniaccessはヒントあり、privescはノーヒント
+
 ## 教訓
 - sshのアップロードで上書きするやつ、authorized_keysとssh-keygenの使い方覚えておけ。
 - curlでPOSTするとき、パラメータ等の書き方は応答を見ながら試行錯誤しろ。
