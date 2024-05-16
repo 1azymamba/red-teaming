@@ -8,7 +8,7 @@ privesc = 0min
 ※iniaccessした時点でroot取れているのでそもそもprivesc必要なし
 
 ## 教訓
-- 
+- かんたんだた
 - 
 
 ## 手順

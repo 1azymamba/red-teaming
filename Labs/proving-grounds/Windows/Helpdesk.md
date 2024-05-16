@@ -5,6 +5,7 @@ Difficulty = Easy
 IniAccess = 1H 45min  
 PrivEsc = 1H 45min  
 ※ノーヒント👏
+※SQLiした時点で初めからroot
 
 ## 教訓
 - SQLiはレスポンスのエラーをよく見ること。
