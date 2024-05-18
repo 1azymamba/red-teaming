@@ -5,6 +5,7 @@ iniaccess = 35min  next => impacket-GetNPUsersによるAS-repのパスワード�
 foothold = 
 privesc = 
 
+※AD系ダメなのでいったんストップ。THMやってからもういっかい。(5/18)
 
 ## 教訓
 

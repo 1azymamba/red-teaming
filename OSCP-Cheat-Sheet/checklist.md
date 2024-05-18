@@ -25,6 +25,12 @@ version
 
 14. ftp系を見つけたら、hydraで認証情報のブルートフォースができないか。
 
+15. ターゲットのドメイン名が分かっている場合、ldapsearchでユーザ名とパスワードを取得できないか。また、nmapでのldapサーチもしておく。
+```
+ldapsearch -v -x -b "DC=hutch,DC=offsec" -H "ldap://192.168.161.122" "(objectclass=*)"
+sudo nmap -n -sV --script "ldap* and not brute" -p 389 <targetIP> > ldapenum.txt
+```
+
 ## 権限昇格
 1. sudo -lで、パスワードなしでroot権限実行できるコマンドは無いか
 2. idコマンドで、現在ログイン中のユーザはどこのグループに属しているか
