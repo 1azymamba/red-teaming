@@ -30,7 +30,7 @@ snmpwalk -c public -v1 192.168.219.23 1.3.6.1.2.1.25.4.2.1.2
 
 # onesixtyone
 Kaliにデフォルトでインストール済み。
-SNMPサーバに対してSNMPおリクエストをぶん投げるツール。ターゲットデバイス上で動作しているソフトウェアについてのEnumerationが行える。
+SNMPサーバに対してSNMPリクエストをぶん投げるツール。ターゲットデバイス上で動作しているソフトウェアについてのEnumerationが行える。
 SNMPが161ポートで走るのでonesixtyone
 
 https://www.kali.org/tools/onesixtyone/
