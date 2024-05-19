@@ -142,7 +142,8 @@ info
 ```
 
 18. シェルを取った後に、Ctrl+Zでセッションをバックグラウンドにする。その後、msfconsole内でsessions -lを実行してsessionIdを特定。  
-session -i 2のようにしてsessionIdを指定して再度セッションに戻る。
+sessions -i 2のようにしてsessionIdを指定して再度セッションに戻る。  
+sessions -i 2ってやった後は、shellコマンドを入力してセッションを開始する。
 
 19. 現在useしているエクスプロイトで使えるpayloadを一覧表示する。 ファイル名に/がついているとステージングのペイロード。  
 非ステージングpayloadの方がNWトラフィックが発生しづらい。つまり_の方のファイル。

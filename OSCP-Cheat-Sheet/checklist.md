@@ -144,6 +144,14 @@ download .\SYSTEM /home/kali/Desktop/SYSTEM
 impacket-secretsdump -sam SAM -system SYSTEM LOCAL
 ```
 
+31. AD環境に入った後に他端末への横展開を狙う際、BloodHoundのクエリで以下を試して有効な情報が出てこないかを確認する。
+```
+Find Workstations where Domain Users can RDP
+Find Servers where Domain Users can RDP
+Find Computers where Domain Users are Local Admin
+Shortest Path to Domain Admins from Owned Principals
+```
+
 ===========
 
 # Linux
