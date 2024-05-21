@@ -167,6 +167,7 @@ Shortest Path to Domain Admins from Owned Principals
 hydra -l user_name -P /usr/share/wordlists/rockyou.txt -s 22 ssh://192.168.231.142
 ```
 7. .htaccessファイルをアップロードできないか。できる場合、.php等のコードが実行されずソースコードがレンダリングされるだけのシステムにおいて、ファイルを動的にスクリプトとして実行させることができるようになる。これによってファイルアップロード時の拡張子制限をバイパスできる。
+8. snmpのスキャンは時間がかかるのでかなり待つ。リダイレクトした出力は、homeやusr、id_rsaなどで検索をかけて探すとパスワードの取得につながることがある。
 
 
 ## 権限昇格
