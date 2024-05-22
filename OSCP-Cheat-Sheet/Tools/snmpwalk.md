@@ -20,3 +20,8 @@ snmpwalk -c public -v1 192.168.50.151 1.3.6.1.2.1.1
 ```
 snmpwalk -c public -v1 -Oa -t 192.168.50.151
 ```
+
+4. STRINGとINTEGERを引っ張り出す。
+```
+snmpwalk -c public -v2c 192.168.50.151 NET-SNMP-EXTEND-MIB::nsExtendObjects
+```
