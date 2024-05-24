@@ -13,7 +13,7 @@
 8. WordPressを使っている場合、PHPファイルの書き換えからRCEにつなげられないか
 9. パストラバーサルの脆弱性がある場合、SSHの秘密鍵をアップロードで書き換えられないか
 9. ファイルアップロードができる場合、.sshフォルダ内にauthorized_keysファイルを作成し、そこにssh-keygenで作成したid_rsa.pubをアップロードできないか。
-10. nmapでldapスキャンをしてユーザ名を取得後、impacket-GetNPUsersでパスワードスプレーでAS-repできないか
+10. nmapでldapスキャンをしてユーザ名を取得後、impacket-GetNPUsersでAS-REP roasting攻撃ができないか。AS-REP roastingは、ユーザ名のリストとDCのIP、また、ドメイン名が分かっているだけで可能になる。ちなみに、DC側で**DONT_REQ_PREAUTH**という設定がユーザに対して有効になっているとAS-REP Roastingができる可能性が出てくる。(WIndows 権限昇格の14番と同じ攻撃。横展開でも初期侵入でも使える。)
 11. /apiエンドポイントが見つかった場合、その配下に何か興味深いエンドポイントが無いか。このとき、wordlistsはcommon.txtだけでなくbig.txt、dirbusterディレクトリ配下のmedium.txt等複数試したか。特にmedium.txtかsmall.txtはwordの数が多いのでガチでやるときに良い。
 12. nmapで?になってるポートに対して以下を実行して、ターゲットのサービスとバージョン等を確認できないか。
 ```
@@ -32,6 +32,7 @@ sudo nmap -n -sV --script "ldap* and not brute" -p 389 <targetIP> > ldapenum.txt
 ```
 16. 全てのサービスに対するデフォルトクレデンシャルを使ったログインが可能かは常に試す。
 
+17. ユーザ名もパスワードもわからない場合は、kerbruteをLDAPサーバに対して行ってみる。
 
 ## 権限昇格
 1. sudo -lで、パスワードなしでroot権限実行できるコマンドは無いか
@@ -271,3 +272,12 @@ getcap -r / 2> /dev/null
 ```
 
 16. echo $PATHで出力した環境変数のパス内に書き込み権限が存在しないか。書き込み権限がある場合、バイナリを置き換えてrootへの昇格ができる場合がある。
+
+17. SUIDがセットされているなどでroot権限で実行できるファイルがあるとする。この場合、straceコマンドでそのプログラムから呼ばれるシステムコールを確認し、.soファイルがNo such file or direcotyrとなっている場合、その場所に自分で作ったライブラリを置いてインジェクションできる。
+```
+strace <target Binary path>
+or
+ldd <target Binary path>
+```
+
+18. linpeasしたときのLinux Exploit Suggesterで、Exposure: probableもless probableもすべて確認して試す。
