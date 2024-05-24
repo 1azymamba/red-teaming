@@ -2,7 +2,7 @@
 
 ## Time
 iniaccess = 1H 50min
-privesc = 
+privesc = 2H 23min
 
 ※ディスコヒントあり
 
