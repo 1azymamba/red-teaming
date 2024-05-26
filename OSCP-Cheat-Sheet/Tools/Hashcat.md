@@ -49,3 +49,8 @@ hashcat --help | grep -i "KeePass"
 ```
 sudo hashcat -m 18200 hashes.asreproast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
 ```
+
+8. Kerberoasint可能な形式のハッシュをクラックするコマンド。
+```
+hashcat -m 13100 -o hash_cracked -a 0 ./sql_svc_tgs /usr/share/wordlists/rockyou.txt --force
+```

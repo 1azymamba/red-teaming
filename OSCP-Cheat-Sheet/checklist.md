@@ -13,7 +13,7 @@
 8. WordPressを使っている場合、PHPファイルの書き換えからRCEにつなげられないか
 9. パストラバーサルの脆弱性がある場合、SSHの秘密鍵をアップロードで書き換えられないか
 9. ファイルアップロードができる場合、.sshフォルダ内にauthorized_keysファイルを作成し、そこにssh-keygenで作成したid_rsa.pubをアップロードできないか。
-10. nmapでldapスキャンをしてユーザ名を取得後、impacket-GetNPUsersでAS-REP roasting攻撃ができないか。AS-REP roastingは、ユーザ名のリストとDCのIP、また、ドメイン名が分かっているだけで可能になる。ちなみに、DC側で**DONT_REQ_PREAUTH**という設定がユーザに対して有効になっているとAS-REP Roastingができる可能性が出てくる。(WIndows 権限昇格の14番と同じ攻撃。横展開でも初期侵入でも使える。)
+10. nmapでldapスキャンをしてユーザ名を取得後、impacket-GetNPUsersでAS-REP roasting攻撃ができないか。AS-REP roastingは、ユーザ名のリストとDCのIP、また、ドメイン名が分かっているだけで可能になる。ちなみに、DC側で**DONT_REQ_PREAUTH**という設定がユーザに対して有効になっているとAS-REP Roastingができる可能性が出てくる。(WIndows 権限昇格の14番と同じ攻撃。横展開でも初期侵入でも使える。)ただし、88ポートのkerberosに通信できるという条件はある。
 11. /apiエンドポイントが見つかった場合、その配下に何か興味深いエンドポイントが無いか。このとき、wordlistsはcommon.txtだけでなくbig.txt、dirbusterディレクトリ配下のmedium.txt等複数試したか。特にmedium.txtかsmall.txtはwordの数が多いのでガチでやるときに良い。
 12. nmapで?になってるポートに対して以下を実行して、ターゲットのサービスとバージョン等を確認できないか。
 ```

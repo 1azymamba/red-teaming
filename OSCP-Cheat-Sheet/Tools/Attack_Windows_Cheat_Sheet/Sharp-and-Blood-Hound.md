@@ -45,7 +45,7 @@ bloodhound
 
 6. ドメイン内の全てのコンピュータを取得するカスタムクエリ
 ```
-MATCH (m:Compyter) RETURN m
+MATCH (m:Computer) RETURN m
 ```
 
 7. ドメイン内の全てのユーザを取得するカスタムクエリ
