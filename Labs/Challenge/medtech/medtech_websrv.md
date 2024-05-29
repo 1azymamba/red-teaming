@@ -5,6 +5,9 @@ privesc = none
 
 ※ディスコヒントあり、Attack surfaceの発見までは自力、SQLi動かなくてヒント。privescはこのマシンにない。
 
+## 教訓
+1. blind sqliだったらxp_cmdshell！！
+
 ## 手順
 1. いつものrustscan。80, 135, 139, 445, 5985などいろいろ開いてる。
 2. smbclientとrpcclientでのanonymousログオンはだめっぽい。
@@ -21,3 +24,8 @@ privesc = none
 13. blindなのでターゲットでxp_cmdshellを有効にしてコマンド実行が動いているかをチェックするのが正しいアプローチらしい。ちなみにここまでsqlmapもやってたがツールだとシェル獲得うまくいかなかった。
 14. xp_cmdshellの有効化は調べるとすぐ出てくるので、それでコマンド実行してmeterpreterのペイロード実行させてシェルゲット。それと、xp_cmdshellはsysadmin権限が無いとそもそも有効化できない。今回はたまたまあったからラッキー。
 15. 権限昇格はなさげなのでとりあえずproofとっておわり。
+
+## 総括
+1. まあディスコ見ちゃったけどこのまえUNIONとorder by勉強してたのは良かった
+2. blindsqlっていうのを見分けたらすぐにxp_cmdshellやるかっていう考えが出てくる必要がある
+3. blindsqli勉強できてよかた
