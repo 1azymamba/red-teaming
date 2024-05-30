@@ -1,4 +1,13 @@
 # impacket
+psexecやsmbserverやwmiexec等、WindowsにおけるLateral Movementにつかえるものがいろいろ入っている。
+
+## PsExec
+impacketの中に入っている機能の一部。  
+セッションの確立に使える。  
+Lateral Movementに利用するには、以下の3つの条件を満たしている必要がある。  
+1. psexecsvc.exeをC:\Windowsディレクトリに書き込める状態であること(リモートアクセス後に書き込み権限が必要ということ)
+2. リモートホスト上にサービスを作成して起動できる状態であること
+3. 要求されたプログラム/コマンドをpsexecsvc.exeの子プロセスとして実行できること
 
 ## コマンド集
 
