@@ -43,7 +43,7 @@ sudo nmap -n -sV --script "ldap* and not brute" -p 389 <targetIP> > ldapenum.txt
 6. (Get-PSReadlineOption).HistorySavePathコマンドで、PSReadlineモジュールが記録したPowerShellのコマンド履歴に認証情報が置いてないか
 7. Public\配下にtranscriptファイルが置かれていないか
 8. GUIアクセスできる場合、イベントビューア > Application and Service Log > Microsoft > Windows > PowerShell > Operationalにスクリプトログが残されていないか、そこに認証情報が無いか
-9. Windowsサービスに紐づいたバイナリファイルに、全ユーザに対してのフルアクセス権限が割り当てられており、バイナリファイル、もしくはDLLを書き換えられないか。
+9. Windowsサービスに紐づいたバイナリファイルに、全ユーザに対してのフルアクセス権限が割り当てられており、バイナリファイル、もしくはDLLを書き換えられないか。DLLハイジャックを試行する  
 ```
 sc qc apphostsvc # apphostsvcのサービスにクエリを送ってサービス状態を確認する。
 icacls <apphostsvcバイナリのファイルパス> #これで変更権限があればシェルをとれるかも。

