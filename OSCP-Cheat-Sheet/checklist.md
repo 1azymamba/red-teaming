@@ -281,3 +281,8 @@ ldd <target Binary path>
 ```
 
 18. linpeasしたときのLinux Exploit Suggesterで、Exposure: probableもless probableもすべて確認して試す。
+
+19. CRONジョブの実行をvarlogでチェックする。
+```
+grep "CRON" /var/log/syslog
+```
