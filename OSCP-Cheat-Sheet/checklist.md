@@ -43,7 +43,7 @@ sudo nmap -n -sV --script "ldap* and not brute" -p 389 <targetIP> > ldapenum.txt
 6. (Get-PSReadlineOption).HistorySavePathコマンドで、PSReadlineモジュールが記録したPowerShellのコマンド履歴に認証情報が置いてないか
 7. Public\配下にtranscriptファイルが置かれていないか
 8. GUIアクセスできる場合、イベントビューア > Application and Service Log > Microsoft > Windows > PowerShell > Operationalにスクリプトログが残されていないか、そこに認証情報が無いか
-9. Windowsサービスに紐づいたバイナリファイルに、全ユーザに対してのフルアクセス権限が割り当てられており、バイナリファイル、もしくはDLLを書き換えられないか。DLLハイジャックを試行する  
+9. Windowsサービスに紐づいたバイナリファイルに、全ユーザに対してのフルアクセス権限が割り当てられており、バイナリファイル、もしくはDLLを書き換えられないか。DLLハイジャックを試行する。  
 ```
 sc qc apphostsvc # apphostsvcのサービスにクエリを送ってサービス状態を確認する。
 icacls <apphostsvcバイナリのファイルパス> #これで変更権限があればシェルをとれるかも。
@@ -174,7 +174,7 @@ Add-DomainObjectAcl
 snmpwakl
 6. sshの認証系がすべてダメでユーザ名だけわかっている場合、以下のhydraによるブルートフォースでパスワードを破れないか。
 ```
-hydra -l user_name -P /usr/share/wordlists/rockyou.txt -s 22 ssh://192.168.231.142
+hydra -l <user_name> -P /usr/share/wordlists/rockyou.txt -s 22 ssh://192.168.231.142
 ```
 7. .htaccessファイルをアップロードできないか。できる場合、.php等のコードが実行されずソースコードがレンダリングされるだけのシステムにおいて、ファイルを動的にスクリプトとして実行させることができるようになる。これによってファイルアップロード時の拡張子制限をバイパスできる。
 8. snmpのスキャンは時間がかかるのでかなり待つ。リダイレクトした出力は、homeやusr、id_rsaなどで検索をかけて探すとパスワードやユーザ名の取得につながることがある。

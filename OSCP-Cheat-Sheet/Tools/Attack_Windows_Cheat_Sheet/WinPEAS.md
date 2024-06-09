@@ -10,6 +10,11 @@ Windows上で権限昇格のための情報収集を自動で行うツール。�
 .\winPEAS.exe log
 ```
 
+2. 高速版
+```
+Winpeas.exe quiet cmd fast
+```
+
 
 ## 着眼点
 1. DLL Hijacking in binary folderは熱い
