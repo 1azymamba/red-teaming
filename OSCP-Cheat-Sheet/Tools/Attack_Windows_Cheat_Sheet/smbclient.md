@@ -21,3 +21,9 @@ smbclient \\\\192.168.50.212\\secrets -U Administrator --pw-nt-hash 7a38310ea6f0
 ```
 smbclient --no-pass -L <//targetIP>
 ```
+
+5. 全てのコマンドを再帰的に実行するようにするrecurseモードを切り替える。
+```
+recurse ON
+recurse OFF
+```

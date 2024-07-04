@@ -40,6 +40,11 @@ session
 start
 ```
 
+6. ローカルポートフォワーディングするための設定。
+```
+sudo ip route add 240.0.0.1/32 dev ligolo
+```
+
 ### Agent側
 1. 
 ```
