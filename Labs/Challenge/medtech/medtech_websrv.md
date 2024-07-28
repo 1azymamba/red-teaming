@@ -4,6 +4,7 @@ foothold = 2H
 privesc = none
 
 ※ディスコヒントあり、Attack surfaceの発見までは自力、SQLi動かなくてヒント。privescはこのマシンにない。
+※2024/7/28追記 SeImpersonatePrivilegeが有効でWindows10なので、PrintSpooferの実行で権限昇格が可能。
 
 ## 教訓
 1. blind sqliだったらxp_cmdshell！！

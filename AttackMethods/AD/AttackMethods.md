@@ -33,7 +33,7 @@ Windows 10 1809以降に存在する脆弱性を突いた、権限昇格の脆�
 Windows Server 2019, 2016でも動くが、5985ポートをリッスンポートに使うのでWinRMがWindows端末上で動いていると機能しない。
 [脆弱性みっけた人の良記事](https://decoder.cloud/2019/12/06/we-thought-they-were-potatoes-but-they-were-beans/)  
   
-ただしRogueWinRMは、ターゲット上でWinRMが動いているかいないかによて攻撃の成否が決まってしまう。  
+ただしRogueWinRMは、ターゲット上でWinRMが動いているかいないかによって攻撃の成否が決まってしまう。  
 なのでそのような場合はprintspoofer.exeで代替できることがある。
 
 ### 攻撃で使用できるツール
