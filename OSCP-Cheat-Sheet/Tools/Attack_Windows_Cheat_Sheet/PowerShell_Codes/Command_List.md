@@ -239,6 +239,16 @@ net accounts
 net user hoge password /add /domain
 ```
 
+11. Passw0rd!というパスワードを持つhogeユーザを、ロカールコンピュータ内に生成する。
+```
+net user hoge Passw0rd! /add
+```
+
+12. hogeユーザを、ローカルのAdministratorsグループに追加する。
+```
+net localgroup Administrators hoge /add
+```
+
 ## PowerView
 1. インポートする
 ```
