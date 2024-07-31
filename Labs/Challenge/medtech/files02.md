@@ -8,7 +8,8 @@ pivot = 2.5H
 
 
 ## 手順
-1. 公開サーバから内部に入る。
+0. .121のWEB02でPrivEscしてから、mimikatzでjoeの平文パスワード(Flowers1)を取得。
+1. その後、nxc smbでPwn3dできることがわかるので中に入る。
 2. サービス権限しかないので権限昇格を狙う。今回はmetasploitでシェルをとっていたので、privescが自動的にできてもうた。
 3. とりまsystemとってるのでmimikatzかます。けど最新バージョンでなぜかsekurlsa::logonpasswordsがこける。
 4. kaliデフォルトで入ってるmimikatzのx64バイナリをぶっかましたら成功。
