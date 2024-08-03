@@ -30,7 +30,7 @@ Get-Help Invoke-BloodHound
 
 3. -CollectionMethod => すべての収集メソッドを実行する  
 ```
-Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\Users\stephanie\Desktop\ -OutputPrefix "corp audit"
+Invoke-BloodHound -CollectionMethod All -OutputDirectory ./ -Domain medtech.com -LDAPUser joe -LDAPPass 'Flowers1' -DomainController 172.16.248.10
 ```
 
 4. Neo4jサービスの開始。neo4jは、NoSQLをつかった収集データのグラフィカル化をするためのもの。

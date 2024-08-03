@@ -15,3 +15,4 @@ pivot = 2.5H
 4. kaliデフォルトで入ってるmimikatzのx64バイナリをぶっかましたら成功。
 5. crackmapexecでパスワードスプレーしてからpwndしたやつをpsexecでアクセスしてはじめからsystemなのでこれでproofとっておわり。
 6. ちなむと、mimikatzでとれるハッシュとSAMから取れるやつは違うぽいので注意。今回の学びこれ。lsassからダンプするのがlogonpasswords。あと、安定させるならpsexecよりevil-winrmで入った方がいい。47001でwinrmのポートもあいてるので。
+7. 横展のために、Documents配下にあるfileMonitorBackup.logというファイルをローカルに落として中を確認すると、ユーザ名とNTLMハッシュのリストが手に入るのでメモしておく。
