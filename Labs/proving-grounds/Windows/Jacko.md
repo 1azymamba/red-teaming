@@ -22,6 +22,5 @@ privesc =  ∞
 ```
 set PATH=%PATH%C:\Windows\System32;C:\Windows\System32\WindowsPowerShell\v1.0;
 ```
-
-## 総括
-- 
+8. Program Filesx86フォルダの下に、[このソフト](https://www.exploit-db.com/exploits/49382)がある。このソフトのパブリックエクスプロイトを使って権限昇格して終わり。
+9. この時、winpeasやprivesccheckの結果が結構ヒットする。dllハイジャックやSeImpersonateなど。SeImpersonateはgodpotatoで機能するらしいが自分の環境では再現できず。他にもいくつか別の方法してる人はいたが、このPagerのパブリックエクスプロイトからいくのが意図したパスっぽい？
