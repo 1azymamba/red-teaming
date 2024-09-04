@@ -47,3 +47,4 @@ APIドキュメントを見つけるためのWordlistとしては、github.com/h
 これで見つからなければ、GoogleHacking、もしくは偵察ツールを利用する。
 それでダメなら、Wayback Machineと言うものを利用して探す。
 仕様書がswagger.jsonやYAML, RAML, XMLであれば、そのファイルをインポートするだけでPOSTMANを利用できるので楽。ない場合は、仕様書を手動で打ち込んでいく。
+
