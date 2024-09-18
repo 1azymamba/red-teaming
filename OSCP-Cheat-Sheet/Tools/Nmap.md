@@ -114,3 +114,9 @@ sudo nmap -sU --open -p 161 192.168.50.1-254 -oG open-snmp.txt
 ```
 sudo nmap -Pn -n $IP -sC -sV -p- --open
 ```
+
+5. hosts.txtに記載されているIPアドレス全てに対してスキャンする。  
+-A => アグレッシブスキャンで、Web, ドメインサービスなどを含む既知のポートの列挙を行う。  
+```
+sudo nmap -v -A -iL hosts.txt -oN ./hoge_enum_by_nmap
+```

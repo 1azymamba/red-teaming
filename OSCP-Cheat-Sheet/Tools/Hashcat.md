@@ -54,3 +54,8 @@ sudo hashcat -m 18200 hashes.asreproast /usr/share/wordlists/rockyou.txt -r /usr
 ```
 hashcat -m 13100 -o hash_cracked -a 0 ./sql_svc_tgs /usr/share/wordlists/rockyou.txt --force
 ```
+
+9. ntlmv2形式のファイルをクラックする。responderで取得したハッシュなどに対して使うことが多い。
+```
+hashcat -m 5600 ./hoge_ntlmv2 /usr/share/wordlists/rockyou.txt
+```
