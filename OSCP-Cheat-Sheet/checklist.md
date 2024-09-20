@@ -285,4 +285,10 @@ ldd <target Binary path>
 19. CRONジョブの実行をvarlogでチェックする。
 ```
 grep "CRON" /var/log/syslog
-```
+```  
+  
+
+# AD
+1. SMB NULL SessionまたはLDAP anonymous bindingでパスワードポリシーを取得できないか
+2. rpcclient => querydominfoもしくはenum4linux -Pでパスワードポリシーの列挙と取得ができないか
+3. 
