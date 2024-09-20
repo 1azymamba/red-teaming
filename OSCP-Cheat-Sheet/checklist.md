@@ -289,6 +289,7 @@ grep "CRON" /var/log/syslog
   
 
 # AD
-1. SMB NULL SessionまたはLDAP anonymous bindingでパスワードポリシーを取得できないか
+1. SMB NULL SessionまたはLDAP anonymous bindingでパスワードポリシーや有効なドメインユーザのリストを取得できないか
 2. rpcclient => querydominfoもしくはenum4linux -Pでパスワードポリシーの列挙と取得ができないか
-3. 
+3. Kerbruteやlinkedin2usernameといったツールを使って、潜在的に有効なドメインユーザのリストを作成できないか
+4. 
