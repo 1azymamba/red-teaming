@@ -14,3 +14,23 @@ crackmapexec smb 192.168.50.75 -u users.txt -p 'Nexus123!' -d corp.com --continu
 ```
 crackmapexec 192.168.50.242 -u john -p "hoge" --shares
 ```
+
+3. ドメイン内の全てのドメインユーザリストを取得するコマンド。この時、ドメインユーザの情報はDCが持っているので、ターゲットにDCのIPを指定する必要がある。
+```
+sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 --users
+```
+
+4. ドメイングループの全リストを列挙することも可能。
+```
+sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 --groups
+```
+
+5. DC以外をターゲットにして、その端末に現在ログインしているユーザを確認するコマンド。
+```
+sudo crackmapexec smb 172.16.5.130 -u forend -p Klmcargo2 --loggedon-users
+```
+
+6. --sharesによって、リモートホストで使用可能な共有フォルダと、各shareフォルダに対するユーザアカウントのアクセスレベルが分かる。smbmapのような機能。
+```
+sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 --shares
+```

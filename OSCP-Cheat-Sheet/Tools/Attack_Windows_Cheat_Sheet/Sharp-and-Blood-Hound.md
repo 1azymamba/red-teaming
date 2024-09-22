@@ -3,7 +3,12 @@
 C#で書かれていて、NetWkstaUserEnumやNetSessionEnumといった、手動列挙で使うような.NETのクラスを使用する。  
 使い方として、自分でコンパイルすることも、コンパイル済みのバイナリファイルを使用することも、PowerShellスクリプトとして利用することも可能。  
 ちなみに、SharpHoundを実行する際は最初にInvoke-BloodHoundというコマンドを実行する必要がある。  
-また、BloodHoundの使用には、デフォルトでKaliにインストールされているNeo4jサービスを開始する必要がある。
+また、BloodHoundの使用には、デフォルトでKaliにインストールされているNeo4jサービスを開始する必要がある。  
+  
+Bloodhoundは当初、侵害済みのドメインに参加しているWindowsホストからのみsharphoundコレクターによる収集を実行できた。  
+しかし現在はbloodhound.pyを使うことで、ターゲットドメインで有効な認証情報のセットさえあれば、Linux上から情報の収集が行える。  
+  
+これによって、認証情報はあるがホストへのアクセス権限がない場合は、イベントログをあげずにステルスに攻撃できる。
 
 ## SharpHoundとBloodHoundの違い
 - SharpHound = ADの情報を収集するスクリプトとかの方。
@@ -56,4 +61,9 @@ MATCH (m:User) RETURN m
 8. 各コンピュータに対する全てのアクティブなセッションを表示するクエリ
 ```
 MATCH p = (c:Computer)-[:HasSession]->(m:User) RETURN p
+```
+
+9. forendというドメインユーザの資格情報を使って、Kali上からnameserverにDCを指定して情報を収集。
+```
+sudo bloodhound-python -u 'forend' -p 'Klmcargo2' -ns 172.16.5.5 -d inlanefreight.local -c all
 ```
