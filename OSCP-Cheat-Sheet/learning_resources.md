@@ -5,3 +5,5 @@ https://eins.li/posts/oscp-secret-sauce/
 https://github.com/crazywifi/Enable-RDP-One-Liner-CMD
 
 https://www.revshells.com
+
+https://youtube.com/playlist?list=PLidcsTyj9JXK-fnabFLVEvHinQ14Jy5tf&si=-JjMfAzh0WOgvdcG
