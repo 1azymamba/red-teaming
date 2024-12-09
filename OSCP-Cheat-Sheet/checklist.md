@@ -161,6 +161,9 @@ Add-DomainObjectAcl
 ```
 33. 侵害したユーザアカウントが、ACCOUNT OPERATORSグループのメンバーに含まれていないか。含まれている場合、GENERIC ALL権限を持つグループ内に新しくユーザを作成する権限がある可能性がある。
 
+34. PowerShellの実行履歴を確認したか。
+[PowerShell History File by 0xdf](https://0xdf.gitlab.io/2018/11/08/powershell-history-file.html)
+
 ===========
 
 # Linux
