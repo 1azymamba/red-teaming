@@ -164,6 +164,9 @@ Add-DomainObjectAcl
 34. PowerShellの実行履歴を確認したか。
 [PowerShell History File by 0xdf](https://0xdf.gitlab.io/2018/11/08/powershell-history-file.html)
 
+35. ショートカットファイルである.lnkがある場合、typeによる実行先ファイルの確認は行ったか。
+
+
 ===========
 
 # Linux
