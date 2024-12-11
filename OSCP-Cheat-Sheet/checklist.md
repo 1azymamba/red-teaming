@@ -34,6 +34,10 @@ sudo nmap -n -sV --script "ldap* and not brute" -p 389 <targetIP> > ldapenum.txt
 
 17. ユーザ名もパスワードもわからない場合は、kerbruteをLDAPサーバに対して行ってみる。
 
+18. ldapsearchした際、結果の中にDescriptionが含まれる。その中にドメインユーザのパスワードが平文で含まれていないか。
+
+19. 80のポートが動いていたら、そこでwebdavが有効になっていないか。その場合、取得した認証情報でwebdav経由で.aspxのリバースシェルをアップロードできないか。
+
 ## 権限昇格
 1. sudo -lで、パスワードなしでroot権限実行できるコマンドは無いか
 2. idコマンドで、現在ログイン中のユーザはどこのグループに属しているか

@@ -21,3 +21,8 @@ kerbrute userenum -d inlanefreight.local --dc 172.16.5.5 /opt/jsmith.txt
 ```
 kerbrute passwordspray -d inlanefreight.local --dc 172.16.5.5 valid_users.txt  Welcome1
 ```
+
+4. ドメインユーザのリストを使って、有効なドメインユーザを確認する。
+```
+kerbrute userenum ./creds/dom-users.txt --domain hutch.offsec --dc 192.168.248.122
+```

