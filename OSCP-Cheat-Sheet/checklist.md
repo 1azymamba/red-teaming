@@ -38,6 +38,8 @@ sudo nmap -n -sV --script "ldap* and not brute" -p 389 <targetIP> > ldapenum.txt
 
 19. 80のポートが動いていたら、そこでwebdavが有効になっていないか。その場合、取得した認証情報でwebdav経由で.aspxのリバースシェルをアップロードできないか。
 
+20. SMBclientでログインできた場合、ファイルが取得できなくてもPUTコマンドが使えないか。使える場合、Responderで待ち受けてNTLMを取得できる可能性がある。
+
 ## 権限昇格
 1. sudo -lで、パスワードなしでroot権限実行できるコマンドは無いか
 2. idコマンドで、現在ログイン中のユーザはどこのグループに属しているか
@@ -170,6 +172,11 @@ Add-DomainObjectAcl
 
 35. ショートカットファイルである.lnkがある場合、typeによる実行先ファイルの確認は行ったか。
 
+36. GPO(グループポリシーオブジェクト)を悪用できないか。
+
+37. SeRestorePrivilegeがEnabledになっている場合、utilman.exeをutilman.oldにし、その後cmd.exeをutilman.exeに変更後、RDPしてWin + UでAdminに権限昇格できないか。
+
+38. cmdkey /listをしたとき、クレデンシャルが保存されていないか。
 
 ===========
 
@@ -303,3 +310,8 @@ grep "CRON" /var/log/syslog
 2. rpcclient => querydominfoもしくはenum4linux -Pでパスワードポリシーの列挙と取得ができないか
 3. Kerbruteやlinkedin2usernameといったツールを使って、潜在的に有効なドメインユーザのリストを作成できないか
 4. Get-LAPSComputersで、LAPSが有効化されているアカウントのパスワードを取得できないか
+
+
+# Web
+## 初期侵入
+1. RFIを使ってリバースシェルのPHPを実行させられないか。

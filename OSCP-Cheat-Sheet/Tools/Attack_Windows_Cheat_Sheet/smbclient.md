@@ -27,3 +27,8 @@ smbclient --no-pass -L <//targetIP>
 recurse ON
 recurse OFF
 ```
+
+6. 300000ミリ秒にタイムアウト値を設定して引き延ばす。デカいサイズのファイルgetに便利。
+```
+smbclient <接続のコマンド> -t 300000
+```

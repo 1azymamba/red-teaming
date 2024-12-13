@@ -44,3 +44,8 @@ john --format=raw-md5 crack.txt --wordlist=/usr/share/wordlists/rockyou.txt
 ```
 ssh2john id_rsa > ssh.hash
 ```
+
+8. rockyouでNTLMv2形式のハッシュをクラックする
+```
+john --format=ntlmv2 <target file> --wordlist=/usr/share/wordlists/rockyou.txt
+```
