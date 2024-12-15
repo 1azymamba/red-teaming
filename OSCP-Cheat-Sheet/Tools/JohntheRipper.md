@@ -49,3 +49,13 @@ ssh2john id_rsa > ssh.hash
 ```
 john --format=ntlmv2 <target file> --wordlist=/usr/share/wordlists/rockyou.txt
 ```
+
+9. AS-REP roastingして取得したハッシュをクラックする
+```
+john --format:krb5asrep /tmp/Kerberos --wordlist=/tmp/word
+```
+
+10. kerberoastingしたハッシュ形式をクラックする
+```
+john ./kerbroast --format:krb5tgs --wordlist=/usr/share/wordlists/rockyou.txt
+```

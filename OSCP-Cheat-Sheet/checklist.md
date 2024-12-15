@@ -178,6 +178,8 @@ Add-DomainObjectAcl
 
 38. cmdkey /listをしたとき、クレデンシャルが保存されていないか。
 
+39. admin:admin, username:usernameというデフォルトクレデンシャルを試したか。
+
 ===========
 
 # Linux
