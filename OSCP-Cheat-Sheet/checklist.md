@@ -180,6 +180,8 @@ Add-DomainObjectAcl
 
 39. admin:admin, username:usernameというデフォルトクレデンシャルを試したか。
 
+
+40. C:\配下やUsers周りで、ls -forceを使って隠しファイル&隠しディレクトリまで列挙したか
 ===========
 
 # Linux

