@@ -182,6 +182,10 @@ Add-DomainObjectAcl
 
 
 40. C:\配下やUsers周りで、ls -forceを使って隠しファイル&隠しディレクトリまで列挙したか
+
+41. ドメインユーザがDNSAdminグループに属していないか。これは、whoami /groupsコマンドで確認する。  
+DNSはDC上でSYSTEM権限で実行されており、DNSサーバ上のdns.exeプロセスが使用するDLLをインジェクションできればSYSTEMを獲れる。
+
 ===========
 
 # Linux
@@ -231,6 +235,9 @@ cat /etc/issue
 ```
 
 5. sudoのバージョンを確認し、そのバージョン自体にLPEの脆弱性が無いか。
+```
+sudo --version
+```
 6. 以下のコマンドで書き込み可能なファイルが、cronによってroot実行されるものではないか。
 ```
 crontab -l
@@ -307,6 +314,8 @@ ldd <target Binary path>
 ```
 grep "CRON" /var/log/syslog
 ```  
+
+20. DirtyCowのエクスプロイトはlinpeasで引っかからなかったか。特に、古いversionのLinuxなら様々なカーネルエクスプロイトがヒットする可能性がある。
   
 
 # AD
