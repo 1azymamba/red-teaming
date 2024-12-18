@@ -8,3 +8,5 @@
 6. ryanでwinrmする
 7. whoami /allすると、DNSadminsグループにryanが属していることが分かる
 8. dnsadminだと、.dllをdnsサービスにインジェクションすることでSYSTEMにあがることができる。
+9. ryanの所属するconstractorグループがdnsadminのグループに所属しており、shortest path to domainadminではそれに気づけない。
+10. whoami /allをするかconstractorグループの詳細をbloodhoundで確認するかがミソ
