@@ -352,3 +352,4 @@ grep "CRON" /var/log/syslog
 # Web
 ## 初期侵入
 1. RFIを使ってリバースシェルのPHPを実行させられないか。
+2. 興味深いエンドポイントがディレクトリファジングで見つかったら、更にそのエンドポイントからwodlists/dirbuster/directory-list-*medium.txtでファジングを行ったか。
