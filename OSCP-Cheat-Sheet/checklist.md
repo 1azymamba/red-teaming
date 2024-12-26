@@ -52,6 +52,8 @@ rdesktop <target>
 
 23. smbclient等で取得したpoliciesフォルダの中にGPPがないか。ユーザ名と暗号化されたパスワードの認証情報セットが無いか。ある場合、gpp-decriptコマンドで復号できる。
 
+24. snmpwalkができる場合、そこから特定のシステムのバージョンを確認してexploitに持っていけないか。
+
 ## 権限昇格
 1. sudo -lで、パスワードなしでroot権限実行できるコマンドは無いか
 2. idコマンドで、現在ログイン中のユーザはどこのグループに属しているか
@@ -341,6 +343,8 @@ grep "CRON" /var/log/syslog
 22. Webシステムに入った時は、/var/www/htmlにSQLやdb系のファイルが置いてないか
 
 23. ユーザは/etc/passwdへの書き込み権限が無いか
+
+24. パスワードを取得した後、そのパスワードで su <username>とやってパスワード入力からのroot昇格ができないか。
 
 # AD
 1. SMB NULL SessionまたはLDAP anonymous bindingでパスワードポリシーや有効なドメインユーザのリストを取得できないか
