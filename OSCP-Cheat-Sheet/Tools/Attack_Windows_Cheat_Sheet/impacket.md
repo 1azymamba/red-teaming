@@ -105,5 +105,5 @@ impacket-mssqlclient oscp.exam/sql_svc@10.10.157.148 -windows-auth
 
 12. evilという共有フォルダ名でカレントディレクトリをシェアする
 ```
-sudo impacket-smbserver evil ./
+sudo impacket-smbserver -smb2support evil ./
 ```
