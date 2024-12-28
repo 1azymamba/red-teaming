@@ -357,3 +357,8 @@ grep "CRON" /var/log/syslog
 ## 初期侵入
 1. RFIを使ってリバースシェルのPHPを実行させられないか。
 2. 興味深いエンドポイントがディレクトリファジングで見つかったら、更にそのエンドポイントからwodlists/dirbuster/directory-list-*medium.txtでファジングを行ったか。
+
+# AD
+## 横展開 & 権限昇格
+1. C:\windows.oldフォルダが無いか。そこのフォルダにSAMやSYSTEMのバックアップが無いか。
+2. SeImpersonatePrivilegeがEnabledになっていないか。Potatoやprintspooferを使って権限昇格ができる可能性がある。
