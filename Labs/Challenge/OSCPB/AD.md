@@ -13,7 +13,6 @@ privesc = 10H
 3. ドメインユーザのweb_svcを使ってbloodhound。sql_svcがkerberoastableなことが分かる。
 4. sql_svcの認証が取得できる。ligolo-ngでms02につながるようにしてkaliからnmapするとmysqlが動いていることが分かる
 5. sql_svcの認証をつかってms02のmysqlにつなげる
-2. webのディレクトリをferoxでcommon.txt使ってスキャン。DBとchangelogみたいなのが見えるのでダウンロード。
-3. ローカルのsqlite viewerみたいなツールで見る。すると、ユーザ名とパスワードが手に入る。
+
 4. 取得した認証情報を使ってnxc sshすると、supportユーザがFreedom1でpwnできる。winrmのlocal authもうまくいく。
 5. impacket-mssqlclient Administrator:Lab123@192.168.50.18 -windows-auth

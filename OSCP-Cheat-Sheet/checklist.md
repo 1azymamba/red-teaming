@@ -203,6 +203,8 @@ DNSはDC上でSYSTEM権限で実行されており、DNSサーバ上のdns.exe�
 
 43. 一つでもドメイン内で認証情報を持っていてユーザのリストが無いなら、ひとまずkerberoastingをしてみる。
 
+44. 見慣れないバイナリがあったら、それをfileコマンドしたりprocmonしてdllハイジャックできないか。また、パスワードをstringsコマンドから取得できないか。
+
 ===========
 
 # Linux
@@ -362,3 +364,4 @@ grep "CRON" /var/log/syslog
 ## 横展開 & 権限昇格
 1. C:\windows.oldフォルダが無いか。そこのフォルダにSAMやSYSTEMのバックアップが無いか。
 2. SeImpersonatePrivilegeがEnabledになっていないか。Potatoやprintspooferを使って権限昇格ができる可能性がある。
+3. 1台めで取得した認証情報は、nxcでmssqlclientに対してもスプレーを実行すること。
