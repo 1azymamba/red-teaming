@@ -21,7 +21,7 @@ CREATE DATABASE hoge;
 
 4. DBの一覧を表示する。
 ```.sql
-SHOQ DATABASES;
+SHOW DATABASES;
 ```
 
 5. DBを指定してそのDBとの対話セッションに入る。
