@@ -29,5 +29,6 @@ snmpwalk -c public -v2c 192.168.50.151 NET-SNMP-EXTEND-MIB::nsExtendObjects
 5. 
 ```
 snmpbulkwalk -c public -v2c 192.168.215.156 . > snmp_2
-nmpwalk -v 2c -c public 192.168.215.156 NET-SNMP-EXTEND-MIB::nsExtendOutputFul
+snmpwalk -v2c -c public 192.168.215.156 NET-SNMP-EXTEND-MIB::nsExtendOutputFul
+snmpwalk -v2c -c public 192.168.236.149 NET-SNMP-EXTEND-MIB::nsExtendObjects
 ```

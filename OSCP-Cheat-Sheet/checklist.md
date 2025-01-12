@@ -54,6 +54,10 @@ rdesktop <target>
 
 24. snmpwalkができる場合、そこから特定のシステムのバージョンを確認してexploitに持っていけないか。
 
+25. snmpwalkした場合、ユーザ名は/home/に書いてないか
+
+26. snmpでNET-SNMP-EXTEND-MIB::nsExtendObjectsは使ったか
+
 ## 権限昇格
 1. sudo -lで、パスワードなしでroot権限実行できるコマンドは無いか
 2. idコマンドで、現在ログイン中のユーザはどこのグループに属しているか
