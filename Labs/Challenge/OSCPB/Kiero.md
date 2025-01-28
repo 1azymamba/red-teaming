@@ -36,3 +36,29 @@ privesc = 2H 23min
 
 ## 参考情報
 [はてぶ](https://knqyf263.hatenablog.com/entry/2022/03/11/105130)
+
+## SSH接続テスト
+wifi
+```
+└─$ ping 192.168.120.149
+PING 192.168.120.149 (192.168.120.149) 56(84) bytes of data.
+64 bytes from 192.168.120.149: icmp_seq=1 ttl=61 time=245 ms
+64 bytes from 192.168.120.149: icmp_seq=2 ttl=61 time=246 ms
+64 bytes from 192.168.120.149: icmp_seq=3 ttl=61 time=238 ms
+64 bytes from 192.168.120.149: icmp_seq=4 ttl=61 time=245 ms
+64 bytes from 192.168.120.149: icmp_seq=5 ttl=61 time=243 ms
+
+--- 192.168.120.149 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4002ms
+rtt min/avg/max/mdev = 238.120/243.690/246.415/2.939 ms
+```
+テザリング
+```
+└─$ ping 192.168.120.149
+PING 192.168.120.149 (192.168.120.149) 56(84) bytes of data.
+64 bytes from 192.168.120.149: icmp_seq=1 ttl=61 time=453 ms
+64 bytes from 192.168.120.149: icmp_seq=2 ttl=61 time=405 ms
+64 bytes from 192.168.120.149: icmp_seq=3 ttl=61 time=333 ms
+64 bytes from 192.168.120.149: icmp_seq=4 ttl=61 time=646 ms
+64 bytes from 192.168.120.149: icmp_seq=5 ttl=61 time=293 ms
+```
